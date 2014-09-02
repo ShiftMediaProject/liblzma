@@ -62,3 +62,17 @@ build-aux/missing
 /src/liblzma/api/Makefile
 /src/lzmainfo/Makefile
 /src/xzdec/Makefile
+
+m4/fcntl-o.m4
+m4/intlmacosx.m4
+m4/threadlib.m4
+
+*.obj
+*.log
+*.tlog
+*.pdb
+*.ildb
+*.suo
+*.sdf
+[Oo]bj/
+*.exe
