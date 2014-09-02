@@ -97,6 +97,10 @@
 #	endif
 #endif
 
+#if defined(_MSC_VER) && _MSC_VER >= 1400
+#   include <intrin.h>
+#endif
+
 
 ///////////////////
 // Byte swapping //
@@ -383,7 +387,7 @@ bsr32(uint32_t n)
 	// MSVC isn't supported by tuklib, but since this code exists,
 	// it doesn't hurt to have it here anyway.
 	uint32_t i;
-	_BitScanReverse((DWORD *)&i, n);
+	_BitScanReverse((unsigned long *)&i, n);
 	return i;
 
 #else
@@ -435,7 +439,7 @@ clz32(uint32_t n)
 
 #elif defined(_MSC_VER) && _MSC_VER >= 1400
 	uint32_t i;
-	_BitScanReverse((DWORD *)&i, n);
+	_BitScanReverse((unsigned long *)&i, n);
 	return i ^ 31U;
 
 #else
@@ -485,7 +489,7 @@ ctz32(uint32_t n)
 
 #elif defined(_MSC_VER) && _MSC_VER >= 1400
 	uint32_t i;
-	_BitScanForward((DWORD *)&i, n);
+	_BitScanForward((unsigned long *)&i, n);
 	return i;
 
 #else
