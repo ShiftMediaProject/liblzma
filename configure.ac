@@ -260,7 +260,7 @@ else
 	done
 	AC_MSG_RESULT([$enable_checks])
 fi
-if test "x$enable_checks_crc32" = xno ; then
+if test "x$enable_check_crc32" = xno ; then
 	AC_MSG_ERROR([For now, the CRC32 check must always be enabled.])
 fi
 
@@ -402,6 +402,12 @@ AC_ARG_ENABLE([scripts], [AC_HELP_STRING([--disable-scripts],
 	[], [enable_scripts=yes])
 AM_CONDITIONAL([COND_SCRIPTS], [test x$enable_scripts != xno])
 
+AC_ARG_ENABLE([doc], [AC_HELP_STRING([--disable-doc],
+		[do not install documentation files to docdir
+		(man pages will still be installed)])],
+	[], [enable_doc=yes])
+AM_CONDITIONAL([COND_DOC], [test x$enable_doc != xno])
+
 
 ###############################################################################
 # Checks for programs.
@@ -416,8 +422,6 @@ fi
 echo
 echo "Initializing Automake:"
 
-# Automake 1.10 should still be enough but you need to omit serial-tests.
-dnl AM_INIT_AUTOMAKE([1.10 foreign tar-v7 filename-length-max=99])
 AM_INIT_AUTOMAKE([1.12 foreign tar-v7 filename-length-max=99 serial-tests])
 AC_PROG_LN_S
 
@@ -627,7 +631,6 @@ AC_CONFIG_FILES([
 	po/Makefile.in
 	lib/Makefile
 	src/Makefile
-	src/liblzma/liblzma.pc
 	src/liblzma/Makefile
 	src/liblzma/api/Makefile
 	src/xz/Makefile
