@@ -24,7 +24,7 @@ liblzma_la_CPPFLAGS = \
 	-I$(top_srcdir)/src/liblzma/simple \
 	-I$(top_srcdir)/src/common \
 	-DTUKLIB_SYMBOL_PREFIX=lzma_
-liblzma_la_LDFLAGS = -no-undefined -version-info 5:6:0
+liblzma_la_LDFLAGS = -no-undefined -version-info 5:7:0
 
 include $(srcdir)/common/Makefile.inc
 include $(srcdir)/check/Makefile.inc
@@ -103,8 +103,8 @@ liblzma.pc: $(srcdir)/liblzma.pc.in
 		-e 's,@PACKAGE_URL[@],$(PACKAGE_URL),g' \
 		-e 's,@PACKAGE_VERSION[@],$(PACKAGE_VERSION),g' \
 		-e 's,@PTHREAD_CFLAGS[@],$(PTHREAD_CFLAGS),g' \
-		-e 's,@LIBS[@],$(LIBS),g' \
-		< $< > $@ || { rm -f $@; exit 1; }
+		-e 's,@PTHREAD_LIBS[@],$(PTHREAD_LIBS),g' \
+		< $(srcdir)/liblzma.pc.in > $@ || { rm -f $@; exit 1; }
 
 clean-local:
 	rm -f liblzma.pc
