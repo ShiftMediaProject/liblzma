@@ -433,6 +433,7 @@ cd $(ProjectDir)
       <ImportLibrary>$(OutDir)\bin\$(TargetName).lib</ImportLibrary>
       <ProfileGuidedDatabase>$(OutDir)\bin\$(TargetName).pgd</ProfileGuidedDatabase>
       <ModuleDefinitionFile>liblzma.def</ModuleDefinitionFile>
+      <LargeAddressAware>true</LargeAddressAware>
     </Link>
     <PostBuildEvent>
       <Command>mkdir $(OutDir)\include
@@ -762,6 +763,7 @@ cd $(ProjectDir)
       <ProfileGuidedDatabase>$(OutDir)\bin\$(TargetName).pgd</ProfileGuidedDatabase>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
+      <LargeAddressAware>true</LargeAddressAware>
     </Link>
     <PostBuildEvent>
       <Command>mkdir $(OutDir)\include
