@@ -12,7 +12,7 @@ CLEANFILES =
 doc_DATA =
 
 lib_LTLIBRARIES = liblzma.la
-liblzma_la_SOURCES = $(top_srcdir)/src/common/tuklib_physmem.c
+liblzma_la_SOURCES =
 liblzma_la_CPPFLAGS = \
 	-I$(top_srcdir)/src/liblzma/api \
 	-I$(top_srcdir)/src/liblzma/common \
@@ -24,7 +24,19 @@ liblzma_la_CPPFLAGS = \
 	-I$(top_srcdir)/src/liblzma/simple \
 	-I$(top_srcdir)/src/common \
 	-DTUKLIB_SYMBOL_PREFIX=lzma_
-liblzma_la_LDFLAGS = -no-undefined -version-info 5:7:0
+liblzma_la_LDFLAGS = -no-undefined -version-info 7:0:2
+
+EXTRA_DIST += liblzma.map validate_map.sh
+if COND_SYMVERS
+liblzma_la_LDFLAGS += \
+	-Wl,--version-script=$(top_srcdir)/src/liblzma/liblzma.map
+endif
+
+liblzma_la_SOURCES += ../common/tuklib_physmem.c
+
+if COND_THREADS
+liblzma_la_SOURCES += ../common/tuklib_cpucores.c
+endif
 
 include $(srcdir)/common/Makefile.inc
 include $(srcdir)/check/Makefile.inc
@@ -103,7 +115,7 @@ liblzma.pc: $(srcdir)/liblzma.pc.in
 		-e 's,@PACKAGE_URL[@],$(PACKAGE_URL),g' \
 		-e 's,@PACKAGE_VERSION[@],$(PACKAGE_VERSION),g' \
 		-e 's,@PTHREAD_CFLAGS[@],$(PTHREAD_CFLAGS),g' \
-		-e 's,@PTHREAD_LIBS[@],$(PTHREAD_LIBS),g' \
+		-e 's,@LIBS[@],$(LIBS),g' \
 		< $(srcdir)/liblzma.pc.in > $@ || { rm -f $@; exit 1; }
 
 clean-local:
