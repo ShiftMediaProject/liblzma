@@ -122,6 +122,10 @@ XZ Utils Installation
     This can be worked around by passing gl_cv_cc_visibility=no
     as an argument to the configure script.
 
+    test_scripts.sh in "make check" may fail if good enough tools are
+    missing from PATH (/usr/xpg4/bin or /usr/xpg6/bin). See sections
+    4.5 and 3.2 for more information.
+
 
 1.2.6. Tru64
 
@@ -474,7 +478,8 @@ XZ Utils Installation
     to POSIX. The configure script tries to find such a shell. If
     it fails, you can force the shell to be used by passing
     gl_cv_posix_shell=/path/to/posix-sh as an argument to the configure
-    script.
+    script. Alternatively you can omit the installation of scripts and
+    this error by passing --disable-scripts to configure.
 
 
 4.3. configure works but build fails at crc32_x86.S

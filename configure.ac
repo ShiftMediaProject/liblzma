@@ -474,7 +474,7 @@ AM_CONDITIONAL([COND_SYMVERS], [test "x$enable_symbol_versions" = xyes])
 
 echo
 gl_POSIX_SHELL
-if test -z "$POSIX_SHELL" ; then
+if test -z "$POSIX_SHELL" && test "x$enable_scripts" = xyes ; then
 	AC_MSG_ERROR([No POSIX conforming shell (sh) was found.])
 fi
 
@@ -626,8 +626,8 @@ gl_GETOPT
 # Find the best function to set timestamps.
 AC_CHECK_FUNCS([futimens futimes futimesat utimes utime], [break])
 
-# This is nice to have but not mandatory.
-AC_CHECK_FUNCS([posix_fadvise])
+# These are nice to have but not mandatory.
+AC_CHECK_FUNCS([posix_fadvise pipe2])
 
 TUKLIB_PROGNAME
 TUKLIB_INTEGER
