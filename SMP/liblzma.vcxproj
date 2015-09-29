@@ -184,64 +184,74 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLTO|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLTO|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -336,10 +346,9 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
-      <DisableSpecificWarnings>4996;4244;4028;4267</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <C99Support>true</C99Support>
       <ProgramDataBaseFileName>$(OutDir)\lib\$(TargetName).pdb</ProgramDataBaseFileName>
     </ClCompile>
@@ -382,7 +391,7 @@ cd $(ProjectDir)
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
-      <DisableSpecificWarnings>4996;4244;4028;4267</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <C99Support>true</C99Support>
       <ProgramDataBaseFileName>$(OutDir)\lib\$(TargetName).pdb</ProgramDataBaseFileName>
     </ClCompile>
@@ -423,11 +432,10 @@ cd $(ProjectDir)
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;DLL_EXPORT;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
-      <DisableSpecificWarnings>4996;4244;4028;4267</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <C99Support>true</C99Support>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
     </ClCompile>
@@ -471,7 +479,7 @@ cd $(ProjectDir)
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
-      <DisableSpecificWarnings>4996;4244;4028;4267</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <C99Support>true</C99Support>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
     </ClCompile>
@@ -519,13 +527,12 @@ cd $(ProjectDir)
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
       <FloatingPointExceptions>false</FloatingPointExceptions>
       <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>false</ExceptionHandling>
-      <DisableSpecificWarnings>4996;4244;4028;4267</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <InterproceduralOptimization>SingleFile</InterproceduralOptimization>
       <C99Support>true</C99Support>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -576,13 +583,12 @@ cd $(ProjectDir)
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
       <FloatingPointExceptions>false</FloatingPointExceptions>
       <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>false</ExceptionHandling>
-      <DisableSpecificWarnings>4996;4244;4028;4267</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <InterproceduralOptimization>SingleFile</InterproceduralOptimization>
       <C99Support>true</C99Support>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -638,7 +644,7 @@ cd $(ProjectDir)
       <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>false</ExceptionHandling>
-      <DisableSpecificWarnings>4996;4244;4028;4267</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <InterproceduralOptimization>SingleFile</InterproceduralOptimization>
       <C99Support>true</C99Support>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -694,7 +700,7 @@ cd $(ProjectDir)
       <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>false</ExceptionHandling>
-      <DisableSpecificWarnings>4996;4244;4028;4267</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <InterproceduralOptimization>SingleFile</InterproceduralOptimization>
       <C99Support>true</C99Support>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
@@ -745,13 +751,12 @@ cd $(ProjectDir)
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
       <FloatingPointExceptions>false</FloatingPointExceptions>
       <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;DLL_EXPORT;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>false</ExceptionHandling>
-      <DisableSpecificWarnings>4996;4244;4028;4267</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <C99Support>true</C99Support>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
     </ClCompile>
@@ -808,7 +813,7 @@ cd $(ProjectDir)
       <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;DLL_EXPORT;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>false</ExceptionHandling>
-      <DisableSpecificWarnings>4996;4244;4028;4267</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <C99Support>true</C99Support>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
     </ClCompile>
