@@ -343,7 +343,6 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;_WIN32_WINNT=0x0502;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
       <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <C99Support>true</C99Support>
@@ -386,7 +385,6 @@ cd $(ProjectDir)
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;_WIN32_WINNT=0x0600;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
       <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <C99Support>true</C99Support>
@@ -430,7 +428,6 @@ cd $(ProjectDir)
       <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;_WIN32_WINNT=0x0502;DLL_EXPORT;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BufferSecurityCheck>true</BufferSecurityCheck>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
       <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <C99Support>true</C99Support>
@@ -474,7 +471,6 @@ cd $(ProjectDir)
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;_WIN32_WINNT=0x0600;DLL_EXPORT;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
       <DisableSpecificWarnings>4996;4244;4028;4267;4133;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <C99Support>true</C99Support>
@@ -522,7 +518,6 @@ cd $(ProjectDir)
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <OmitFramePointers>true</OmitFramePointers>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FloatingPointModel>Fast</FloatingPointModel>
       <FloatingPointExceptions>false</FloatingPointExceptions>
@@ -578,7 +573,6 @@ cd $(ProjectDir)
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <OmitFramePointers>true</OmitFramePointers>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FloatingPointModel>Fast</FloatingPointModel>
       <FloatingPointExceptions>false</FloatingPointExceptions>
@@ -634,7 +628,6 @@ cd $(ProjectDir)
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <OmitFramePointers>true</OmitFramePointers>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FloatingPointModel>Fast</FloatingPointModel>
       <FloatingPointExceptions>false</FloatingPointExceptions>
@@ -690,7 +683,6 @@ cd $(ProjectDir)
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <OmitFramePointers>true</OmitFramePointers>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FloatingPointModel>Fast</FloatingPointModel>
       <FloatingPointExceptions>false</FloatingPointExceptions>
@@ -746,7 +738,6 @@ cd $(ProjectDir)
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <OmitFramePointers>true</OmitFramePointers>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FloatingPointModel>Fast</FloatingPointModel>
       <FloatingPointExceptions>false</FloatingPointExceptions>
@@ -803,7 +794,6 @@ cd $(ProjectDir)
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <OmitFramePointers>true</OmitFramePointers>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FloatingPointModel>Fast</FloatingPointModel>
       <FloatingPointExceptions>false</FloatingPointExceptions>
