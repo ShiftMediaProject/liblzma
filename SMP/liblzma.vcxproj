@@ -372,6 +372,9 @@ if exist $(OutDir)\include\lzma (
 rd /s /q $(OutDir)\include\lzma
 cd ../
 cd $(ProjectDir)
+)
+if exist $(OutDir)\include\lzma.h (
+del $(OutDir)\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -414,6 +417,9 @@ if exist $(OutDir)\include\lzma (
 rd /s /q $(OutDir)\include\lzma
 cd ../
 cd $(ProjectDir)
+)
+if exist $(OutDir)\include\lzma.h (
+del $(OutDir)\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -458,6 +464,9 @@ if exist $(OutDir)\include\lzma (
 rd /s /q $(OutDir)\include\lzma
 cd ../
 cd $(ProjectDir)
+)
+if exist $(OutDir)\include\lzma.h (
+del $(OutDir)\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -500,6 +509,9 @@ if exist $(OutDir)\include\lzma (
 rd /s /q $(OutDir)\include\lzma
 cd ../
 cd $(ProjectDir)
+)
+if exist $(OutDir)\include\lzma.h (
+del $(OutDir)\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -555,6 +567,9 @@ if exist $(OutDir)\include\lzma (
 rd /s /q $(OutDir)\include\lzma
 cd ../
 cd $(ProjectDir)
+)
+if exist $(OutDir)\include\lzma.h (
+del $(OutDir)\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -610,6 +625,9 @@ if exist $(OutDir)\include\lzma (
 rd /s /q $(OutDir)\include\lzma
 cd ../
 cd $(ProjectDir)
+)
+if exist $(OutDir)\include\lzma.h (
+del $(OutDir)\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -665,6 +683,9 @@ if exist $(OutDir)\include\lzma (
 rd /s /q $(OutDir)\include\lzma
 cd ../
 cd $(ProjectDir)
+)
+if exist $(OutDir)\include\lzma.h (
+del $(OutDir)\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -720,6 +741,9 @@ if exist $(OutDir)\include\lzma (
 rd /s /q $(OutDir)\include\lzma
 cd ../
 cd $(ProjectDir)
+)
+if exist $(OutDir)\include\lzma.h (
+del $(OutDir)\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -776,6 +800,9 @@ if exist $(OutDir)\include\lzma (
 rd /s /q $(OutDir)\include\lzma
 cd ../
 cd $(ProjectDir)
+)
+if exist $(OutDir)\include\lzma.h (
+del $(OutDir)\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -831,6 +858,9 @@ if exist $(OutDir)\include\lzma (
 rd /s /q $(OutDir)\include\lzma
 cd ../
 cd $(ProjectDir)
+)
+if exist $(OutDir)\include\lzma.h (
+del $(OutDir)\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
