@@ -16,8 +16,6 @@ xz_SOURCES = \
 	file_io.h \
 	hardware.c \
 	hardware.h \
-	list.c \
-	list.h \
 	main.c \
 	main.h \
 	message.c \
@@ -39,6 +37,12 @@ xz_SOURCES = \
 	../common/tuklib_mbstr_width.c \
 	../common/tuklib_mbstr_fw.c
 
+if COND_MAIN_DECODER
+xz_SOURCES += \
+	list.c \
+	list.h
+endif
+
 if COND_W32
 xz_SOURCES += xz_w32res.rc
 endif
@@ -49,7 +53,7 @@ xz_CPPFLAGS = \
 	-I$(top_srcdir)/src/liblzma/api \
 	-I$(top_builddir)/lib
 
-xz_LDADD = $(top_builddir)/src/liblzma/liblzma.la
+xz_LDADD = $(top_builddir)/src/liblzma/liblzma.la $(CAPSICUM_LIB)
 
 if COND_GNULIB
 xz_LDADD += $(top_builddir)/lib/libgnu.a
