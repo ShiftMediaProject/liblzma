@@ -375,10 +375,10 @@
       <SubSystem>Windows</SubSystem>
     </Lib>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)\include
-copy ..\src\liblzma\api\lzma.h $(OutDir)\include
-mkdir $(OutDir)\include\lzma
-copy ..\src\liblzma\api\lzma\*.h $(OutDir)\include\lzma
+      <Command>mkdir "$(OutDir)"\include
+copy ..\src\liblzma\api\lzma.h "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lzma
+copy ..\src\liblzma\api\lzma\*.h "$(OutDir)"\include\lzma
 mkdir $(OutDir)\licenses
 copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
     </PostBuildEvent>
@@ -386,13 +386,13 @@ copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
       <Command>if exist ..\config.h (
 del ..\config.h
 )
-if exist $(OutDir)\include\lzma (
-rd /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rd /s /q "$(OutDir)"\include\lzma
 cd ../
 cd $(ProjectDir)
 )
-if exist $(OutDir)\include\lzma.h (
-del $(OutDir)\include\lzma.h
+if exist "$(OutDir)"\include\lzma.h (
+del "$(OutDir)"\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -403,11 +403,11 @@ del $(OutDir)\include\lzma.h
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>force_clean</Outputs>
-      <Command>if exist $(OutDir)\include\lzma.h (
-del /f /q $(OutDir)\include\lzma.h
+      <Command>if exist "$(OutDir)"\include\lzma.h (
+del /f /q "$(OutDir)"\include\lzma.h
 )
-if exist $(OutDir)\include\lzma (
-rmdir /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rmdir /s /q "$(OutDir)"\include\lzma
 )
 if exist $(OutDir)\licenses\liblzma.txt (
 del /f /q $(OutDir)\licenses\liblzma.txt
@@ -435,10 +435,10 @@ del /f /q $(OutDir)\licenses\liblzma.txt
       <SubSystem>Windows</SubSystem>
     </Lib>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)\include
-copy ..\src\liblzma\api\lzma.h $(OutDir)\include
-mkdir $(OutDir)\include\lzma
-copy ..\src\liblzma\api\lzma\*.h $(OutDir)\include\lzma
+      <Command>mkdir "$(OutDir)"\include
+copy ..\src\liblzma\api\lzma.h "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lzma
+copy ..\src\liblzma\api\lzma\*.h "$(OutDir)"\include\lzma
 mkdir $(OutDir)\licenses
 copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
     </PostBuildEvent>
@@ -446,13 +446,13 @@ copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
       <Command>if exist ..\config.h (
 del ..\config.h
 )
-if exist $(OutDir)\include\lzma (
-rd /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rd /s /q "$(OutDir)"\include\lzma
 cd ../
 cd $(ProjectDir)
 )
-if exist $(OutDir)\include\lzma.h (
-del $(OutDir)\include\lzma.h
+if exist "$(OutDir)"\include\lzma.h (
+del "$(OutDir)"\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -463,11 +463,11 @@ del $(OutDir)\include\lzma.h
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>force_clean</Outputs>
-      <Command>if exist $(OutDir)\include\lzma.h (
-del /f /q $(OutDir)\include\lzma.h
+      <Command>if exist "$(OutDir)"\include\lzma.h (
+del /f /q "$(OutDir)"\include\lzma.h
 )
-if exist $(OutDir)\include\lzma (
-rmdir /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rmdir /s /q "$(OutDir)"\include\lzma
 )
 if exist $(OutDir)\licenses\liblzma.txt (
 del /f /q $(OutDir)\licenses\liblzma.txt
@@ -498,10 +498,10 @@ del /f /q $(OutDir)\licenses\liblzma.txt
       <MinimumRequiredVersion>5.1</MinimumRequiredVersion>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)\include
-copy ..\src\liblzma\api\lzma.h $(OutDir)\include
-mkdir $(OutDir)\include\lzma
-copy ..\src\liblzma\api\lzma\*.h $(OutDir)\include\lzma
+      <Command>mkdir "$(OutDir)"\include
+copy ..\src\liblzma\api\lzma.h "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lzma
+copy ..\src\liblzma\api\lzma\*.h "$(OutDir)"\include\lzma
 mkdir $(OutDir)\licenses
 copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
     </PostBuildEvent>
@@ -509,13 +509,13 @@ copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
       <Command>if exist ..\config.h (
 del ..\config.h
 )
-if exist $(OutDir)\include\lzma (
-rd /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rd /s /q "$(OutDir)"\include\lzma
 cd ../
 cd $(ProjectDir)
 )
-if exist $(OutDir)\include\lzma.h (
-del $(OutDir)\include\lzma.h
+if exist "$(OutDir)"\include\lzma.h (
+del "$(OutDir)"\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -526,11 +526,11 @@ del $(OutDir)\include\lzma.h
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>force_clean</Outputs>
-      <Command>if exist $(OutDir)\include\lzma.h (
-del /f /q $(OutDir)\include\lzma.h
+      <Command>if exist "$(OutDir)"\include\lzma.h (
+del /f /q "$(OutDir)"\include\lzma.h
 )
-if exist $(OutDir)\include\lzma (
-rmdir /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rmdir /s /q "$(OutDir)"\include\lzma
 )
 if exist $(OutDir)\licenses\liblzma.txt (
 del /f /q $(OutDir)\licenses\liblzma.txt
@@ -559,10 +559,10 @@ del /f /q $(OutDir)\licenses\liblzma.txt
       <MinimumRequiredVersion>6.0</MinimumRequiredVersion>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)\include
-copy ..\src\liblzma\api\lzma.h $(OutDir)\include
-mkdir $(OutDir)\include\lzma
-copy ..\src\liblzma\api\lzma\*.h $(OutDir)\include\lzma
+      <Command>mkdir "$(OutDir)"\include
+copy ..\src\liblzma\api\lzma.h "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lzma
+copy ..\src\liblzma\api\lzma\*.h "$(OutDir)"\include\lzma
 mkdir $(OutDir)\licenses
 copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
     </PostBuildEvent>
@@ -570,13 +570,13 @@ copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
       <Command>if exist ..\config.h (
 del ..\config.h
 )
-if exist $(OutDir)\include\lzma (
-rd /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rd /s /q "$(OutDir)"\include\lzma
 cd ../
 cd $(ProjectDir)
 )
-if exist $(OutDir)\include\lzma.h (
-del $(OutDir)\include\lzma.h
+if exist "$(OutDir)"\include\lzma.h (
+del "$(OutDir)"\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -587,11 +587,11 @@ del $(OutDir)\include\lzma.h
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>force_clean</Outputs>
-      <Command>if exist $(OutDir)\include\lzma.h (
-del /f /q $(OutDir)\include\lzma.h
+      <Command>if exist "$(OutDir)"\include\lzma.h (
+del /f /q "$(OutDir)"\include\lzma.h
 )
-if exist $(OutDir)\include\lzma (
-rmdir /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rmdir /s /q "$(OutDir)"\include\lzma
 )
 if exist $(OutDir)\licenses\liblzma.txt (
 del /f /q $(OutDir)\licenses\liblzma.txt
@@ -628,10 +628,10 @@ del /f /q $(OutDir)\licenses\liblzma.txt
       <SubSystem>Windows</SubSystem>
     </Lib>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)\include
-copy ..\src\liblzma\api\lzma.h $(OutDir)\include
-mkdir $(OutDir)\include\lzma
-copy ..\src\liblzma\api\lzma\*.h $(OutDir)\include\lzma
+      <Command>mkdir "$(OutDir)"\include
+copy ..\src\liblzma\api\lzma.h "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lzma
+copy ..\src\liblzma\api\lzma\*.h "$(OutDir)"\include\lzma
 mkdir $(OutDir)\licenses
 copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
     </PostBuildEvent>
@@ -639,13 +639,13 @@ copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
       <Command>if exist ..\config.h (
 del ..\config.h
 )
-if exist $(OutDir)\include\lzma (
-rd /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rd /s /q "$(OutDir)"\include\lzma
 cd ../
 cd $(ProjectDir)
 )
-if exist $(OutDir)\include\lzma.h (
-del $(OutDir)\include\lzma.h
+if exist "$(OutDir)"\include\lzma.h (
+del "$(OutDir)"\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -656,11 +656,11 @@ del $(OutDir)\include\lzma.h
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>force_clean</Outputs>
-      <Command>if exist $(OutDir)\include\lzma.h (
-del /f /q $(OutDir)\include\lzma.h
+      <Command>if exist "$(OutDir)"\include\lzma.h (
+del /f /q "$(OutDir)"\include\lzma.h
 )
-if exist $(OutDir)\include\lzma (
-rmdir /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rmdir /s /q "$(OutDir)"\include\lzma
 )
 if exist $(OutDir)\licenses\liblzma.txt (
 del /f /q $(OutDir)\licenses\liblzma.txt
@@ -697,10 +697,10 @@ del /f /q $(OutDir)\licenses\liblzma.txt
       <SubSystem>Windows</SubSystem>
     </Lib>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)\include
-copy ..\src\liblzma\api\lzma.h $(OutDir)\include
-mkdir $(OutDir)\include\lzma
-copy ..\src\liblzma\api\lzma\*.h $(OutDir)\include\lzma
+      <Command>mkdir "$(OutDir)"\include
+copy ..\src\liblzma\api\lzma.h "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lzma
+copy ..\src\liblzma\api\lzma\*.h "$(OutDir)"\include\lzma
 mkdir $(OutDir)\licenses
 copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
     </PostBuildEvent>
@@ -708,13 +708,13 @@ copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
       <Command>if exist ..\config.h (
 del ..\config.h
 )
-if exist $(OutDir)\include\lzma (
-rd /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rd /s /q "$(OutDir)"\include\lzma
 cd ../
 cd $(ProjectDir)
 )
-if exist $(OutDir)\include\lzma.h (
-del $(OutDir)\include\lzma.h
+if exist "$(OutDir)"\include\lzma.h (
+del "$(OutDir)"\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -725,11 +725,11 @@ del $(OutDir)\include\lzma.h
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>force_clean</Outputs>
-      <Command>if exist $(OutDir)\include\lzma.h (
-del /f /q $(OutDir)\include\lzma.h
+      <Command>if exist "$(OutDir)"\include\lzma.h (
+del /f /q "$(OutDir)"\include\lzma.h
 )
-if exist $(OutDir)\include\lzma (
-rmdir /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rmdir /s /q "$(OutDir)"\include\lzma
 )
 if exist $(OutDir)\licenses\liblzma.txt (
 del /f /q $(OutDir)\licenses\liblzma.txt
@@ -766,10 +766,10 @@ del /f /q $(OutDir)\licenses\liblzma.txt
       <SubSystem>Windows</SubSystem>
     </Lib>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)\include
-copy ..\src\liblzma\api\lzma.h $(OutDir)\include
-mkdir $(OutDir)\include\lzma
-copy ..\src\liblzma\api\lzma\*.h $(OutDir)\include\lzma
+      <Command>mkdir "$(OutDir)"\include
+copy ..\src\liblzma\api\lzma.h "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lzma
+copy ..\src\liblzma\api\lzma\*.h "$(OutDir)"\include\lzma
 mkdir $(OutDir)\licenses
 copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
     </PostBuildEvent>
@@ -777,13 +777,13 @@ copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
       <Command>if exist ..\config.h (
 del ..\config.h
 )
-if exist $(OutDir)\include\lzma (
-rd /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rd /s /q "$(OutDir)"\include\lzma
 cd ../
 cd $(ProjectDir)
 )
-if exist $(OutDir)\include\lzma.h (
-del $(OutDir)\include\lzma.h
+if exist "$(OutDir)"\include\lzma.h (
+del "$(OutDir)"\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -794,11 +794,11 @@ del $(OutDir)\include\lzma.h
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>force_clean</Outputs>
-      <Command>if exist $(OutDir)\include\lzma.h (
-del /f /q $(OutDir)\include\lzma.h
+      <Command>if exist "$(OutDir)"\include\lzma.h (
+del /f /q "$(OutDir)"\include\lzma.h
 )
-if exist $(OutDir)\include\lzma (
-rmdir /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rmdir /s /q "$(OutDir)"\include\lzma
 )
 if exist $(OutDir)\licenses\liblzma.txt (
 del /f /q $(OutDir)\licenses\liblzma.txt
@@ -835,10 +835,10 @@ del /f /q $(OutDir)\licenses\liblzma.txt
       <SubSystem>Windows</SubSystem>
     </Lib>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)\include
-copy ..\src\liblzma\api\lzma.h $(OutDir)\include
-mkdir $(OutDir)\include\lzma
-copy ..\src\liblzma\api\lzma\*.h $(OutDir)\include\lzma
+      <Command>mkdir "$(OutDir)"\include
+copy ..\src\liblzma\api\lzma.h "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lzma
+copy ..\src\liblzma\api\lzma\*.h "$(OutDir)"\include\lzma
 mkdir $(OutDir)\licenses
 copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
     </PostBuildEvent>
@@ -846,13 +846,13 @@ copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
       <Command>if exist ..\config.h (
 del ..\config.h
 )
-if exist $(OutDir)\include\lzma (
-rd /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rd /s /q "$(OutDir)"\include\lzma
 cd ../
 cd $(ProjectDir)
 )
-if exist $(OutDir)\include\lzma.h (
-del $(OutDir)\include\lzma.h
+if exist "$(OutDir)"\include\lzma.h (
+del "$(OutDir)"\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -863,11 +863,11 @@ del $(OutDir)\include\lzma.h
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>force_clean</Outputs>
-      <Command>if exist $(OutDir)\include\lzma.h (
-del /f /q $(OutDir)\include\lzma.h
+      <Command>if exist "$(OutDir)"\include\lzma.h (
+del /f /q "$(OutDir)"\include\lzma.h
 )
-if exist $(OutDir)\include\lzma (
-rmdir /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rmdir /s /q "$(OutDir)"\include\lzma
 )
 if exist $(OutDir)\licenses\liblzma.txt (
 del /f /q $(OutDir)\licenses\liblzma.txt
@@ -907,10 +907,10 @@ del /f /q $(OutDir)\licenses\liblzma.txt
       <MinimumRequiredVersion>5.1</MinimumRequiredVersion>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)\include
-copy ..\src\liblzma\api\lzma.h $(OutDir)\include
-mkdir $(OutDir)\include\lzma
-copy ..\src\liblzma\api\lzma\*.h $(OutDir)\include\lzma
+      <Command>mkdir "$(OutDir)"\include
+copy ..\src\liblzma\api\lzma.h "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lzma
+copy ..\src\liblzma\api\lzma\*.h "$(OutDir)"\include\lzma
 mkdir $(OutDir)\licenses
 copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
     </PostBuildEvent>
@@ -918,13 +918,13 @@ copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
       <Command>if exist ..\config.h (
 del ..\config.h
 )
-if exist $(OutDir)\include\lzma (
-rd /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rd /s /q "$(OutDir)"\include\lzma
 cd ../
 cd $(ProjectDir)
 )
-if exist $(OutDir)\include\lzma.h (
-del $(OutDir)\include\lzma.h
+if exist "$(OutDir)"\include\lzma.h (
+del "$(OutDir)"\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -935,11 +935,11 @@ del $(OutDir)\include\lzma.h
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>force_clean</Outputs>
-      <Command>if exist $(OutDir)\include\lzma.h (
-del /f /q $(OutDir)\include\lzma.h
+      <Command>if exist "$(OutDir)"\include\lzma.h (
+del /f /q "$(OutDir)"\include\lzma.h
 )
-if exist $(OutDir)\include\lzma (
-rmdir /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rmdir /s /q "$(OutDir)"\include\lzma
 )
 if exist $(OutDir)\licenses\liblzma.txt (
 del /f /q $(OutDir)\licenses\liblzma.txt
@@ -978,10 +978,10 @@ del /f /q $(OutDir)\licenses\liblzma.txt
       <MinimumRequiredVersion>6.0</MinimumRequiredVersion>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)\include
-copy ..\src\liblzma\api\lzma.h $(OutDir)\include
-mkdir $(OutDir)\include\lzma
-copy ..\src\liblzma\api\lzma\*.h $(OutDir)\include\lzma
+      <Command>mkdir "$(OutDir)"\include
+copy ..\src\liblzma\api\lzma.h "$(OutDir)"\include
+mkdir "$(OutDir)"\include\lzma
+copy ..\src\liblzma\api\lzma\*.h "$(OutDir)"\include\lzma
 mkdir $(OutDir)\licenses
 copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
     </PostBuildEvent>
@@ -989,13 +989,13 @@ copy ..\COPYING.LGPLv2.1 $(OutDir)\licenses\liblzma.txt</Command>
       <Command>if exist ..\config.h (
 del ..\config.h
 )
-if exist $(OutDir)\include\lzma (
-rd /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rd /s /q "$(OutDir)"\include\lzma
 cd ../
 cd $(ProjectDir)
 )
-if exist $(OutDir)\include\lzma.h (
-del $(OutDir)\include\lzma.h
+if exist "$(OutDir)"\include\lzma.h (
+del "$(OutDir)"\include\lzma.h
 )</Command>
     </PreBuildEvent>
     <ResourceCompile>
@@ -1006,11 +1006,11 @@ del $(OutDir)\include\lzma.h
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>force_clean</Outputs>
-      <Command>if exist $(OutDir)\include\lzma.h (
-del /f /q $(OutDir)\include\lzma.h
+      <Command>if exist "$(OutDir)"\include\lzma.h (
+del /f /q "$(OutDir)"\include\lzma.h
 )
-if exist $(OutDir)\include\lzma (
-rmdir /s /q $(OutDir)\include\lzma
+if exist "$(OutDir)"\include\lzma (
+rmdir /s /q "$(OutDir)"\include\lzma
 )
 if exist $(OutDir)\licenses\liblzma.txt (
 del /f /q $(OutDir)\licenses\liblzma.txt
