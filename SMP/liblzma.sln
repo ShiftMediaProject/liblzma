@@ -10,12 +10,20 @@ Global
 		Debug|x86 = Debug|x86
 		DebugDLL|x64 = DebugDLL|x64
 		DebugDLL|x86 = DebugDLL|x86
+		DebugDLLWinRT|x64 = DebugDLLWinRT|x64
+		DebugDLLWinRT|x86 = DebugDLLWinRT|x86
+		DebugWinRT|x64 = DebugWinRT|x64
+		DebugWinRT|x86 = DebugWinRT|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 		ReleaseDLL|x64 = ReleaseDLL|x64
 		ReleaseDLL|x86 = ReleaseDLL|x86
-		ReleaseLTO|x64 = ReleaseLTO|x64
-		ReleaseLTO|x86 = ReleaseLTO|x86
+		ReleaseDLLWinRT|x64 = ReleaseDLLWinRT|x64
+		ReleaseDLLWinRT|x86 = ReleaseDLLWinRT|x86
+		ReleaseDLLWinRTStaticDeps|x64 = ReleaseDLLWinRTStaticDeps|x64
+		ReleaseDLLWinRTStaticDeps|x86 = ReleaseDLLWinRTStaticDeps|x86
+		ReleaseWinRT|x64 = ReleaseWinRT|x64
+		ReleaseWinRT|x86 = ReleaseWinRT|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.Debug|x64.ActiveCfg = Debug|x64
@@ -26,6 +34,14 @@ Global
 		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.DebugDLL|x64.Build.0 = DebugDLL|x64
 		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.DebugDLL|x86.ActiveCfg = DebugDLL|Win32
 		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.DebugDLL|x86.Build.0 = DebugDLL|Win32
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.DebugDLLWinRT|x64.ActiveCfg = DebugDLLWinRT|x64
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.DebugDLLWinRT|x64.Build.0 = DebugDLLWinRT|x64
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.DebugDLLWinRT|x86.ActiveCfg = DebugDLLWinRT|Win32
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.DebugDLLWinRT|x86.Build.0 = DebugDLLWinRT|Win32
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.DebugWinRT|x64.ActiveCfg = DebugWinRT|x64
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.DebugWinRT|x64.Build.0 = DebugWinRT|x64
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.DebugWinRT|x86.ActiveCfg = DebugWinRT|Win32
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.DebugWinRT|x86.Build.0 = DebugWinRT|Win32
 		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.Release|x64.ActiveCfg = Release|x64
 		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.Release|x64.Build.0 = Release|x64
 		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.Release|x86.ActiveCfg = Release|Win32
@@ -34,12 +50,23 @@ Global
 		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseDLL|x64.Build.0 = ReleaseDLL|x64
 		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseDLL|x86.ActiveCfg = ReleaseDLL|Win32
 		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseDLL|x86.Build.0 = ReleaseDLL|Win32
-		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseLTO|x64.ActiveCfg = ReleaseLTO|x64
-		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseLTO|x64.Build.0 = ReleaseLTO|x64
-		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseLTO|x86.ActiveCfg = ReleaseLTO|Win32
-		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseLTO|x86.Build.0 = ReleaseLTO|Win32
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseDLLWinRT|x64.ActiveCfg = ReleaseDLLWinRT|x64
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseDLLWinRT|x64.Build.0 = ReleaseDLLWinRT|x64
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseDLLWinRT|x86.ActiveCfg = ReleaseDLLWinRT|Win32
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseDLLWinRT|x86.Build.0 = ReleaseDLLWinRT|Win32
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseDLLWinRTStaticDeps|x64.ActiveCfg = ReleaseDLLWinRTStaticDeps|x64
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseDLLWinRTStaticDeps|x64.Build.0 = ReleaseDLLWinRTStaticDeps|x64
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseDLLWinRTStaticDeps|x86.ActiveCfg = ReleaseDLLWinRTStaticDeps|Win32
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseDLLWinRTStaticDeps|x86.Build.0 = ReleaseDLLWinRTStaticDeps|Win32
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseWinRT|x64.ActiveCfg = ReleaseWinRT|x64
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseWinRT|x64.Build.0 = ReleaseWinRT|x64
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseWinRT|x86.ActiveCfg = ReleaseWinRT|Win32
+		{85763F39-23DF-4C04-B7DF-7FBE3E7CF336}.ReleaseWinRT|x86.Build.0 = ReleaseWinRT|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E5552C3-5213-4F85-85C1-9C10BC6D8BB9}
 	EndGlobalSection
 EndGlobal
