@@ -17,7 +17,9 @@
 // gives wrong results (from our point of view).
 #if defined(_WIN32) || defined(__CYGWIN__)
 #	ifndef _WIN32_WINNT
-#		define _WIN32_WINNT 0x0500
+#       if !defined(WINAPI_FAMILY) || !(WINAPI_FAMILY==WINAPI_FAMILY_PC_APP || WINAPI_FAMILY==WINAPI_FAMILY_PHONE_APP)
+#		    define _WIN32_WINNT 0x0500
+#       endif
 #	endif
 #	include <windows.h>
 
@@ -79,12 +81,19 @@ tuklib_physmem(void)
 	uint64_t ret = 0;
 
 #if defined(_WIN32) || defined(__CYGWIN__)
+#include <winapifamily.h>
+#if (_WIN32_WINNT >= 0x501) || (defined(WINAPI_FAMILY_PARTITION) && WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP) && !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP))
+	MEMORYSTATUSEX meminfo;
+	meminfo.dwLength = sizeof(meminfo);
+	if (GlobalMemoryStatusEx(&meminfo))
+		ret = meminfo.ullTotalPhys;
+#else
 	if ((GetVersion() & 0xFF) >= 5) {
 		// Windows 2000 and later have GlobalMemoryStatusEx() which
 		// supports reporting values greater than 4 GiB. To keep the
 		// code working also on older Windows versions, use
 		// GlobalMemoryStatusEx() conditionally.
-		HMODULE kernel32 = GetModuleHandle("kernel32.dll");
+		HMODULE kernel32 = GetModuleHandleW(L"kernel32.dll");
 		if (kernel32 != NULL) {
 			typedef BOOL (WINAPI *gmse_type)(LPMEMORYSTATUSEX);
 			gmse_type gmse = (gmse_type)GetProcAddress(
@@ -107,6 +116,7 @@ tuklib_physmem(void)
 		GlobalMemoryStatus(&meminfo);
 		ret = meminfo.dwTotalPhys;
 	}
+#endif
 
 #elif defined(__OS2__)
 	unsigned long mem;

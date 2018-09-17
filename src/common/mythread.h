@@ -331,8 +331,10 @@ mythread_condtime_set(mythread_condtime *condtime, const mythread_cond *cond,
 
 #define WIN32_LEAN_AND_MEAN
 #ifdef MYTHREAD_VISTA
-#	undef _WIN32_WINNT
-#	define _WIN32_WINNT 0x0600
+#   if !defined(WINAPI_FAMILY) || !(WINAPI_FAMILY==WINAPI_FAMILY_PC_APP || WINAPI_FAMILY==WINAPI_FAMILY_PHONE_APP)
+#	    undef _WIN32_WINNT
+#	    define _WIN32_WINNT 0x0600
+#   endif
 #endif
 #include <windows.h>
 #include <process.h>
