@@ -1,31 +1,31 @@
 
-.xz Test Files
-----------------
+.xz and .lzma Test Files
+------------------------
 
 0. Introduction
 
-    This directory contains bunch of files to test handling of .xz files
-    in .xz decoder implementations. Many of the files have been created
-    by hand with a hex editor, thus there is no better "source code" than
-    the files themselves. All the test files (*.xz) and this README have
-    been put into the public domain.
+    This directory contains bunch of files to test handling of .xz
+    and .lzma files in decoder implementations. Many of the files have
+    been created by hand with a hex editor, thus there is no better
+    "source code" than the files themselves. All the test files and
+    this README have been put into the public domain.
 
 
 1. File Types
 
-    Good files (good-*.xz) must decode successfully without requiring
-    a lot of CPU time or RAM.
+    Good files (good-*.xz, good-*.lzma) must decode successfully
+    without requiring a lot of CPU time or RAM.
 
     Unsupported files (unsupported-*.xz) are good files, but headers
     indicate features not supported by the current file format
     specification.
 
-    Bad files (bad-*.xz) must cause the decoder to give an error. Like
-    with the good files, these files must not require a lot of CPU time
-    or RAM before they get detected to be broken.
+    Bad files (bad-*.xz, bad-*.lzma) must cause the decoder to give
+    an error. Like with the good files, these files must not require
+    a lot of CPU time or RAM before they get detected to be broken.
 
 
-2. Descriptions of Individual Files
+2. Descriptions of Individual .xz Files
 
 2.1. Good Files
 
@@ -92,6 +92,11 @@
     as corrupt.
 
     good-1-3delta-lzma2.xz has three Delta filters and LZMA2.
+
+    good-1-empty-bcj-lzma2.xz has an empty Block that uses PowerPC BCJ
+    and LZMA2. liblzma from XZ Utils 5.0.1 and older may incorrectly
+    return LZMA_BUF_ERROR in some cases. See commit message
+    d8db706acb8316f9861abd432cfbe001dd6d0c5c for the details.
 
 
 2.2. Unsupported Files
@@ -209,6 +214,13 @@
 
     bad-1-check-crc32.xz has wrong Check (CRC32).
 
+    bad-1-check-crc32-2.xz has Compressed Size and Uncompressed Size in
+    Block Header but wrong Check (CRC32) in the actual data. This file
+    differs by one byte from good-1-block_header-1.xz: the last byte of
+    the Check field is wrong. This file is useful for testing error
+    detection in the threaded decoder when a worker thread is configured
+    to pass input one byte at a time to the Block decoder.
+
     bad-1-check-crc64.xz has wrong Check (CRC64).
 
     bad-1-check-sha256.xz has wrong Check (SHA-256).
@@ -237,4 +249,57 @@
 
     bad-1-lzma2-8.xz is like good-1-lzma2-4.xz but doesn't set new
     properties in the third LZMA2 chunk.
+
+    bad-1-lzma2-9.xz has LZMA2 stream that is truncated at the end of
+    a LZMA2 chunk (no end marker). The uncompressed size of the partial
+    LZMA2 stream exceeds the value stored in the Block Header.
+
+    bad-1-lzma2-10.xz has LZMA2 stream that, from point of view of a
+    LZMA2 decoder, extends past the end of Block (and even the end of
+    the file). Uncompressed Size in Block Header is bigger than the
+    invalid LZMA2 stream may produce (even if a decoder reads until
+    the end of the file). The Check type is None to nullify certain
+    simple size-based sanity checks in a Block decoder.
+
+    bad-1-lzma2-11.xz has LZMA2 stream that lacks the end of
+    payload marker. When Compressed Size bytes have been decoded,
+    Uncompressed Size bytes of output will have been produced but
+    the LZMA2 decoder doesn't indicate end of stream.
+
+
+3. Descriptions of Individual .lzma Files
+
+3.1. Good Files
+
+    good-unknown_size-with_eopm.lzma has unknown size in the header
+    and end of payload marker at the end.
+
+    good-known_size-without_eopm.lzma has a known size in the header
+    and no end of payload marker at the end.
+
+    good-known_size-with_eopm.lzma has a known size in the header
+    and end of payload marker at the end. XZ Utils 5.2.5 and older
+    will give an error at the end of the file after producing the
+    correct uncompressed output.
+
+
+3.2. Bad Files
+
+    bad-unknown_size-without_eopm.lzma has unknown size in the header
+    but no end of payload marker at the end. This file might be seen
+    by a decoder as if it were truncated.
+
+    bad-too_big_size-with_eopm.lzma has too big uncompressed size in
+    the header and the end of payload marker will be detected before
+    the specified number of bytes have been decoded.
+
+    bad-too_small_size-without_eopm-1.lzma has too small uncompressed
+    size in the header. The decoder will look for end of payload marker
+    but instead find a literal that would produce more output.
+
+    bad-too_small_size-without_eopm-2.lzma is like -1 above but instead
+    of a literal the problem occurs with a short repeated match.
+
+    bad-too_small_size-without_eopm-3.lzma is like -1 above but instead
+    of a literal the problem occurs in the middle of a match.
 

@@ -70,6 +70,9 @@ string(REGEX REPLACE
 # Among other things, this gives us variables xz_VERSION and xz_VERSION_MAJOR.
 project(xz VERSION "${XZ_VERSION}" LANGUAGES C)
 
+# On Apple OSes, don't build executables as bundles:
+set(CMAKE_MACOSX_BUNDLE OFF)
+
 # Definitions common to all targets:
 add_compile_definitions(
     # Package info:
@@ -127,7 +130,7 @@ tuklib_integer(ALL)
 
 # Check for clock_gettime(). Do this before checking for threading so
 # that we know there if CLOCK_MONOTONIC is available.
-if(NOT WIN32 AND NOT DEFINED CACHE{HAVE_CLOCK_GETTIME})
+if(NOT WIN32 AND NOT DEFINED HAVE_CLOCK_GETTIME)
     check_symbol_exists(clock_gettime time.h HAVE_CLOCK_GETTIME)
     if(NOT HAVE_CLOCK_GETTIME)
         # With glibc <= 2.17 or Solaris 10 this needs librt.
@@ -161,7 +164,17 @@ endif()
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)
 if(CMAKE_USE_WIN32_THREADS_INIT)
-    add_compile_definitions(MYTHREAD_VISTA)
+    if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+        # Define to 1 when using Windows 95 (and thus XP) compatible threads. This
+        # avoids use of features that were added in Windows Vista.
+        # This is used for 32-bit x86 builds for compatibility reasons since it
+        # makes no measurable difference in performance compared to Vista threads.
+        add_compile_definitions(MYTHREAD_WIN95)
+    else()
+        # Define to 1 when using Windows Vista compatible threads. This uses features
+        # that are not available on Windows XP.
+        add_compile_definitions(MYTHREAD_VISTA)
+    endif()
 else()
     add_compile_definitions(MYTHREAD_POSIX)
 
@@ -431,22 +444,34 @@ set_target_properties(liblzma PROPERTIES
     PREFIX ""
 )
 
-# Create liblzmaConfigVersion.cmake.
+# Create liblzma-config-version.cmake. We use this spelling instead of
+# liblzmaConfig.cmake to make find_package work in case insensitive manner
+# even with case sensitive file systems. This gives more consistent behavior
+# between operating systems.
 #
 # FIXME: SameMajorVersion is correct for stable releases but it is wrong
 # for development releases where each release may have incompatible changes.
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
-    "${CMAKE_CURRENT_BINARY_DIR}/liblzmaConfigVersion.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/liblzma-config-version.cmake"
     VERSION "${liblzma_VERSION}"
     COMPATIBILITY SameMajorVersion)
 
-# Create liblzmaConfig.cmake.
-file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/liblzmaConfig.cmake"
+# Create liblzma-config.cmake.
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/liblzma-config.cmake"
 "include(CMakeFindDependencyMacro)
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_dependency(Threads)
-include(\"\${CMAKE_CURRENT_LIST_DIR}/liblzmaTargets.cmake\")
+
+include(\"\${CMAKE_CURRENT_LIST_DIR}/liblzma-targets.cmake\")
+
+# Be compatible with the spelling used by the FindLibLZMA module. This
+# doesn't use ALIAS because it would make CMake resolve LibLZMA::LibLZMA
+# to liblzma::liblzma instead of keeping the original spelling. Keeping
+# the original spelling is important for good FindLibLZMA compatibility.
+add_library(LibLZMA::LibLZMA INTERFACE IMPORTED)
+set_target_properties(LibLZMA::LibLZMA PROPERTIES
+                      INTERFACE_LINK_LIBRARIES liblzma::liblzma)
 ")
 
 # Set CMAKE_INSTALL_LIBDIR and friends.
@@ -478,12 +503,12 @@ set(liblzma_INSTALL_CMAKEDIR
 
 install(EXPORT liblzmaTargets
         NAMESPACE liblzma::
-        FILE liblzmaTargets.cmake
+        FILE liblzma-targets.cmake
         DESTINATION "${liblzma_INSTALL_CMAKEDIR}"
         COMPONENT liblzma_Development)
 
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/liblzmaConfig.cmake"
-              "${CMAKE_CURRENT_BINARY_DIR}/liblzmaConfigVersion.cmake"
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/liblzma-config.cmake"
+              "${CMAKE_CURRENT_BINARY_DIR}/liblzma-config-version.cmake"
         DESTINATION "${liblzma_INSTALL_CMAKEDIR}"
         COMPONENT liblzma_Development)
 
