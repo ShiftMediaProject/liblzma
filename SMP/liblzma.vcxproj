@@ -37,6 +37,7 @@ del "$(OutDir)"\include\lzma.h
     </PreBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>..\src\common;..\src\liblzma\api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <CustomBuildStep>
       <Message>Custom Clean Step</Message>
@@ -83,6 +84,7 @@ del "$(OutDir)"\include\lzma.h
     </PreBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>..\src\common;..\src\liblzma\api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <CustomBuildStep>
       <Message>Custom Clean Step</Message>
@@ -129,6 +131,7 @@ del "$(OutDir)"\include\lzma.h
     </PreBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>..\src\common;..\src\liblzma\api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <CustomBuildStep>
       <Message>Custom Clean Step</Message>
@@ -175,6 +178,7 @@ del "$(OutDir)"\include\lzma.h
     </PreBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>..\src\common;..\src\liblzma\api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <CustomBuildStep>
       <Message>Custom Clean Step</Message>
@@ -221,6 +225,7 @@ del "$(OutDir)"\include\lzma.h
     </PreBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>..\src\common;..\src\liblzma\api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <CustomBuildStep>
       <Message>Custom Clean Step</Message>
@@ -267,6 +272,7 @@ del "$(OutDir)"\include\lzma.h
     </PreBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>..\src\common;..\src\liblzma\api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <CustomBuildStep>
       <Message>Custom Clean Step</Message>
@@ -313,6 +319,7 @@ del "$(OutDir)"\include\lzma.h
     </PreBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>..\src\common;..\src\liblzma\api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <CustomBuildStep>
       <Message>Custom Clean Step</Message>
@@ -359,6 +366,7 @@ del "$(OutDir)"\include\lzma.h
     </PreBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>..\src\common;..\src\liblzma\api\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <CustomBuildStep>
       <Message>Custom Clean Step</Message>
