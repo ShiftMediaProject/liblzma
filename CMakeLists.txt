@@ -13,7 +13,6 @@
 #   - No replacement getopt_long(), libc must have it
 #   - No sandboxing support
 #   - No translations
-#   - No xz symlinks are installed
 #
 # Other missing things:
 #   - No xzgrep or other scripts or their symlinks
@@ -415,20 +414,34 @@ if(WIN32)
         # Add the Windows resource file for liblzma.dll.
         target_sources(liblzma PRIVATE src/liblzma/liblzma_w32res.rc)
 
+        set_target_properties(liblzma PROPERTIES
+            LINK_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/common/common_w32res.rc"
+        )
+
         # Export the public API symbols with __declspec(dllexport).
         target_compile_definitions(liblzma PRIVATE DLL_EXPORT)
     else()
         # Disable __declspec(dllimport) when linking against static liblzma.
         target_compile_definitions(liblzma INTERFACE LZMA_API_STATIC)
     endif()
-elseif(CMAKE_SYSTEM_NAME MATCHES "^Linux$|^FreeBSD$")
-    # Symbol versioning for shared liblzma. This doesn't affect static builds.
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    # GNU/Linux-specific symbol versioning for shared liblzma.
+    # Note that adding link options doesn't affect static builds.
+    target_compile_definitions(liblzma PRIVATE HAVE_SYMBOL_VERSIONS_LINUX)
     target_link_options(liblzma PRIVATE
-        "-Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/src/liblzma/liblzma.map"
+        "-Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/src/liblzma/liblzma_linux.map"
     )
     set_target_properties(liblzma PROPERTIES
-        LINK_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/liblzma/liblzma.map"
-        LINK_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/common/common_w32res.rc"
+        LINK_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/liblzma/liblzma_linux.map"
+    )
+elseif(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
+    # Symbol versioning for shared liblzma for non-GNU/Linux.
+    # FIXME? What about Solaris?
+    target_link_options(liblzma PRIVATE
+        "-Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/src/liblzma/liblzma_generic.map"
+    )
+    set_target_properties(liblzma PROPERTIES
+        LINK_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/liblzma/liblzma_generic.map"
     )
 endif()
 
@@ -678,7 +691,45 @@ if(NOT MSVC AND HAVE_GETOPT_LONG)
             RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
                     COMPONENT xz)
 
-    install(FILES src/xz/xz.1
-            DESTINATION "${CMAKE_INSTALL_MANDIR}/man1"
-            COMPONENT xz)
+    if(UNIX)
+        install(FILES src/xz/xz.1
+                DESTINATION "${CMAKE_INSTALL_MANDIR}/man1"
+                COMPONENT xz)
+
+        option(CREATE_XZ_SYMLINKS "Create unxz and xzcat symlinks" ON)
+        option(CREATE_LZMA_SYMLINKS "Create lzma, unlzma, and lzcat symlinks"
+               ON)
+        set(XZ_LINKS)
+
+        if(CREATE_XZ_SYMLINKS)
+            list(APPEND XZ_LINKS "unxz" "xzcat")
+        endif()
+
+        if(CREATE_LZMA_SYMLINKS)
+            list(APPEND XZ_LINKS "lzma" "unlzma" "lzcat")
+        endif()
+
+        # Create symlinks in the build directory and then install them.
+        #
+        # The symlinks do not likely need any special extension since
+        # even on Windows the symlink can still be executed without
+        # the .exe extension.
+        foreach(LINK IN LISTS XZ_LINKS)
+            add_custom_target("${LINK}" ALL
+                "${CMAKE_COMMAND}" -E create_symlink
+                    "$<TARGET_FILE_NAME:xz>" "${LINK}"
+                BYPRODUCTS "${LINK}"
+                VERBATIM)
+            install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${LINK}"
+                    DESTINATION "${CMAKE_INSTALL_BINDIR}"
+                    COMPONENT xz)
+            add_custom_target("${LINK}.1" ALL
+                "${CMAKE_COMMAND}" -E create_symlink "xz.1" "${LINK}.1"
+                BYPRODUCTS "${LINK}.1"
+                VERBATIM)
+            install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${LINK}.1"
+                    DESTINATION "${CMAKE_INSTALL_MANDIR}/man1"
+                    COMPONENT xz)
+        endforeach()
+    endif()
 endif()
