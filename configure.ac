@@ -22,7 +22,7 @@ AC_INIT([XZ Utils], m4_esyscmd([/bin/sh build-aux/version.sh]),
 AC_CONFIG_SRCDIR([src/liblzma/common/common.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 
 echo
 echo "$PACKAGE_STRING"
@@ -699,10 +699,6 @@ AC_CHECK_HEADERS([immintrin.h])
 # Checks for typedefs, structures, and compiler characteristics.
 ###############################################################################
 
-dnl We don't need these as long as we need a C99 compiler anyway.
-dnl AC_C_INLINE
-dnl AC_C_RESTRICT
-
 AC_HEADER_STDBOOL
 
 AC_TYPE_UINT8_T
@@ -801,7 +797,10 @@ if test "x$enable_external_sha256$sha256_func_found" = xyesno; then
 	AC_MSG_ERROR([--enable-external-sha256 was specified but no supported external SHA-256 implementation was found])
 fi
 
-# Check for SSE2 intrinsics.
+# Check for SSE2 intrinsics. There is no run-time detection for SSE2 so if
+# compiler options enable SSE2 then SSE2 support is required by the binaries.
+# The compile-time check for SSE2 is done with #ifdefs because some compilers
+# (ICC, MSVC) allow SSE2 intrinsics even when SSE2 isn't enabled.
 AC_CHECK_DECL([_mm_movemask_epi8],
 	[AC_DEFINE([HAVE__MM_MOVEMASK_EPI8], [1],
 		[Define to 1 if _mm_movemask_epi8 is available.])],
