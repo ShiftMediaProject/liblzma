@@ -76,7 +76,7 @@ set(CMAKE_MACOSX_BUNDLE OFF)
 add_compile_definitions(
     # Package info:
     PACKAGE_NAME="XZ Utils"
-    PACKAGE_BUGREPORT="lasse.collin@tukaani.org"
+    PACKAGE_BUGREPORT="xz@tukaani.org"
     PACKAGE_URL="https://tukaani.org/xz/"
 
     # Features:
@@ -424,17 +424,24 @@ if(WIN32)
         # Disable __declspec(dllimport) when linking against static liblzma.
         target_compile_definitions(liblzma INTERFACE LZMA_API_STATIC)
     endif()
-elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+elseif(BUILD_SHARED_LIBS AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
     # GNU/Linux-specific symbol versioning for shared liblzma.
-    # Note that adding link options doesn't affect static builds.
-    target_compile_definitions(liblzma PRIVATE HAVE_SYMBOL_VERSIONS_LINUX)
+    # Note that adding link options doesn't affect static builds
+    # but HAVE_SYMBOL_VERSIONS_LINUX must not be used with static builds
+    # because it would put symbol versions into the static library which
+    # can cause problems. It's clearer if all symver related things are
+    # omitted when not building a shared library.
+    #
+    # NOTE: Set it explicitly to 1 to make it clear that versioning is
+    # done unconditionally in the C files.
+    target_compile_definitions(liblzma PRIVATE HAVE_SYMBOL_VERSIONS_LINUX=1)
     target_link_options(liblzma PRIVATE
         "-Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/src/liblzma/liblzma_linux.map"
     )
     set_target_properties(liblzma PROPERTIES
         LINK_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/liblzma/liblzma_linux.map"
     )
-elseif(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
+elseif(BUILD_SHARED_LIBS AND CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
     # Symbol versioning for shared liblzma for non-GNU/Linux.
     # FIXME? What about Solaris?
     target_link_options(liblzma PRIVATE
