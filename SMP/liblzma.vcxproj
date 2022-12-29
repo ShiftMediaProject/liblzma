@@ -10,7 +10,7 @@
   </ImportGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;HAVE_IMMINTRIN_H;HAVE__MM_MOVEMASK_EPI8;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4244;4267;4028;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
@@ -57,7 +57,7 @@ del /f /q $(OutDir)\licenses\liblzma.txt
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;HAVE_IMMINTRIN_H;HAVE__MM_MOVEMASK_EPI8;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4244;4267;4028;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
@@ -104,7 +104,7 @@ del /f /q $(OutDir)\licenses\liblzma.txt
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;HAVE_IMMINTRIN_H;HAVE__MM_MOVEMASK_EPI8;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4244;4267;4028;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
@@ -151,7 +151,7 @@ del /f /q $(OutDir)\licenses\liblzma.txt
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;HAVE_IMMINTRIN_H;HAVE__MM_MOVEMASK_EPI8;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4244;4267;4028;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
@@ -198,7 +198,7 @@ del /f /q $(OutDir)\licenses\liblzma.txt
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;HAVE_IMMINTRIN_H;HAVE__MM_MOVEMASK_EPI8;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4244;4267;4028;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
@@ -245,7 +245,7 @@ del /f /q $(OutDir)\licenses\liblzma.txt
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;HAVE_IMMINTRIN_H;HAVE__MM_MOVEMASK_EPI8;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4244;4267;4028;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
@@ -292,7 +292,7 @@ del /f /q $(OutDir)\licenses\liblzma.txt
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;HAVE_IMMINTRIN_H;HAVE__MM_MOVEMASK_EPI8;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4244;4267;4028;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
@@ -339,7 +339,7 @@ del /f /q $(OutDir)\licenses\liblzma.txt
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>HAVE_CONFIG_H;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;HAVE_IMMINTRIN_H;HAVE__MM_MOVEMASK_EPI8;TUKLIB_SYMBOL_PREFIX=lzma_;inline=_inline;restrict=__restrict;DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;..\src\liblzma\api;..\src\liblzma\common;..\src\liblzma\check;..\src\liblzma\lz;..\src\liblzma\rangecoder;..\src\liblzma\lzma;..\src\liblzma\delta;..\src\liblzma\simple;..\src\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4244;4267;4028;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
