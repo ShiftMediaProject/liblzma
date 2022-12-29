@@ -120,14 +120,15 @@
 #define LZMA_FILTER_RESERVED_START (LZMA_VLI_C(1) << 62)
 
 
-/// Supported flags that can be passed to lzma_stream_decoder()
-/// or lzma_auto_decoder().
+/// Supported flags that can be passed to lzma_stream_decoder(),
+/// lzma_auto_decoder(), or lzma_stream_decoder_mt().
 #define LZMA_SUPPORTED_FLAGS \
 	( LZMA_TELL_NO_CHECK \
 	| LZMA_TELL_UNSUPPORTED_CHECK \
 	| LZMA_TELL_ANY_CHECK \
 	| LZMA_IGNORE_CHECK \
-	| LZMA_CONCATENATED )
+	| LZMA_CONCATENATED \
+	| LZMA_FAIL_FAST )
 
 
 /// Largest valid lzma_action value as unsigned integer.
@@ -136,9 +137,12 @@
 
 /// Special return value (lzma_ret) to indicate that a timeout was reached
 /// and lzma_code() must not return LZMA_BUF_ERROR. This is converted to
-/// LZMA_OK in lzma_code(). This is not in the lzma_ret enumeration because
-/// there's no need to have it in the public API.
-#define LZMA_TIMED_OUT 32
+/// LZMA_OK in lzma_code().
+#define LZMA_TIMED_OUT LZMA_RET_INTERNAL1
+
+/// Special return value (lzma_ret) for use in stream_decoder_mt.c to
+/// indicate Index was detected instead of a Block Header.
+#define LZMA_INDEX_DETECTED LZMA_RET_INTERNAL2
 
 
 typedef struct lzma_next_coder_s lzma_next_coder;
@@ -171,8 +175,11 @@ typedef void (*lzma_end_function)(
 /// an array of lzma_filter_info structures. This array is used with
 /// lzma_next_filter_init to initialize the filter chain.
 struct lzma_filter_info_s {
-	/// Filter ID. This is used only by the encoder
-	/// with lzma_filters_update().
+	/// Filter ID. This can be used to share the same initiazation
+	/// function *and* data structures with different Filter IDs
+	/// (LZMA_FILTER_LZMA1EXT does it), and also by the encoder
+	/// with lzma_filters_update() if filter chain is updated
+	/// in the middle of a raw stream or Block (LZMA_SYNC_FLUSH).
 	lzma_vli id;
 
 	/// Pointer to function used to initialize the filter.
@@ -226,6 +233,16 @@ struct lzma_next_coder_s {
 	lzma_ret (*update)(void *coder, const lzma_allocator *allocator,
 			const lzma_filter *filters,
 			const lzma_filter *reversed_filters);
+
+	/// Set how many bytes of output this coder may produce at maximum.
+	/// On success LZMA_OK must be returned.
+	/// If the filter chain as a whole cannot support this feature,
+	/// this must return LZMA_OPTIONS_ERROR.
+	/// If no input has been given to the coder and the requested limit
+	/// is too small, this must return LZMA_BUF_ERROR. If input has been
+	/// seen, LZMA_OK is allowed too.
+	lzma_ret (*set_out_limit)(void *coder, uint64_t *uncomp_size,
+			uint64_t out_limit);
 };
 
 
@@ -241,6 +258,7 @@ struct lzma_next_coder_s {
 		.get_check = NULL, \
 		.memconfig = NULL, \
 		.update = NULL, \
+		.set_out_limit = NULL, \
 	}
 
 

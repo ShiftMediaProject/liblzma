@@ -79,8 +79,8 @@ fi
 # Filters #
 ###########
 
-m4_define([SUPPORTED_FILTERS], [lzma1,lzma2,delta,x86,powerpc,ia64,arm,armthumb,sparc])dnl
-m4_define([SIMPLE_FILTERS], [x86,powerpc,ia64,arm,armthumb,sparc])
+m4_define([SUPPORTED_FILTERS], [lzma1,lzma2,delta,x86,powerpc,ia64,arm,armthumb,arm64,sparc])dnl
+m4_define([SIMPLE_FILTERS], [x86,powerpc,ia64,arm,armthumb,arm64,sparc])
 m4_define([LZ_FILTERS], [lzma1,lzma2])
 
 m4_foreach([NAME], [SUPPORTED_FILTERS],
@@ -294,6 +294,49 @@ else
 fi
 
 
+#############
+# MicroLZMA #
+#############
+
+AC_MSG_CHECKING([if MicroLZMA support should be built])
+AC_ARG_ENABLE([microlzma], AS_HELP_STRING([--disable-microlzma],
+		[Do not build MicroLZMA encoder and decoder.
+		It is needed by specific applications only,
+		for example, erofs-utils.]),
+	[], [enable_microlzma=yes])
+case $enable_microlzma in
+	yes | no)
+		AC_MSG_RESULT([$enable_microlzma])
+		;;
+	*)
+		AC_MSG_RESULT([])
+		AC_MSG_ERROR([--enable-microlzma accepts only `yes' or `no'.])
+		;;
+esac
+AM_CONDITIONAL(COND_MICROLZMA, test "x$enable_microlzma" = xyes)
+
+
+#############################
+# .lz (lzip) format support #
+#############################
+
+AC_MSG_CHECKING([if .lz (lzip) decompression support should be built])
+AC_ARG_ENABLE([lzip-decoder], AS_HELP_STRING([--disable-lzip-decoder],
+		[Disable decompression support for .lz (lzip) files.]),
+	[], [enable_lzip_decoder=yes])
+if test "x$enable_decoder_lzma1" != xyes; then
+	enable_lzip_decoder=no
+	AC_MSG_RESULT([no because LZMA1 decoder is disabled])
+elif test "x$enable_lzip_decoder" = xyes; then
+	AC_DEFINE([HAVE_LZIP_DECODER], [1],
+		[Define to 1 if .lz (lzip) decompression support is enabled.])
+	AC_MSG_RESULT([yes])
+else
+	AC_MSG_RESULT([no])
+fi
+AM_CONDITIONAL(COND_LZIP_DECODER, test "x$enable_lzip_decoder" = xyes)
+
+
 ###########################
 # Assembler optimizations #
 ###########################
@@ -311,22 +354,30 @@ if test "x$enable_assembler" = xyes; then
 		linux* | *bsd* | mingw* | cygwin | msys | *djgpp*)
 			case $host_cpu in
 				i?86)   enable_assembler=x86 ;;
-				x86_64) enable_assembler=x86_64 ;;
 			esac
 			;;
 	esac
 fi
 case $enable_assembler in
-	x86 | x86_64 | no)
+	x86 | no)
 		AC_MSG_RESULT([$enable_assembler])
 		;;
 	*)
 		AC_MSG_RESULT([])
-		AC_MSG_ERROR([--enable-assembler accepts only `yes', `no', `x86', or `x86_64'.])
+		AC_MSG_ERROR([--enable-assembler accepts only `yes', `no', or `x86' (32-bit).])
 		;;
 esac
 AM_CONDITIONAL(COND_ASM_X86, test "x$enable_assembler" = xx86)
-AM_CONDITIONAL(COND_ASM_X86_64, test "x$enable_assembler" = xx86_64)
+
+
+#############
+# CLMUL CRC #
+#############
+
+AC_ARG_ENABLE([clmul-crc], AS_HELP_STRING([--disable-clmul-crc],
+		[Do not use carryless multiplication for CRC calculation
+		even if support for it is detected.]),
+	[], [enable_clmul_crc=yes])
 
 
 #####################
@@ -475,7 +526,8 @@ AM_CONDITIONAL([COND_DOC], [test x$enable_doc != xno])
 
 AC_MSG_CHECKING([if sandboxing should be used])
 AC_ARG_ENABLE([sandbox], [AS_HELP_STRING([--enable-sandbox=METHOD],
-		[Sandboxing METHOD can be `auto', `no', or `capsicum'.
+		[Sandboxing METHOD can be
+		`auto', `no', `capsicum', or `pledge'.
 		The default is `auto' which enables sandboxing if
 		a supported sandboxing method is found.])],
 	[], [enable_sandbox=auto])
@@ -483,12 +535,12 @@ case $enable_sandbox in
 	auto)
 		AC_MSG_RESULT([maybe (autodetect)])
 		;;
-	no | capsicum)
+	no | capsicum | pledge)
 		AC_MSG_RESULT([$enable_sandbox])
 		;;
 	*)
 		AC_MSG_RESULT([])
-		AC_MSG_ERROR([--enable-sandbox only accepts `auto', `no', or `capsicum'.])
+		AC_MSG_ERROR([--enable-sandbox only accepts `auto', `no', `capsicum', or `pledge'.])
 		;;
 esac
 
@@ -547,7 +599,7 @@ echo "Initializing Automake:"
 # http://debbugs.gnu.org/cgi/bugreport.cgi?bug=17354
 # The -Wno-unsupported is used to silence warnings about missing
 # "subdir-objects".
-AM_INIT_AUTOMAKE([1.12 foreign tar-v7 filename-length-max=99 serial-tests -Wno-unsupported])
+AM_INIT_AUTOMAKE([1.12 foreign tar-v7 filename-length-max=99 -Wno-unsupported])
 AC_PROG_LN_S
 
 AC_PROG_CC_C99
@@ -738,8 +790,9 @@ AC_CHECK_HEADERS([fcntl.h limits.h sys/time.h],
 	[],
 	[AC_MSG_ERROR([Required header file(s) are missing.])])
 
-# This allows the use of the intrinsic functions if they are available.
-AC_CHECK_HEADERS([immintrin.h])
+# immintrin.h allows the use of the intrinsic functions if they are available.
+# cpuid.h may be used for detecting x86 processor features at runtime.
+AC_CHECK_HEADERS([immintrin.h cpuid.h])
 
 
 ###############################################################################
@@ -770,6 +823,29 @@ AC_CHECK_MEMBERS([
 
 AC_SYS_LARGEFILE
 AC_C_BIGENDIAN
+
+# __attribute__((__constructor__)) can be used for one-time initializations.
+# Use -Werror because some compilers accept unknown attributes and just
+# give a warning. If it works this should give no warnings, even
+# clang -Weverything should be fine.
+# dnl This doesn't need AC_LANG_SOURCE, minimal code is enough.
+AC_MSG_CHECKING([if __attribute__((__constructor__)) can be used])
+have_func_attribute_constructor=no
+OLD_CFLAGS="$CFLAGS"
+CFLAGS="$CFLAGS -Werror"
+AC_COMPILE_IFELSE([
+	__attribute__((__constructor__))
+	static void my_constructor_func(void) { return; }
+], [
+	AC_DEFINE([HAVE_FUNC_ATTRIBUTE_CONSTRUCTOR], [1],
+		[Define to 1 if __attribute__((__constructor__))
+		is supported for functions.])
+	have_func_attribute_constructor=yes
+	AC_MSG_RESULT([yes])
+], [
+	AC_MSG_RESULT([no])
+])
+CFLAGS="$OLD_CFLAGS"
 
 
 ###############################################################################
@@ -856,10 +932,59 @@ AC_CHECK_DECL([_mm_movemask_epi8],
 #include <immintrin.h>
 #endif])
 
+# For faster CRC on 32/64-bit x86 and E2K (see also crc64_fast.c):
+#
+#   - Check for the CLMUL intrinsic _mm_clmulepi64_si128 in <immintrin.h>.
+#
+#   - Check that __attribute__((__target__("ssse3,sse4.1,pclmul"))) works
+#     together with _mm_clmulepi64_si128 from <immintrin.h>. The attribute
+#     was added in GCC 4.4 but some GCC 4.x versions don't allow intrinsics
+#     with it. Exception: it must be not be used with EDG-based compilers
+#     like ICC and the compiler on E2K.
+#
+# If everything above is supported, runtime detection will be used to keep the
+# binaries working on systems that don't support the required extensions.
+AC_MSG_CHECKING([if _mm_clmulepi64_si128 is usable])
+if test "x$enable_clmul_crc" = xno ; then
+	AC_MSG_RESULT([no, --disable-clmul-crc was used])
+else
+	AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
+#include <immintrin.h>
+
+// CLMUL works on older E2K instruction set but it is slow due to emulation.
+#if defined(__e2k__) && __iset__ < 6
+#	error
+#endif
+
+// Intel's old compiler (ICC) can define __GNUC__ but the attribute must not
+// be used with it. The new Clang-based ICX needs the attribute.
+// Checking for !defined(__EDG__) catches ICC and other EDG-based compilers.
+#if (defined(__GNUC__) || defined(__clang__)) && !defined(__EDG__)
+__attribute__((__target__("ssse3,sse4.1,pclmul")))
+#endif
+__m128i my_clmul(__m128i a, __m128i b)
+{
+	return _mm_clmulepi64_si128(a, b, 0);
+}
+	]])], [
+		AC_DEFINE([HAVE_USABLE_CLMUL], [1],
+			[Define to 1 if _mm_clmulepi64_si128 is usable.
+			See configure.ac for details.])
+		AC_MSG_RESULT([yes])
+	], [
+		AC_MSG_RESULT([no])
+	])
+fi
+
 # Check for sandbox support. If one is found, set enable_sandbox=found.
 case $enable_sandbox in
 	auto | capsicum)
 		AX_CHECK_CAPSICUM([enable_sandbox=found], [:])
+		;;
+esac
+case $enable_sandbox in
+	auto | pledge)
+		AC_CHECK_FUNCS([pledge], [enable_sandbox=found ; break])
 		;;
 esac
 
@@ -1003,9 +1128,11 @@ if test x$tuklib_cv_cpucores_method = xunknown; then
 	echo "No supported method to detect the number of CPU cores."
 fi
 
-if test "x$enable_threads$enable_small" = xnoyes; then
+if test "x$enable_threads$enable_small$have_func_attribute_constructor" \
+		= xnoyesno; then
 	echo
 	echo "NOTE:"
-	echo "liblzma will be thread unsafe due the combination"
-	echo "of --disable-threads --enable-small."
+	echo "liblzma will be thread-unsafe due to the combination"
+	echo "of --disable-threads --enable-small when using a compiler"
+	echo "that doesn't support __attribute__((__constructor__))."
 fi

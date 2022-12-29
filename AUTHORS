@@ -19,6 +19,14 @@ Authors of XZ Utils
     Andrew Dudman helped adapting the scripts and their man pages for
     XZ Utils.
 
+    The initial version of the threaded .xz decompressor was written
+    by Sebastian Andrzej Siewior.
+
+    The initial version of the .lz (lzip) decoder was written
+    by Michał Górny.
+
+    CLMUL-accelerated CRC code was contributed by Ilya Kurdyukov.
+
     Other authors:
       - Jonathan Nieder
       - Joachim Henke

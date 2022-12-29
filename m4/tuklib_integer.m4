@@ -64,8 +64,9 @@ main(void)
 AC_MSG_CHECKING([if unaligned memory access should be used])
 AC_ARG_ENABLE([unaligned-access], AS_HELP_STRING([--enable-unaligned-access],
 		[Enable if the system supports *fast* unaligned memory access
-		with 16-bit and 32-bit integers. By default, this is enabled
-		only on x86, x86_64, and big endian PowerPC.]),
+		with 16-bit, 32-bit, and 64-bit integers. By default,
+		this is enabled only on x86, x86_64, big endian PowerPC,
+		and some ARM systems.]),
 	[], [enable_unaligned_access=auto])
 if test "x$enable_unaligned_access" = xauto ; then
 	# TODO: There may be other architectures, on which unaligned access
@@ -74,6 +75,17 @@ if test "x$enable_unaligned_access" = xauto ; then
 		i?86|x86_64|powerpc|powerpc64)
 			enable_unaligned_access=yes
 			;;
+		arm*|aarch64*)
+			# On 32-bit and 64-bit ARM, GCC and Clang
+			# #define __ARM_FEATURE_UNALIGNED if
+			# unaligned access is supported.
+			AC_COMPILE_IFELSE([AC_LANG_SOURCE([
+#ifndef __ARM_FEATURE_UNALIGNED
+compile error
+#endif
+int main(void) { return 0; }
+])], [enable_unaligned_access=yes], [enable_unaligned_access=no])
+			;;
 		*)
 			enable_unaligned_access=no
 			;;
@@ -81,8 +93,8 @@ if test "x$enable_unaligned_access" = xauto ; then
 fi
 if test "x$enable_unaligned_access" = xyes ; then
 	AC_DEFINE([TUKLIB_FAST_UNALIGNED_ACCESS], [1], [Define to 1 if
-		the system supports fast unaligned access to 16-bit and
-		32-bit integers.])
+		the system supports fast unaligned access to 16-bit,
+		32-bit, and 64-bit integers.])
 	AC_MSG_RESULT([yes])
 else
 	AC_MSG_RESULT([no])
