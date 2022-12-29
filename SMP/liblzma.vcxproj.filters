@@ -212,6 +212,12 @@
     <ClInclude Include="..\src\common\tuklib_cpucores.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\liblzma\common\index_decoder.h">
+      <Filter>Header Files\liblzma\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\liblzma\common\lzip_decoder.h">
+      <Filter>Header Files\liblzma\common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\common\tuklib_physmem.c">
@@ -432,6 +438,18 @@
     </ClCompile>
     <ClCompile Include="..\src\common\tuklib_cpucores.c">
       <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\liblzma\common\file_info.c">
+      <Filter>Source Files\liblzma\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\liblzma\common\lzip_decoder.c">
+      <Filter>Source Files\liblzma\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\liblzma\common\string_conversion.c">
+      <Filter>Source Files\liblzma\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\liblzma\simple\arm64.c">
+      <Filter>Source Files\liblzma\simple</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

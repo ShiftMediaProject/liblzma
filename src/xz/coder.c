@@ -480,7 +480,6 @@ is_format_lzma(void)
 
 	return true;
 }
-#endif
 
 
 #ifdef HAVE_LZIP_DECODER

@@ -715,13 +715,6 @@ extern LZMA_API(lzma_ret) lzma_stream_decoder_mt(
  * as it doesn't support any decoder flags. It will return LZMA_STREAM_END
  * after one .lzma stream.)
  *
- * If the flag LZMA_CONCATENATED is used and the input is a .lzma file:
- * For historical reasons concatenated .lzma files aren't supported.
- * If there is trailing data after one .lzma stream, lzma_code() will
- * return LZMA_DATA_ERROR. (lzma_alone_decoder() doesn't have such a check
- * as it doesn't support any decoder flags. It will return LZMA_STREAM_END
- * after one .lzma stream.)
- *
  * \param       strm        Pointer to properly prepared lzma_stream
  * \param       memlimit    Memory usage limit as bytes. Use UINT64_MAX
  *                          to effectively disable the limiter. liblzma
