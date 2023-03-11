@@ -46,7 +46,7 @@
 #
 #############################################################################
 
-cmake_minimum_required(VERSION 3.13...3.16 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.13...3.25 FATAL_ERROR)
 
 include(CMakePushCheckState)
 include(CheckIncludeFile)
@@ -75,10 +75,40 @@ project(xz VERSION "${XZ_VERSION}" LANGUAGES C)
 # On Apple OSes, don't build executables as bundles:
 set(CMAKE_MACOSX_BUNDLE OFF)
 
+# windres from GNU binutils can be tricky with command line arguments
+# that contain spaces or other funny characters. Unfortunately we need
+# a space in PACKAGE_NAME. Using \x20 to encode the US-ASCII space seems
+# to work in both cmd.exe and /bin/sh.
+#
+# However, even \x20 isn't enough in all situations, resulting in
+# "syntax error" from windres. Using --use-temp-file prevents windres
+# from using popen() and this seems to fix the problem.
+#
+# llvm-windres claims to be compatible with GNU windres but with that
+# the \x20 results in "XZx20Utils" in the compiled binary. (At the
+# same time it works correctly with clang (the C compiler).) The option
+# --use-temp-file makes no difference.
+#
+# CMake 3.25 doesn't have CMAKE_RC_COMPILER_ID so we rely on
+# CMAKE_C_COMPILER_ID. If Clang is used together with GNU windres
+# then it will fail, but this way the risk of a bad string in
+# the binary should be fairly low.
+if(WIN32 AND CMAKE_C_COMPILER_ID STREQUAL "GNU")
+    # Use workarounds with GNU windres. The \x20 in PACKAGE_NAME works
+    # with gcc too so we don't need to worry how to pass different flags
+    # to windres and gcc.
+    string(APPEND CMAKE_RC_FLAGS " --use-temp-file")
+    set(PACKAGE_NAME "XZ\\x20Utils")
+else()
+    # Elsewhere a space is safe. This also keeps things compatible with
+    # EBCDIC in case CMake-based build is ever done on such a system.
+    set(PACKAGE_NAME "XZ Utils")
+endif()
+
 # Definitions common to all targets:
 add_compile_definitions(
     # Package info:
-    PACKAGE_NAME="XZ Utils"
+    PACKAGE_NAME="${PACKAGE_NAME}"
     PACKAGE_BUGREPORT="xz@tukaani.org"
     PACKAGE_URL="https://tukaani.org/xz/"
 
@@ -154,13 +184,11 @@ if(NOT WIN32 AND NOT DEFINED HAVE_CLOCK_GETTIME)
     endif()
     if(HAVE_CLOCK_GETTIME)
         # Check if CLOCK_MONOTONIC is available for clock_gettime().
-        check_symbol_exists(CLOCK_MONOTONIC time.h HAVE_DECL_CLOCK_MONOTONIC)
+        check_symbol_exists(CLOCK_MONOTONIC time.h HAVE_CLOCK_MONOTONIC)
 
-        # HAVE_DECL_CLOCK_MONOTONIC should always be defined to 0 or 1
-        # when clock_gettime is available.
         add_compile_definitions(
             HAVE_CLOCK_GETTIME
-            HAVE_DECL_CLOCK_MONOTONIC=$<BOOL:"${HAVE_DECL_CLOCK_MONOTONIC}">
+            HAVE_CLOCK_MONOTONIC
         )
     endif()
 endif()
@@ -184,7 +212,7 @@ else()
     add_compile_definitions(MYTHREAD_POSIX)
 
     # Check if pthread_condattr_setclock() exists to use CLOCK_MONOTONIC.
-    if(HAVE_DECL_CLOCK_MONOTONIC)
+    if(HAVE_CLOCK_MONOTONIC)
         list(INSERT CMAKE_REQUIRED_LIBRARIES 0 "${CMAKE_THREAD_LIBS_INIT}")
         check_symbol_exists(pthread_condattr_setclock pthread.h
                             HAVE_PTHREAD_CONDATTR_SETCLOCK)
@@ -436,8 +464,9 @@ if(HAVE_IMMINTRIN_H)
             #if (defined(__GNUC__) || defined(__clang__)) && !defined(__EDG__)
             __attribute__((__target__(\"ssse3,sse4.1,pclmul\")))
             #endif
-            __m128i my_clmul(__m128i a, __m128i b)
+            __m128i my_clmul(__m128i a)
             {
+                const __m128i b = _mm_set_epi64x(1, 2);
                 return _mm_clmulepi64_si128(a, b, 0);
             }
             int main(void) { return 0; }
@@ -612,6 +641,14 @@ if(HAVE_GETOPT_LONG)
 
     target_link_libraries(xzdec PRIVATE liblzma)
 
+    if(WIN32)
+        # Add the Windows resource file for xzdec.exe.
+        target_sources(xzdec PRIVATE src/xzdec/xzdec_w32res.rc)
+        set_target_properties(xzdec PROPERTIES
+            LINK_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/common/common_w32res.rc"
+        )
+    endif()
+
     tuklib_progname(xzdec)
 
     install(TARGETS xzdec
@@ -682,6 +719,14 @@ if(NOT MSVC AND HAVE_GETOPT_LONG)
     target_link_libraries(xz PRIVATE liblzma)
 
     target_compile_definitions(xz PRIVATE ASSUME_RAM=128)
+
+    if(WIN32)
+        # Add the Windows resource file for xz.exe.
+        target_sources(xz PRIVATE src/xz/xz_w32res.rc)
+        set_target_properties(xz PROPERTIES
+            LINK_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/common/common_w32res.rc"
+        )
+    endif()
 
     tuklib_progname(xz)
     tuklib_mbstr(xz)
@@ -803,6 +848,7 @@ if(BUILD_TESTING)
         test_filter_flags
         test_hardware
         test_index
+        test_index_hash
         test_memlimit
         test_stream_flags
         test_vli
@@ -814,6 +860,7 @@ if(BUILD_TESTING)
         target_include_directories("${TEST}" PRIVATE
             src/common
             src/liblzma/api
+            src/liblzma
             lib
         )
 
