@@ -1,8 +1,8 @@
 diff --git a/src/common/mythread.h b/src/common/mythread.h
-index 4138218..0289a93 100644
+index 37b5216..0819aae 100644
 --- a/src/common/mythread.h
 +++ b/src/common/mythread.h
-@@ -331,8 +331,10 @@ mythread_condtime_set(mythread_condtime *condtime, const mythread_cond *cond,
+@@ -337,8 +337,10 @@ mythread_condtime_set(mythread_condtime *condtime, const mythread_cond *cond,
  
  #define WIN32_LEAN_AND_MEAN
  #ifdef MYTHREAD_VISTA
