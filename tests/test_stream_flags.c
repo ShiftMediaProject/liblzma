@@ -70,7 +70,7 @@ test_lzma_stream_header_encode(void)
 #ifndef HAVE_ENCODERS
 	assert_skip("Encoder support disabled");
 #else
-	for (int i = 0; i < LZMA_CHECK_ID_MAX; i++)
+	for (lzma_check i = 0; i < LZMA_CHECK_ID_MAX; i++)
 		stream_header_encode_helper(i);
 
 	lzma_stream_flags flags = {
@@ -87,7 +87,7 @@ test_lzma_stream_header_encode(void)
 	flags.version = 0;
 
 	// Should fail if Check ID is invalid
-	flags.check = LZMA_CHECK_ID_MAX + 1;
+	flags.check = INVALID_LZMA_CHECK_ID;
 	assert_lzma_ret(lzma_stream_header_encode(&flags, header),
 			LZMA_PROG_ERROR);
 	flags.check = LZMA_CHECK_CRC32;
@@ -152,7 +152,7 @@ test_lzma_stream_footer_encode(void)
 #ifndef HAVE_ENCODERS
 	assert_skip("Encoder support disabled");
 #else
-	for (int i = 0; i < LZMA_CHECK_ID_MAX; i++)
+	for (lzma_check i = 0; i < LZMA_CHECK_ID_MAX; i++)
 		stream_footer_encode_helper(i);
 
 	lzma_stream_flags flags = {
@@ -170,7 +170,7 @@ test_lzma_stream_footer_encode(void)
 	flags.version = 0;
 
 	// Should fail if Check ID is invalid
-	flags.check = LZMA_CHECK_ID_MAX + 1;
+	flags.check = INVALID_LZMA_CHECK_ID;
 	assert_lzma_ret(lzma_stream_footer_encode(&flags, footer),
 			LZMA_PROG_ERROR);
 
@@ -223,7 +223,7 @@ test_lzma_stream_header_decode(void)
 #if !defined(HAVE_ENCODERS) || !defined(HAVE_DECODERS)
 	assert_skip("Encoder or decoder support disabled");
 #else
-	for (int i = 0; i < LZMA_CHECK_ID_MAX; i++)
+	for (lzma_check i = 0; i < LZMA_CHECK_ID_MAX; i++)
 		stream_header_decode_helper(i);
 
 	lzma_stream_flags flags = {
@@ -319,7 +319,7 @@ test_lzma_stream_footer_decode(void)
 #if !defined(HAVE_ENCODERS) || !defined(HAVE_DECODERS)
 	assert_skip("Encoder or decoder support disabled");
 #else
-	for (int i = 0; i < LZMA_CHECK_ID_MAX; i++)
+	for (lzma_check i = 0; i < LZMA_CHECK_ID_MAX; i++)
 		stream_footer_decode_helper(i);
 
 	lzma_stream_flags flags = {
@@ -410,10 +410,10 @@ test_lzma_stream_flags_compare(void)
 	second.version = 0;
 
 	// Check types must be under the maximum
-	first.check = LZMA_CHECK_ID_MAX + 1;
+	first.check = INVALID_LZMA_CHECK_ID;
 	assert_lzma_ret(lzma_stream_flags_compare(&first, &second),
 			LZMA_PROG_ERROR);
-	second.check = LZMA_CHECK_ID_MAX + 1;
+	second.check = INVALID_LZMA_CHECK_ID;
 	assert_lzma_ret(lzma_stream_flags_compare(&first, &second),
 			LZMA_PROG_ERROR);
 	first.check = LZMA_CHECK_CRC32;
@@ -422,7 +422,7 @@ test_lzma_stream_flags_compare(void)
 	second.check = LZMA_CHECK_CRC32;
 
 	// Check types must be equal
-	for (uint32_t i = 0; i < LZMA_CHECK_ID_MAX; i++) {
+	for (lzma_check i = 0; i < LZMA_CHECK_ID_MAX; i++) {
 		first.check = i;
 		if (i == second.check)
 			assert_lzma_ret(lzma_stream_flags_compare(&first,

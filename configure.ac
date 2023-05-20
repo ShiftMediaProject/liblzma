@@ -596,7 +596,7 @@ echo "Initializing Automake:"
 
 # We don't use "subdir-objects" yet because it breaks "make distclean" when
 # dependencies are enabled (as of Automake 1.14.1) due to this bug:
-# http://debbugs.gnu.org/cgi/bugreport.cgi?bug=17354
+# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=17354
 # The -Wno-unsupported is used to silence warnings about missing
 # "subdir-objects".
 AM_INIT_AUTOMAKE([1.12 foreign tar-v7 filename-length-max=99 -Wno-unsupported])
@@ -719,8 +719,16 @@ elif test "x$enable_shared" = xno ; then
 	enable_symbol_versions=no
 	AC_MSG_RESULT([no (not building a shared library)])
 else
-	case $host_os in
-		linux*)
+	case "$host_cpu-$host_os" in
+		microblaze*)
+			# GCC 12 on MicroBlaze doesn't support __symver__
+			# attribute. It's simplest and safest to use the
+			# generic version on that platform since then only
+			# the linker script is needed. The RHEL/CentOS 7
+			# compatibility symbols don't matter on MicroBlaze.
+			enable_symbol_versions=generic
+			;;
+		*-linux*)
 			case "$pic_mode-$enable_static" in
 				default-*)
 					# Use symvers if PIC is defined.
@@ -1029,34 +1037,59 @@ if test "$GCC" = yes ; then
 	#     backed up with "return LZMA_PROG_ERROR".
 	#   * -Wcast-qual would break various things where we need a non-const
 	#     pointer although we don't modify anything through it.
-	#   * -Wcast-align breaks optimized CRC32 and CRC64 implementation
-	#     on some architectures (not on x86), where this warning is bogus,
-	#     because we take care of correct alignment.
 	#   * -Winline, -Wdisabled-optimization, -Wunsafe-loop-optimizations
 	#     don't seem so useful here; at least the last one gives some
 	#     warnings which are not bugs.
+	#   * -Wconversion still shows too many warnings.
+	#
+	# The flags before the empty line are for GCC and many of them
+	# are supported by Clang too. The flags after the empty line are
+	# for Clang.
 	for NEW_FLAG in \
 			-Wall \
 			-Wextra \
 			-Wvla \
+			-Wc99-c11-compat \
 			-Wformat=2 \
 			-Winit-self \
 			-Wmissing-include-dirs \
-			-Wstrict-aliasing \
+			-Wshift-overflow=2 \
+			-Wstrict-overflow=3 \
+			-Walloc-zero \
+			-Wduplicated-cond \
 			-Wfloat-equal \
 			-Wundef \
 			-Wshadow \
 			-Wpointer-arith \
 			-Wbad-function-cast \
 			-Wwrite-strings \
+			-Wdate-time \
+			-Wsign-conversion \
+			-Wfloat-conversion \
 			-Wlogical-op \
 			-Waggregate-return \
 			-Wstrict-prototypes \
 			-Wold-style-definition \
 			-Wmissing-prototypes \
 			-Wmissing-declarations \
-			-Wmissing-noreturn \
-			-Wredundant-decls
+			-Wredundant-decls \
+			\
+			-Wc99-compat \
+			-Wc11-extensions \
+			-Wc2x-compat \
+			-Wc2x-extensions \
+			-Wpre-c2x-compat \
+			-Warray-bounds-pointer-arithmetic \
+			-Wassign-enum \
+			-Wconditional-uninitialized \
+			-Wdocumentation \
+			-Wduplicate-enum \
+			-Wempty-translation-unit \
+			-Wflexible-array-extensions \
+			-Wmissing-variable-declarations \
+			-Wnewline-eof \
+			-Wshift-sign-overflow \
+			-Wstring-conversion
 	do
 		AC_MSG_CHECKING([if $CC accepts $NEW_FLAG])
 		OLD_CFLAGS="$CFLAGS"
@@ -1099,7 +1132,6 @@ xz=`echo xz | sed "$program_transform_name"`
 AC_SUBST([xz])
 
 AC_CONFIG_FILES([
-	Doxyfile
 	Makefile
 	po/Makefile.in
 	lib/Makefile

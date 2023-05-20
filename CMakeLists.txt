@@ -2,7 +2,7 @@
 #
 # Very limited CMake support for building some parts of XZ Utils
 #
-# For now, this is indented to be useful to build static or shared liblzma
+# For now, this is intended to be useful to build static or shared liblzma
 # on Windows with MSVC (to avoid the need to maintain Visual Studio project
 # files). Building liblzma on a few other platforms should work too but it
 # is somewhat experimental and not as portable as using ./configure.
@@ -64,13 +64,23 @@ file(READ src/liblzma/api/lzma/version.h XZ_VERSION)
 string(REGEX REPLACE
 "^.*\n\
 #define LZMA_VERSION_MAJOR ([0-9]+)\n\
+.*\
 #define LZMA_VERSION_MINOR ([0-9]+)\n\
+.*\
 #define LZMA_VERSION_PATCH ([0-9]+)\n\
 .*$"
        "\\1.\\2.\\3" XZ_VERSION "${XZ_VERSION}")
 
 # Among other things, this gives us variables xz_VERSION and xz_VERSION_MAJOR.
 project(xz VERSION "${XZ_VERSION}" LANGUAGES C)
+
+# We need a compiler that supports enough C99 or newer (variable-length arrays
+# aren't needed, those are optional in C17). Setting CMAKE_C_STANDARD here
+# makes it the default for all targets. It doesn't affect the INTERFACE so
+# liblzma::liblzma won't end up with INTERFACE_COMPILE_FEATURES "c_std_99"
+# (the API headers are C89 and C++ compatible).
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 
 # On Apple OSes, don't build executables as bundles:
 set(CMAKE_MACOSX_BUNDLE OFF)
@@ -315,6 +325,8 @@ add_library(liblzma
     src/liblzma/common/lzip_decoder.c
     src/liblzma/common/lzip_decoder.h
     src/liblzma/common/memcmplen.h
+    src/liblzma/common/microlzma_decoder.c
+    src/liblzma/common/microlzma_encoder.c
     src/liblzma/common/outqueue.c
     src/liblzma/common/outqueue.h
     src/liblzma/common/stream_buffer_decoder.c
@@ -846,9 +858,11 @@ if(BUILD_TESTING)
         test_block_header
         test_check
         test_filter_flags
+        test_filter_str
         test_hardware
         test_index
         test_index_hash
+        test_lzip_decoder
         test_memlimit
         test_stream_flags
         test_vli

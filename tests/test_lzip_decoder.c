@@ -56,8 +56,8 @@ basic_lzip_decode(const char *src, const uint32_t expected_crc) {
 		ret = lzma_code(&strm, LZMA_RUN);
 		if (strm.avail_out == 0) {
 			checksum = lzma_crc32(output_buffer,
-					strm.next_out - output_buffer,
-					checksum);
+				(size_t)(strm.next_out - output_buffer),
+				checksum);
 			// No need to free output_buffer because it will
 			// automatically be freed at the end of the test by
 			// tuktest.
@@ -70,7 +70,8 @@ basic_lzip_decode(const char *src, const uint32_t expected_crc) {
 	assert_lzma_ret(ret, LZMA_STREAM_END);
 	assert_uint_eq(strm.total_in, file_size);
 
-	checksum = lzma_crc32(output_buffer, strm.next_out - output_buffer,
+	checksum = lzma_crc32(output_buffer,
+			(size_t)(strm.next_out - output_buffer),
 			checksum);
 	assert_uint_eq(checksum, expected_crc);
 
@@ -133,8 +134,8 @@ trailing_helper(const char *src, const uint32_t expected_data_checksum,
 		ret = lzma_code(&strm, LZMA_RUN);
 		if (strm.avail_out == 0) {
 			checksum = lzma_crc32(output_buffer,
-					strm.next_out - output_buffer,
-					checksum);
+				(size_t)(strm.next_out - output_buffer),
+				checksum);
 			// No need to free output_buffer because it will
 			// automatically be freed at the end of the test by
 			// tuktest.
@@ -148,7 +149,7 @@ trailing_helper(const char *src, const uint32_t expected_data_checksum,
 	assert_uint(strm.total_in, <, file_size);
 
 	checksum = lzma_crc32(output_buffer,
-			strm.next_out - output_buffer,
+			(size_t)(strm.next_out - output_buffer),
 			checksum);
 
 	assert_uint_eq(checksum, expected_data_checksum);
@@ -385,7 +386,7 @@ static void
 test_invalid_dictionary_size(void) {
 	// First file has too small dictionary size field
 	decode_expect_error("files/bad-1-v1-dict-1.lz", LZMA_DATA_ERROR);
-	
+
 	// Second file has too large dictionary size field
 	decode_expect_error("files/bad-1-v1-dict-2.lz", LZMA_DATA_ERROR);
 }
@@ -396,7 +397,7 @@ test_invalid_uncomp_size(void) {
 	// Test invalid v0 lzip file uncomp size
 	decode_expect_error("files/bad-1-v0-uncomp-size.lz",
 			LZMA_DATA_ERROR);
-	
+
 	// Test invalid v1 lzip file uncomp size
 	decode_expect_error("files/bad-1-v1-uncomp-size.lz",
 			LZMA_DATA_ERROR);
