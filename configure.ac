@@ -602,6 +602,9 @@ echo "Initializing Automake:"
 AM_INIT_AUTOMAKE([1.12 foreign tar-v7 filename-length-max=99 -Wno-unsupported])
 AC_PROG_LN_S
 
+dnl # Autoconf >= 2.70 warns that AC_PROG_CC_C99 is obsolete. However,
+dnl # we have to keep using AC_PROG_CC_C99 instead of AC_PROG_CC
+dnl # as long as we try to be compatible with Autoconf 2.69.
 AC_PROG_CC_C99
 if test x$ac_cv_prog_cc_c99 = xno ; then
 	AC_MSG_ERROR([No C99 compiler was found.])
@@ -611,8 +614,8 @@ AM_PROG_CC_C_O
 AM_PROG_AS
 AC_USE_SYSTEM_EXTENSIONS
 
-case $enable_threads in
-	posix)
+AS_CASE([$enable_threads],
+	[posix], [
 		echo
 		echo "POSIX threading support:"
 		AX_PTHREAD([:]) dnl We don't need the HAVE_PTHREAD macro.
@@ -643,19 +646,19 @@ case $enable_threads in
 			`CLOCK_MONOTONIC' is declared in <time.h>.])], [],
 			[[#include <time.h>]])
 		CFLAGS=$OLD_CFLAGS
-		;;
-	win95)
+	],
+	[win95], [
 		AC_DEFINE([MYTHREAD_WIN95], [1], [Define to 1 when using
 			Windows 95 (and thus XP) compatible threads.
 			This avoids use of features that were added in
 			Windows Vista.])
-		;;
-	vista)
+	],
+	[vista], [
 		AC_DEFINE([MYTHREAD_VISTA], [1], [Define to 1 when using
 			Windows Vista compatible threads. This uses
 			features that are not available on Windows XP.])
-		;;
-esac
+	]
+)
 AM_CONDITIONAL([COND_THREADS], [test "x$enable_threads" != xno])
 
 echo
@@ -895,7 +898,7 @@ TUKLIB_MBSTR
 sha256_header_found=no
 sha256_type_found=no
 sha256_func_found=no
-if test "x$enable_external_sha256" = "xyes"; then
+AS_IF([test "x$enable_external_sha256" = "xyes"], [
 	# Test for Common Crypto before others, because Darwin has sha256.h
 	# too and we don't want to use that, because on older versions it
 	# uses OpenSSL functions, whose SHA256_Init is not guaranteed to
@@ -925,7 +928,7 @@ if test "x$enable_external_sha256" = "xyes"; then
 				[sha256_func_found=yes ; break])
 		fi
 	fi
-fi
+])
 AM_CONDITIONAL([COND_INTERNAL_SHA256], [test "x$sha256_func_found" = xno])
 if test "x$enable_external_sha256$sha256_func_found" = xyesno; then
 	AC_MSG_ERROR([--enable-external-sha256 was specified but no supported external SHA-256 implementation was found])
@@ -958,9 +961,9 @@ AC_CHECK_DECL([_mm_movemask_epi8],
 # If everything above is supported, runtime detection will be used to keep the
 # binaries working on systems that don't support the required extensions.
 AC_MSG_CHECKING([if _mm_clmulepi64_si128 is usable])
-if test "x$enable_clmul_crc" = xno ; then
+AS_IF([test "x$enable_clmul_crc" = xno], [
 	AC_MSG_RESULT([no, --disable-clmul-crc was used])
-else
+], [
 	AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
 #include <immintrin.h>
 
@@ -989,19 +992,19 @@ __m128i my_clmul(__m128i a)
 	], [
 		AC_MSG_RESULT([no])
 	])
-fi
+])
 
 # Check for sandbox support. If one is found, set enable_sandbox=found.
-case $enable_sandbox in
-	auto | capsicum)
+AS_CASE([$enable_sandbox],
+	[auto | capsicum], [
 		AX_CHECK_CAPSICUM([enable_sandbox=found], [:])
-		;;
-esac
-case $enable_sandbox in
-	auto | pledge)
+	]
+)
+AS_CASE([$enable_sandbox],
+	[auto | pledge], [
 		AC_CHECK_FUNCS([pledge], [enable_sandbox=found ; break])
-		;;
-esac
+	]
+)
 
 # If a specific sandboxing method was explicitly requested and it wasn't
 # found, give an error.
@@ -1030,7 +1033,7 @@ if test -n "$CFLAG_VISIBILITY" && test "$is_w32" = no; then
 	AM_CFLAGS="$AM_CFLAGS $CFLAG_VISIBILITY"
 fi
 
-if test "$GCC" = yes ; then
+AS_IF([test "$GCC" = yes], [
 	# Enable as much warnings as possible. These commented warnings won't
 	# work for this package though:
 	#   * -Wunreachable-code breaks several assert(0) cases, which are
@@ -1111,7 +1114,7 @@ if test "$GCC" = yes ; then
 	if test "x$enable_werror" = "xyes"; then
 		AM_CFLAGS="$AM_CFLAGS -Werror"
 	fi
-fi
+])
 
 
 ###############################################################################
