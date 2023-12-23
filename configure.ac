@@ -437,14 +437,6 @@ case $enable_threads in
 		;;
 esac
 
-# The Win95 threading lacks thread-safe one-time initialization function.
-# It's better to disallow it instead of allowing threaded but thread-unsafe
-# build.
-if test "x$enable_small$enable_threads" = xyeswin95; then
-	AC_MSG_ERROR([--enable-threads=win95 and --enable-small cannot be
-		used at the same time])
-fi
-
 # We use the actual result a little later.
 
 
@@ -840,17 +832,22 @@ AC_C_BIGENDIAN
 
 # __attribute__((__constructor__)) can be used for one-time initializations.
 # Use -Werror because some compilers accept unknown attributes and just
-# give a warning. If it works this should give no warnings, even
-# clang -Weverything should be fine.
-# dnl This doesn't need AC_LANG_SOURCE, minimal code is enough.
+# give a warning.
+#
+# FIXME? Unfortunately -Werror can cause trouble if CFLAGS contains options
+# that produce warnings for unrelated reasons. For example, GCC and Clang
+# support -Wunused-macros which will warn about "#define _GNU_SOURCE 1"
+# which will be among the #defines that Autoconf inserts to the beginning of
+# the test program. There seems to be no nice way to prevent Autoconf from
+# inserting the any defines to the test program.
 AC_MSG_CHECKING([if __attribute__((__constructor__)) can be used])
 have_func_attribute_constructor=no
 OLD_CFLAGS="$CFLAGS"
 CFLAGS="$CFLAGS -Werror"
-AC_COMPILE_IFELSE([
+AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
 	__attribute__((__constructor__))
 	static void my_constructor_func(void) { return; }
-], [
+]])], [
 	AC_DEFINE([HAVE_FUNC_ATTRIBUTE_CONSTRUCTOR], [1],
 		[Define to 1 if __attribute__((__constructor__))
 		is supported for functions.])
@@ -861,6 +858,20 @@ AC_COMPILE_IFELSE([
 ])
 CFLAGS="$OLD_CFLAGS"
 
+
+# The Win95 threading lacks a thread-safe one-time initialization function.
+# The one-time initialization is needed for crc32_small.c and crc64_small.c
+# create the CRC tables. So if small mode is enabled, the threading mode is
+# win95, and the compiler does not support attribute constructor, then we
+# would end up with a multithreaded build that is thread-unsafe. As a
+# result this configuration is not allowed.
+if test "x$enable_small$enable_threads$have_func_attribute_constructor" \
+		= xyeswin95no; then
+	AC_MSG_ERROR([
+    --enable-threads=win95 and --enable-small cannot be used
+    at the same time with a compiler that doesn't support
+    __attribute__((__constructor__))])
+fi
 
 ###############################################################################
 # Checks for library functions.
@@ -1098,7 +1109,7 @@ AS_IF([test "$GCC" = yes], [
 		OLD_CFLAGS="$CFLAGS"
 		CFLAGS="$CFLAGS $NEW_FLAG -Werror"
 		AC_COMPILE_IFELSE([AC_LANG_SOURCE(
-				[void foo(void); void foo(void) { }])], [
+				[[void foo(void); void foo(void) { }]])], [
 			AM_CFLAGS="$AM_CFLAGS $NEW_FLAG"
 			AC_MSG_RESULT([yes])
 		], [
