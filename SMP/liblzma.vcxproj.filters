@@ -116,9 +116,6 @@
     <ClInclude Include="..\src\liblzma\check\check.h">
       <Filter>Header Files\liblzma\check</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\liblzma\check\crc_macros.h">
-      <Filter>Header Files\liblzma\check</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\liblzma\check\crc32_table_be.h">
       <Filter>Header Files\liblzma\check</Filter>
     </ClInclude>
@@ -217,6 +214,15 @@
     </ClInclude>
     <ClInclude Include="..\src\liblzma\common\lzip_decoder.h">
       <Filter>Header Files\liblzma\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\liblzma\check\crc32_arm64.h">
+      <Filter>Header Files\liblzma\check</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\liblzma\check\crc_common.h">
+      <Filter>Header Files\liblzma\check</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\liblzma\check\crc_x86_clmul.h">
+      <Filter>Header Files\liblzma\check</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

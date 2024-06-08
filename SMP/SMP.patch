@@ -1,8 +1,8 @@
 diff --git a/src/common/mythread.h b/src/common/mythread.h
-index 265147ea..f871cf8e 100644
+index 10ea2d42..d544a7ec 100644
 --- a/src/common/mythread.h
 +++ b/src/common/mythread.h
-@@ -337,8 +337,10 @@ mythread_condtime_set(mythread_condtime *condtime, const mythread_cond *cond,
+@@ -357,8 +357,10 @@ mythread_condtime_set(mythread_condtime *condtime, const mythread_cond *cond,
  
  #define WIN32_LEAN_AND_MEAN
  #ifdef MYTHREAD_VISTA
@@ -16,10 +16,10 @@ index 265147ea..f871cf8e 100644
  #include <windows.h>
  #include <process.h>
 diff --git a/src/common/tuklib_cpucores.c b/src/common/tuklib_cpucores.c
-index bb3f2f75..76f30a8b 100644
+index c4a781ac..25d3fa6b 100644
 --- a/src/common/tuklib_cpucores.c
 +++ b/src/common/tuklib_cpucores.c
-@@ -14,7 +14,9 @@
+@@ -13,7 +13,9 @@
  
  #if defined(_WIN32) || defined(__CYGWIN__)
  #	ifndef _WIN32_WINNT
@@ -31,10 +31,10 @@ index bb3f2f75..76f30a8b 100644
  #	include <windows.h>
  
 diff --git a/src/common/tuklib_physmem.c b/src/common/tuklib_physmem.c
-index 69f6fd4c..213e68bb 100644
+index 1009df14..77ef362a 100644
 --- a/src/common/tuklib_physmem.c
 +++ b/src/common/tuklib_physmem.c
-@@ -17,7 +17,9 @@
+@@ -16,7 +16,9 @@
  // gives wrong results (from our point of view).
  #if defined(_WIN32) || defined(__CYGWIN__)
  #	ifndef _WIN32_WINNT
@@ -45,25 +45,3 @@ index 69f6fd4c..213e68bb 100644
  #	endif
  #	include <windows.h>
  
-@@ -90,6 +92,13 @@ tuklib_physmem(void)
- 	uint64_t ret = 0;
- 
- #if defined(_WIN32) || defined(__CYGWIN__)
-+#include <winapifamily.h>
-+#if (_WIN32_WINNT >= 0x501) || (defined(WINAPI_FAMILY_PARTITION) && WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP) && !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP))
-+	MEMORYSTATUSEX meminfo;
-+	meminfo.dwLength = sizeof(meminfo);
-+	if (GlobalMemoryStatusEx(&meminfo))
-+		ret = meminfo.ullTotalPhys;
-+#else
- 	if ((GetVersion() & 0xFF) >= 5) {
- 		// Windows 2000 and later have GlobalMemoryStatusEx() which
- 		// supports reporting values greater than 4 GiB. To keep the
-@@ -125,6 +134,7 @@ tuklib_physmem(void)
- 		GlobalMemoryStatus(&meminfo);
- 		ret = meminfo.dwTotalPhys;
- 	}
-+#endif
- 
- #elif defined(__OS2__)
- 	unsigned long mem;

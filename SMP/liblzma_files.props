@@ -16,7 +16,9 @@
     <ClInclude Include="..\src\liblzma\check\crc32_table_le.h" />
     <ClInclude Include="..\src\liblzma\check\crc64_table_be.h" />
     <ClInclude Include="..\src\liblzma\check\crc64_table_le.h" />
-    <ClInclude Include="..\src\liblzma\check\crc_macros.h" />
+    <ClInclude Include="..\src\liblzma\check\crc_common.h" />
+    <ClInclude Include="..\src\liblzma\check\crc_x86_clmul.h" />
+    <ClInclude Include="..\src\liblzma\check\crc32_arm64.h" />
     <ClInclude Include="..\src\liblzma\common\alone_decoder.h" />
     <ClInclude Include="..\src\liblzma\common\block_buffer_encoder.h" />
     <ClInclude Include="..\src\liblzma\common\block_decoder.h" />
