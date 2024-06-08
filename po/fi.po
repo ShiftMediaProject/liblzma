@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.4.0-pre1\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2024-05-28 21:28+0300\n"
+"POT-Creation-Date: 2024-05-29 17:41+0300\n"
 "PO-Revision-Date: 2022-11-10 16:17+0200\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
@@ -30,6 +30,11 @@ msgid "%s: Too many arguments to --block-list"
 msgstr "%s: Liian monta argumenttia valitsimelle --block-list"
 
 #: src/xz/args.c
+#, c-format
+msgid "In --block-list, block size is missing after filter chain number '%c:'"
+msgstr ""
+
+#: src/xz/args.c
 msgid "0 can only be used as the last element in --block-list"
 msgstr "0:aa voi käyttää vain viimeisenä alkiona valitsimen --block-list kanssa"
 
@@ -44,7 +49,9 @@ msgid "%s: Unsupported integrity check type"
 msgstr "%s: Eheystarkistuksen tyyppiä ei tueta"
 
 #: src/xz/args.c
-msgid "Only one file can be specified with `--files' or `--files0'."
+#, fuzzy
+#| msgid "Only one file can be specified with `--files' or `--files0'."
+msgid "Only one file can be specified with '--files' or '--files0'."
 msgstr "Vain yksi tiedosto voidaan antaa valitsimille ”--files” ja ”--files0”."
 
 #. TRANSLATORS: This is a translatable
@@ -74,6 +81,10 @@ msgid "Compression of lzip files (.lz) is not supported"
 msgstr "Lzip-tiedostojen (.lz) pakkaamista ei tueta"
 
 #: src/xz/args.c
+msgid "--block-list is ignored unless compressing to the .xz format"
+msgstr ""
+
+#: src/xz/args.c
 #, fuzzy
 #| msgid "%s: With --format=raw, --suffix=.SUF is required unless writing to stdout"
 msgid "With --format=raw, --suffix=.SUF is required unless writing to stdout"
@@ -84,8 +95,18 @@ msgid "Maximum number of filters is four"
 msgstr "Suodattimien enimmäismäärä on neljä"
 
 #: src/xz/coder.c
+#, c-format
+msgid "Error in --filters%s=FILTERS option:"
+msgstr ""
+
+#: src/xz/coder.c
 msgid "Memory usage limit is too low for the given filter setup."
 msgstr "Muistinkäytön raja on liian matala valituille suotimille."
+
+#: src/xz/coder.c
+#, c-format
+msgid "filter chain %u used by --block-list but not specified with --filters%u="
+msgstr ""
 
 #: src/xz/coder.c
 msgid "Using a preset in raw mode is discouraged."
@@ -104,12 +125,20 @@ msgid "LZMA1 cannot be used with the .xz format"
 msgstr "LZMA1:tä ei voi käyttää .xz-muodon kanssa"
 
 #: src/xz/coder.c
-msgid "The filter chain is incompatible with --flush-timeout"
+#, fuzzy, c-format
+#| msgid "The filter chain is incompatible with --flush-timeout"
+msgid "Filter chain %u is incompatible with --flush-timeout"
 msgstr "Suodinketju on yhteensopimaton valitsimen --flush-timeout kanssa"
 
 #: src/xz/coder.c
 msgid "Switching to single-threaded mode due to --flush-timeout"
 msgstr "Vaihdetaan yksisäikeiseen tilaan valitsimen --flush-timeout vuoksi"
+
+#: src/xz/coder.c
+#, fuzzy, c-format
+#| msgid "Unsupported options"
+msgid "Unsupported options in filter chain %u"
+msgstr "Ei-tuetut valitsimet"
 
 #: src/xz/coder.c
 #, c-format
@@ -145,14 +174,22 @@ msgstr "Siirrytään yhden säikeen tilaan, jottei ylitettäisi %s MiB:n rajaa m
 msgid "Adjusted LZMA%c dictionary size from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
 msgstr "Pudotettiin LZMA%c-sanaston koko %s MiB:stä %s MiB:hen, jottei ylitettäisi %s MiB:n rajaa muistinkäytölle"
 
+#: src/xz/coder.c
+#, fuzzy, c-format
+#| msgid "Adjusted LZMA%c dictionary size from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
+msgid "Adjusted LZMA%c dictionary size for --filters%u from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
+msgstr "Pudotettiin LZMA%c-sanaston koko %s MiB:stä %s MiB:hen, jottei ylitettäisi %s MiB:n rajaa muistinkäytölle"
+
+#: src/xz/coder.c
+#, fuzzy, c-format
+#| msgid "Error creating a pipe: %s"
+msgid "Error changing to filter chain %u: %s"
+msgstr "Virhe putkea luodessa: %s"
+
 #: src/xz/file_io.c
 #, c-format
 msgid "Error creating a pipe: %s"
 msgstr "Virhe putkea luodessa: %s"
-
-#: src/xz/file_io.c
-msgid "Failed to enable the sandbox"
-msgstr "Hiekkalaatikon ottaminen käyttöön epäonnistui"
 
 #: src/xz/file_io.c
 #, c-format
@@ -527,6 +564,10 @@ msgid "--list works only on .xz files (--format=xz or --format=auto)"
 msgstr "--list toimii vain .xz-tiedostoille (--format=xz tai --format=auto)"
 
 #: src/xz/list.c
+msgid "Try 'lzmainfo' with .lzma files."
+msgstr ""
+
+#: src/xz/list.c
 msgid "--list does not support reading from standard input"
 msgstr "--list ei tue lukemista vakiosyötteestä"
 
@@ -541,8 +582,9 @@ msgid "%s: Unexpected end of input when reading filenames"
 msgstr "%s: Odottamaton syötteen loppu tiedostonimiä luettaessa"
 
 #: src/xz/main.c
-#, c-format
-msgid "%s: Null character found when reading filenames; maybe you meant to use `--files0' instead of `--files'?"
+#, fuzzy, c-format
+#| msgid "%s: Null character found when reading filenames; maybe you meant to use `--files0' instead of `--files'?"
+msgid "%s: Null character found when reading filenames; maybe you meant to use '--files0' instead of '--files'?"
 msgstr "%s: Nul-merkki kohdattiin tiedostonimiä lukiessa; oliko tarkoitus antaa valitsin ”--files0” eikä ”--files”?"
 
 #: src/xz/main.c
@@ -562,7 +604,7 @@ msgstr "Dataa ei voi lukea vakiosyötteestä kun tiedostonimiä luetaan vakiosy�
 msgid "%s: "
 msgstr "%s: "
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 msgid "Internal error (bug)"
 msgstr "Sisäinen virhe (ohjelmistovika)"
 
@@ -614,8 +656,9 @@ msgid "%s: Filter chain: %s\n"
 msgstr "%s: Suodinketju: %s\n"
 
 #: src/xz/message.c
-#, c-format
-msgid "Try `%s --help' for more information."
+#, fuzzy, c-format
+#| msgid "Try `%s --help' for more information."
+msgid "Try '%s --help' for more information."
 msgstr "Komento ”%s --help” antaa lisää tietoa."
 
 #: src/xz/message.c
@@ -677,9 +720,17 @@ msgstr ""
 "                      hiljaisesti mahdollinen jäljellä oleva syötedata"
 
 #: src/xz/message.c
+#, fuzzy
+#| msgid ""
+#| "      --no-sparse     do not create sparse files when decompressing\n"
+#| "  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
+#| "      --files[=FILE]  read filenames to process from FILE; if FILE is\n"
+#| "                      omitted, filenames are read from the standard input;\n"
+#| "                      filenames must be terminated with the newline character\n"
+#| "      --files0[=FILE] like --files but use the null character as terminator"
 msgid ""
 "      --no-sparse     do not create sparse files when decompressing\n"
-"  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
+"  -S, --suffix=.SUF   use the suffix '.SUF' on compressed files\n"
 "      --files[=FILE]  read filenames to process from FILE; if FILE is\n"
 "                      omitted, filenames are read from the standard input;\n"
 "                      filenames must be terminated with the newline character\n"
@@ -701,11 +752,17 @@ msgstr ""
 " Tiedostomuodon ja tiivistyksen perusvalitsimet:\n"
 
 #: src/xz/message.c
+#, fuzzy
+#| msgid ""
+#| "  -F, --format=FMT    file format to encode or decode; possible values are\n"
+#| "                      `auto' (default), `xz', `lzma', `lzip', and `raw'\n"
+#| "  -C, --check=CHECK   integrity check type: `none' (use with caution),\n"
+#| "                      `crc32', `crc64' (default), or `sha256'"
 msgid ""
 "  -F, --format=FMT    file format to encode or decode; possible values are\n"
-"                      `auto' (default), `xz', `lzma', `lzip', and `raw'\n"
-"  -C, --check=CHECK   integrity check type: `none' (use with caution),\n"
-"                      `crc32', `crc64' (default), or `sha256'"
+"                      'auto' (default), 'xz', 'lzma', 'lzip', and 'raw'\n"
+"  -C, --check=CHECK   integrity check type: 'none' (use with caution),\n"
+"                      'crc32', 'crc64' (default), or 'sha256'"
 msgstr ""
 "  -F, --format=MUOTO  tuotettava tai luettava tiedostomuoto; vaihtoehdot\n"
 "                      ovat ”auto” (oletus), ”xz”, ”lzma”, ”lzip” ja ”raw”\n"
@@ -734,9 +791,13 @@ msgstr ""
 "                      suoritinaikaa; ei vaikuta purkimen muistivaatimuksiin"
 
 #: src/xz/message.c
+#, fuzzy
+#| msgid ""
+#| "  -T, --threads=NUM   use at most NUM threads; the default is 1; set to 0\n"
+#| "                      to use as many threads as there are processor cores"
 msgid ""
-"  -T, --threads=NUM   use at most NUM threads; the default is 1; set to 0\n"
-"                      to use as many threads as there are processor cores"
+"  -T, --threads=NUM   use at most NUM threads; the default is 0 which uses\n"
+"                      as many threads as there are processor cores"
 msgstr ""
 "  -T, --threads=MÄÄRÄ käytä enintää MÄÄRÄä säiettä; oletus on 1; asettamalla\n"
 "                      0:ksi käytetään suoritinytimien määrän verran säikeitä"
@@ -752,10 +813,17 @@ msgstr ""
 "                      tätä säikeistetyn tiivistyksen lohkokoon asettamiseen"
 
 #: src/xz/message.c
+#, fuzzy
+#| msgid ""
+#| "      --block-list=SIZES\n"
+#| "                      start a new .xz block after the given comma-separated\n"
+#| "                      intervals of uncompressed data"
 msgid ""
-"      --block-list=SIZES\n"
+"      --block-list=BLOCKS\n"
 "                      start a new .xz block after the given comma-separated\n"
-"                      intervals of uncompressed data"
+"                      intervals of uncompressed data; optionally, specify a\n"
+"                      filter chain number (0-9) followed by a ':' before the\n"
+"                      uncompressed data size"
 msgstr ""
 "      --block-list=KOOT\n"
 "                      aloita uusi .xz-lohko kun tiivistämätöntä dataa on\n"
@@ -811,6 +879,26 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "\n"
+"  --filters=FILTERS   set the filter chain using the liblzma filter string\n"
+"                      syntax; use --filters-help for more information"
+msgstr ""
+
+#: src/xz/message.c
+msgid ""
+"  --filters1=FILTERS ... --filters9=FILTERS\n"
+"                      set additional filter chains using the liblzma filter\n"
+"                      string syntax to use with --block-list"
+msgstr ""
+
+#: src/xz/message.c
+msgid ""
+"  --filters-help      display more information about the liblzma filter string\n"
+"                      syntax and exit."
+msgstr ""
+
+#: src/xz/message.c
+msgid ""
+"\n"
 "  --lzma1[=OPTS]      LZMA1 or LZMA2; OPTS is a comma-separated list of zero or\n"
 "  --lzma2[=OPTS]      more of the following options (valid values; default):\n"
 "                        preset=PRE reset options to a preset (0-9[e])\n"
@@ -839,6 +927,18 @@ msgstr ""
 "                        depth=LUKU enimmäishakusyvyys; 0=automaattinen (oletus)"
 
 #: src/xz/message.c
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "  --x86[=OPTS]        x86 BCJ filter (32-bit and 64-bit)\n"
+#| "  --arm[=OPTS]        ARM BCJ filter\n"
+#| "  --armthumb[=OPTS]   ARM-Thumb BCJ filter\n"
+#| "  --arm64[=OPTS]      ARM64 BCJ filter\n"
+#| "  --powerpc[=OPTS]    PowerPC BCJ filter (big endian only)\n"
+#| "  --ia64[=OPTS]       IA-64 (Itanium) BCJ filter\n"
+#| "  --sparc[=OPTS]      SPARC BCJ filter\n"
+#| "                      Valid OPTS for all BCJ filters:\n"
+#| "                        start=NUM  start offset for conversions (default=0)"
 msgid ""
 "\n"
 "  --x86[=OPTS]        x86 BCJ filter (32-bit and 64-bit)\n"
@@ -848,6 +948,7 @@ msgid ""
 "  --powerpc[=OPTS]    PowerPC BCJ filter (big endian only)\n"
 "  --ia64[=OPTS]       IA-64 (Itanium) BCJ filter\n"
 "  --sparc[=OPTS]      SPARC BCJ filter\n"
+"  --riscv[=OPTS]      RISC-V BCJ filter\n"
 "                      Valid OPTS for all BCJ filters:\n"
 "                        start=NUM  start offset for conversions (default=0)"
 msgstr ""
@@ -926,7 +1027,8 @@ msgstr ""
 msgid "  -V, --version       display the version number and exit"
 msgstr "  -V, --version       näytä versionumero ja poistu"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
+#, c-format
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -938,12 +1040,12 @@ msgstr ""
 #. for this package. Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the email or WWW
 #. address for translation bugs. Thanks.
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "Report bugs to <%s> (in English or Finnish).\n"
 msgstr "Ilmoita ohjelmistovioista (suomeksi) osoitteeseen <%s>.\n"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "%s home page: <%s>\n"
 msgstr "%s -kotisivu: <%s>\n"
@@ -952,9 +1054,24 @@ msgstr "%s -kotisivu: <%s>\n"
 msgid "THIS IS A DEVELOPMENT VERSION NOT INTENDED FOR PRODUCTION USE."
 msgstr "TÄMÄ ON KEHITYSVERSIO, JOTA EI OLE TARKOITETTU TUOTANTOKÄYTTÖÖN."
 
+#: src/xz/message.c
+msgid ""
+"Filter chains are set using the --filters=FILTERS or\n"
+"--filters1=FILTERS ... --filters9=FILTERS options. Each filter in the chain\n"
+"can be separated by spaces or '--'. Alternatively a preset <0-9>[e] can be\n"
+"specified instead of a filter chain.\n"
+msgstr ""
+
+#: src/xz/message.c
+#, fuzzy
+#| msgid "Unsupported filter chain or filter options"
+msgid "The supported filters and their options are:"
+msgstr "Ei-tuettu suodinketju tai suotimen asetukset"
+
 #: src/xz/options.c
-#, c-format
-msgid "%s: Options must be `name=value' pairs separated with commas"
+#, fuzzy, c-format
+#| msgid "%s: Options must be `name=value' pairs separated with commas"
+msgid "%s: Options must be 'name=value' pairs separated with commas"
 msgstr "%s: Asetusten on oltava pilkuilla eroteltuja ”nimi=arvo” -pareja"
 
 #: src/xz/options.c
@@ -982,8 +1099,9 @@ msgid "%s: Filename has an unknown suffix, skipping"
 msgstr "%s: Tiedostonimen pääte on tuntematon, ohitetaan"
 
 #: src/xz/suffix.c
-#, c-format
-msgid "%s: File already has `%s' suffix, skipping"
+#, fuzzy, c-format
+#| msgid "%s: File already has `%s' suffix, skipping"
+msgid "%s: File already has '%s' suffix, skipping"
 msgstr "%s: Tiedostolla on jo ”%s”-pääte, ohitetaan"
 
 #: src/xz/suffix.c
@@ -1002,12 +1120,15 @@ msgid "%s: Invalid multiplier suffix"
 msgstr "%s: Tuntematon kerroin"
 
 #: src/xz/util.c
-msgid "Valid suffixes are `KiB' (2^10), `MiB' (2^20), and `GiB' (2^30)."
+#, fuzzy
+#| msgid "Valid suffixes are `KiB' (2^10), `MiB' (2^20), and `GiB' (2^30)."
+msgid "Valid suffixes are 'KiB' (2^10), 'MiB' (2^20), and 'GiB' (2^30)."
 msgstr "Kelvolliset kertoimet ovat ”KiB” (2¹⁰), ”MiB” (2²⁰) ja ”GiB” (2³⁰)."
 
 #: src/xz/util.c
-#, c-format
-msgid "Value of the option `%s' must be in the range [%<PRIu64>, %<PRIu64>]"
+#, fuzzy, c-format
+#| msgid "Value of the option `%s' must be in the range [%<PRIu64>, %<PRIu64>]"
+msgid "Value of the option '%s' must be in the range [%<PRIu64>, %<PRIu64>]"
 msgstr "Valitsimen ”%s” arvon on oltava välillä [%<PRIu64>, %<PRIu64>]"
 
 #: src/xz/util.c
@@ -1018,6 +1139,23 @@ msgstr "Tiivistettyä dataa ei voi lukea päätteestä"
 msgid "Compressed data cannot be written to a terminal"
 msgstr "Tiivistettyä dataa ei voi kirjoittaa päätteeseen"
 
+#: src/lzmainfo/lzmainfo.c
+#, c-format
+msgid ""
+"Usage: %s [--help] [--version] [FILE]...\n"
+"Show information stored in the .lzma file header"
+msgstr ""
+
+#: src/lzmainfo/lzmainfo.c
+#, fuzzy
+#| msgid "%s: Too small to be a valid .xz file"
+msgid "File is too small to be a .lzma file"
+msgstr "%s: Liian pieni kelvolliseksi .xz-tiedostoksi"
+
+#: src/lzmainfo/lzmainfo.c
+msgid "Not a .lzma file"
+msgstr ""
+
 #: src/common/tuklib_exit.c
 msgid "Writing to standard output failed"
 msgstr "Vakiotulosteeseen kirjoitus epäonnistui"
@@ -1025,6 +1163,9 @@ msgstr "Vakiotulosteeseen kirjoitus epäonnistui"
 #: src/common/tuklib_exit.c
 msgid "Unknown error"
 msgstr "Tuntematon virhe"
+
+#~ msgid "Failed to enable the sandbox"
+#~ msgstr "Hiekkalaatikon ottaminen käyttöön epäonnistui"
 
 #, c-format
 #~ msgid "The selected match finder requires at least nice=%<PRIu32>"

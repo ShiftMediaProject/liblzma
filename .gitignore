@@ -15,7 +15,6 @@ Makefile.in
 
 /ABOUT-NLS
 /autom4te.cache
-/Doxyfile
 /aclocal.m4
 /config.h
 /config.h.in
@@ -25,6 +24,7 @@ Makefile.in
 /libtool
 /stamp-h1
 
+build-aux/artifacts
 build-aux/compile
 build-aux/config.guess
 build-aux/config.rpath
@@ -39,6 +39,10 @@ coverage
 
 /doc/internal
 /doc/api
+
+/po4a/man
+/po4a/xz-man.pot
+/po4a/*.po.authors
 
 /src/liblzma/liblzma.pc
 /src/lzmainfo/lzmainfo
@@ -66,6 +70,7 @@ coverage
 /tests/test_index
 /tests/test_index_hash
 /tests/test_lzip_decoder
+/tests/test_microlzma
 /tests/test_memlimit
 /tests/test_stream_flags
 /tests/test_vli
@@ -92,21 +97,17 @@ coverage
 /DartConfiguration.tcl
 /liblzma-config-version.cmake
 /liblzma-config.cmake
-/lzcat
-/lzcat.1
-/lzma
-/lzma.1
 /Testing
 /tests_bin/
-/unlzma
-/unlzma.1
-/unxz
-/unxz.1
 /xz
-/xzcat
-/xzcat.1
 /xzdec
+/lzmadec
+/lzmainfo
+/xzdiff
+/xzgrep
+/xzless
+/xzmore
+/liblzma.pc
+/*.gmo
 
-/windows/*/.vs
-/windows/*/liblzma.vcxproj.user
 /.vscode/

@@ -67,24 +67,25 @@ XZ Utils
 
 1.1. Overall documentation
 
-    README              This file
+    README                This file
 
-    INSTALL.generic     Generic install instructions for those not familiar
-                        with packages using GNU Autotools
-    INSTALL             Installation instructions specific to XZ Utils
-    PACKAGERS           Information to packagers of XZ Utils
+    INSTALL.generic       Generic install instructions for those not
+                          familiar with packages using GNU Autotools
+    INSTALL               Installation instructions specific to XZ Utils
+    PACKAGERS             Information to packagers of XZ Utils
 
-    COPYING             XZ Utils copyright and license information
-    COPYING.GPLv2       GNU General Public License version 2
-    COPYING.GPLv3       GNU General Public License version 3
-    COPYING.LGPLv2.1    GNU Lesser General Public License version 2.1
+    COPYING               XZ Utils copyright and license information
+    COPYING.0BSD          BSD Zero Clause License
+    COPYING.GPLv2         GNU General Public License version 2
+    COPYING.GPLv3         GNU General Public License version 3
+    COPYING.LGPLv2.1      GNU Lesser General Public License version 2.1
 
-    AUTHORS             The main authors of XZ Utils
-    THANKS              Incomplete list of people who have helped making
-                        this software
-    NEWS                User-visible changes between XZ Utils releases
-    ChangeLog           Detailed list of changes (commit log)
-    TODO                Known bugs and some sort of to-do list
+    AUTHORS               The main authors of XZ Utils
+    THANKS                Incomplete list of people who have helped making
+                          this software
+    NEWS                  User-visible changes between XZ Utils releases
+    ChangeLog             Detailed list of changes (commit log)
+    TODO                  Known bugs and some sort of to-do list
 
     Note that only some of the above files are included in binary
     packages.
@@ -94,9 +95,9 @@ XZ Utils
 
     The command-line tools are documented as man pages. In source code
     releases (and possibly also in some binary packages), the man pages
-    are also provided in plain text (ASCII only) and PDF formats in the
-    directory "doc/man" to make the man pages more accessible to those
-    whose operating system doesn't provide an easy way to view man pages.
+    are also provided in plain text (ASCII only) format in the directory
+    "doc/man" to make the man pages more accessible to those whose
+    operating system doesn't provide an easy way to view man pages.
 
 
 1.3. Documentation for liblzma

@@ -1,5 +1,6 @@
 #!/bin/sh
-#
+# SPDX-License-Identifier: 0BSD
+
 ###############################################################################
 #
 # Wrapper for GNU groff to convert man pages to a few formats
@@ -16,9 +17,6 @@
 ###############################################################################
 #
 # Author: Lasse Collin
-#
-# This file has been put into the public domain.
-# You can do whatever you want with this file.
 #
 ###############################################################################
 

@@ -1,15 +1,20 @@
-# Swedish messages for xz.
-# This file is put in the public domain.
+# SPDX-License-Identifier: 0BSD
+#
+# Swedish translation for xz.
+# Copyright (C) The XZ Utils authors and contributors
+# This file is published under the BSD Zero Clause License.
+#
 # Sebastian Rasmussen <sebras@gmail.com>, 2019.
-# Luna Jernberg <droidbittin@gmail.com>, 2022, 2023.
+# Luna Jernberg <droidbittin@gmail.com>, 2022, 2023, 2024.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xz 5.4.4-pre1\n"
+"Project-Id-Version: xz 5.6.0-pre2\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2024-05-28 21:28+0300\n"
-"PO-Revision-Date: 2023-07-19 20:25+0200\n"
-"Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
+"POT-Creation-Date: 2024-05-29 17:41+0300\n"
+"PO-Revision-Date: 2024-02-15 21:37+0100\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-Bookmarks: -1,10,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #: src/xz/args.c
@@ -29,6 +34,11 @@ msgstr "%s: Ogiltigt argument till --block-list"
 #, c-format
 msgid "%s: Too many arguments to --block-list"
 msgstr "%s: För många argument till --block-list"
+
+#: src/xz/args.c
+#, c-format
+msgid "In --block-list, block size is missing after filter chain number '%c:'"
+msgstr "I --block-list saknas blockstorlek efter filterkedjenummer ”%c:”"
 
 #: src/xz/args.c
 msgid "0 can only be used as the last element in --block-list"
@@ -45,7 +55,7 @@ msgid "%s: Unsupported integrity check type"
 msgstr "%s: Integritetskontrolltyp stöds inte"
 
 #: src/xz/args.c
-msgid "Only one file can be specified with `--files' or `--files0'."
+msgid "Only one file can be specified with '--files' or '--files0'."
 msgstr "Endast en fil kan anges med ”--files” eller ”--files0”."
 
 #. TRANSLATORS: This is a translatable
@@ -74,16 +84,30 @@ msgid "Compression of lzip files (.lz) is not supported"
 msgstr "Komprimering av lzip-filer (.lz) stöds inte"
 
 #: src/xz/args.c
+msgid "--block-list is ignored unless compressing to the .xz format"
+msgstr "--block-list ignoreras såvida du inte komprimerar till .xz-formatet"
+
+#: src/xz/args.c
 msgid "With --format=raw, --suffix=.SUF is required unless writing to stdout"
-msgstr "Med --format=raw, --suffix=.SUF krävs om data inte skrivs till standard ut"
+msgstr "Med --format=raw krävs --suffix=.SUF om data inte skrivs till standard ut"
 
 #: src/xz/coder.c
 msgid "Maximum number of filters is four"
 msgstr "Maximalt antal filter är fyra"
 
 #: src/xz/coder.c
+#, c-format
+msgid "Error in --filters%s=FILTERS option:"
+msgstr "Fel i flagga för --filters%s=FILTER:"
+
+#: src/xz/coder.c
 msgid "Memory usage limit is too low for the given filter setup."
 msgstr "Begränsning av minnesanvändning är allt för låg för den angivna filteruppsättningen."
+
+#: src/xz/coder.c
+#, c-format
+msgid "filter chain %u used by --block-list but not specified with --filters%u="
+msgstr "filterkedja %u används av --block-list men inte specificerad med --filters%u="
 
 #: src/xz/coder.c
 msgid "Using a preset in raw mode is discouraged."
@@ -102,12 +126,18 @@ msgid "LZMA1 cannot be used with the .xz format"
 msgstr "LZMA1 kan inte användas tillsammans med .xz-formatet"
 
 #: src/xz/coder.c
-msgid "The filter chain is incompatible with --flush-timeout"
-msgstr "Filterkedjan är inkompatibel med --flush-timeout"
+#, c-format
+msgid "Filter chain %u is incompatible with --flush-timeout"
+msgstr "Filterkedja %u är inkompatibel med --flush-timeout"
 
 #: src/xz/coder.c
 msgid "Switching to single-threaded mode due to --flush-timeout"
 msgstr "Växlar till entrådsläge på grund av --flush-timeout"
+
+#: src/xz/coder.c
+#, c-format
+msgid "Unsupported options in filter chain %u"
+msgstr "Flaggor som inte stöds i filterkedjan %u"
 
 #: src/xz/coder.c
 #, c-format
@@ -143,14 +173,20 @@ msgstr "Ändrar till enkeltrådat läge för att inte överskrida minnesanvändn
 msgid "Adjusted LZMA%c dictionary size from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
 msgstr "Justerade storlek för LZMA%c-lexikon från %s MiB till %s MiB för att inte överstiga begränsningen av minnesanvändning på %s MiB"
 
+#: src/xz/coder.c
+#, c-format
+msgid "Adjusted LZMA%c dictionary size for --filters%u from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
+msgstr "Justerade storlek för LZMA%c-lexikon för --filters%u från %s MiB till %s MiB för att inte överskrida minnesanvändningsgränsen på %s MiB"
+
+#: src/xz/coder.c
+#, c-format
+msgid "Error changing to filter chain %u: %s"
+msgstr "Fel vid ändring till filterkedja %u: %s"
+
 #: src/xz/file_io.c
 #, c-format
 msgid "Error creating a pipe: %s"
 msgstr "Fel vid skapande av rörledning: %s"
-
-#: src/xz/file_io.c
-msgid "Failed to enable the sandbox"
-msgstr "Misslyckades med att aktivera sandlådan"
 
 #: src/xz/file_io.c
 #, c-format
@@ -484,7 +520,7 @@ msgstr "%s: Fil är tom"
 #: src/xz/list.c
 #, c-format
 msgid "%s: Too small to be a valid .xz file"
-msgstr "%s: För lite för att vara en giltig xz-fil"
+msgstr "%s: För liten för att vara en giltig .xz-fil"
 
 #. TRANSLATORS: These are column headings. From Strms (Streams)
 #. to Ratio, the columns are right aligned. Check and Filename
@@ -525,6 +561,10 @@ msgid "--list works only on .xz files (--format=xz or --format=auto)"
 msgstr "--list fungerar endast med .xz-filer (--format=xz eller --format=auto)"
 
 #: src/xz/list.c
+msgid "Try 'lzmainfo' with .lzma files."
+msgstr "Pröva ”lzmainfo” med .lzma-filer."
+
+#: src/xz/list.c
 msgid "--list does not support reading from standard input"
 msgstr "--list saknar stöd för att läsa från standard in"
 
@@ -540,8 +580,8 @@ msgstr "%s: Oväntat slut av indata vid läsning av filnamn"
 
 #: src/xz/main.c
 #, c-format
-msgid "%s: Null character found when reading filenames; maybe you meant to use `--files0' instead of `--files'?"
-msgstr "%s: Null-tecken hittat vid läsning av filnamn; kanske menade du att använda ”--files0” istället för ”--files”?"
+msgid "%s: Null character found when reading filenames; maybe you meant to use '--files0' instead of '--files'?"
+msgstr "%s: Nulltecken hittades vid läsning av filnamn; kanske du menade att använda ”--files0” istället för ”--files”?"
 
 #: src/xz/main.c
 msgid "Compression and decompression with --robot are not supported yet."
@@ -560,7 +600,7 @@ msgstr "Kan inte läsa data från standard in när filnamn läses från standard
 msgid "%s: "
 msgstr "%s: "
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 msgid "Internal error (bug)"
 msgstr "Internt fel"
 
@@ -613,8 +653,8 @@ msgstr "%s: Filterkedja: %s\n"
 
 #: src/xz/message.c
 #, c-format
-msgid "Try `%s --help' for more information."
-msgstr "Prova ”%s --help” för vidare information."
+msgid "Try '%s --help' for more information."
+msgstr "Testa ”%s --help” för mer information."
 
 #: src/xz/message.c
 #, c-format
@@ -677,7 +717,7 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "      --no-sparse     do not create sparse files when decompressing\n"
-"  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
+"  -S, --suffix=.SUF   use the suffix '.SUF' on compressed files\n"
 "      --files[=FILE]  read filenames to process from FILE; if FILE is\n"
 "                      omitted, filenames are read from the standard input;\n"
 "                      filenames must be terminated with the newline character\n"
@@ -701,9 +741,9 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "  -F, --format=FMT    file format to encode or decode; possible values are\n"
-"                      `auto' (default), `xz', `lzma', `lzip', and `raw'\n"
-"  -C, --check=CHECK   integrity check type: `none' (use with caution),\n"
-"                      `crc32', `crc64' (default), or `sha256'"
+"                      'auto' (default), 'xz', 'lzma', 'lzip', and 'raw'\n"
+"  -C, --check=CHECK   integrity check type: 'none' (use with caution),\n"
+"                      'crc32', 'crc64' (default), or 'sha256'"
 msgstr ""
 "  -F, --format=FMT    filformat att koda eller avkoda; möjliga värden är\n"
 "                      ”auto” (standard), ”xz”, ”lzma”, ”lzip” och ”raw”\n"
@@ -734,12 +774,11 @@ msgstr ""
 
 #: src/xz/message.c
 msgid ""
-"  -T, --threads=NUM   use at most NUM threads; the default is 1; set to 0\n"
-"                      to use as many threads as there are processor cores"
+"  -T, --threads=NUM   use at most NUM threads; the default is 0 which uses\n"
+"                      as many threads as there are processor cores"
 msgstr ""
-"  -T, --threads=NUM   använd som mest NUM trådar; standard är 1; sätt till 0\n"
-"                      för att använda så många trådar som det finns\n"
-"                      processorkärnor"
+"  -T, --threads=NUM   använd högst NUM trådar; standard är 0 vilket använder\n"
+"                      lika många trådar som det finns processorkärnor"
 
 #: src/xz/message.c
 msgid ""
@@ -754,13 +793,17 @@ msgstr ""
 
 #: src/xz/message.c
 msgid ""
-"      --block-list=SIZES\n"
+"      --block-list=BLOCKS\n"
 "                      start a new .xz block after the given comma-separated\n"
-"                      intervals of uncompressed data"
+"                      intervals of uncompressed data; optionally, specify a\n"
+"                      filter chain number (0-9) followed by a ':' before the\n"
+"                      uncompressed data size"
 msgstr ""
-"      --block-list=STORLEKAR\n"
-"                      påbörja ett nytt .xz-block efter de angivna\n"
-"                      komma-separerade intervallen av okomprimerad data"
+"      --block-list=BLOCK\n"
+"                      starta ett nytt .xz-block efter de givna\n"
+"                      kommaseparerade intervallen av okomprimerad data;\n"
+"                      ange valfritt ett filterkedjenummer (0-9) följt av ett\n"
+"                      ”:” före den okomprimerade datastorleken"
 
 #: src/xz/message.c
 msgid ""
@@ -815,6 +858,36 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "\n"
+"  --filters=FILTERS   set the filter chain using the liblzma filter string\n"
+"                      syntax; use --filters-help for more information"
+msgstr ""
+"\n"
+"  --filters=FILTER    ställ in filterkedjan med syntax för\n"
+"                      liblzma-filtersträngar; använd --filters-help för\n"
+"                      mer information"
+
+#: src/xz/message.c
+msgid ""
+"  --filters1=FILTERS ... --filters9=FILTERS\n"
+"                      set additional filter chains using the liblzma filter\n"
+"                      string syntax to use with --block-list"
+msgstr ""
+"  --filters1=FILTER ... --filters9=FILTER\n"
+"                      ställ in ytterligare filterkedjor som använder\n"
+"                      syntax för liblzma-filtersträngar att\n"
+"                      använda med --block-list"
+
+#: src/xz/message.c
+msgid ""
+"  --filters-help      display more information about the liblzma filter string\n"
+"                      syntax and exit."
+msgstr ""
+"  --filters-help      visa mer information om syntax för\n"
+"                      liblzma-filtersträngar och avsluta."
+
+#: src/xz/message.c
+msgid ""
+"\n"
 "  --lzma1[=OPTS]      LZMA1 or LZMA2; OPTS is a comma-separated list of zero or\n"
 "  --lzma2[=OPTS]      more of the following options (valid values; default):\n"
 "                        preset=PRE reset options to a preset (0-9[e])\n"
@@ -853,6 +926,7 @@ msgid ""
 "  --powerpc[=OPTS]    PowerPC BCJ filter (big endian only)\n"
 "  --ia64[=OPTS]       IA-64 (Itanium) BCJ filter\n"
 "  --sparc[=OPTS]      SPARC BCJ filter\n"
+"  --riscv[=OPTS]      RISC-V BCJ filter\n"
 "                      Valid OPTS for all BCJ filters:\n"
 "                        start=NUM  start offset for conversions (default=0)"
 msgstr ""
@@ -861,12 +935,13 @@ msgstr ""
 "  --arm[=FLAGGOR]      ARM BCJ-filter\n"
 "  --armthumb[=FLAGGOR] ARM-Thumb BCJ-filter\n"
 "  --arm64[=FLAGGOR]    ARM64 BCJ-filter\n"
-"  --powerpc[=FLAGGOR]  PowerPC BCJ-filter (endast rak byteordning)\n"
+"  --powerpc[=FLAGGOR]  PowerPC BCJ-filter (endast big endian)\n"
 "  --ia64[=FLAGGOR]     IA-64 (Itanium) BCJ-filter\n"
 "  --sparc[=FLAGGOR]    SPARC BCJ-filter\n"
+"  --riscv[=FLAGGOR]    RISC-V BCJ-filter\n"
 "                       Giltiga FLAGGOR för alla BCJ-filter:\n"
-"                         start=NUM  startposition för konverteringar\n"
-"                                    (standard=0)"
+"                         start=NUM  startposition för\n"
+"                         konverteringar (standard=0)"
 
 #: src/xz/message.c
 msgid ""
@@ -937,7 +1012,8 @@ msgstr ""
 msgid "  -V, --version       display the version number and exit"
 msgstr "  -V, --version       visa versionsnumret och avsluta"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
+#, c-format
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -949,14 +1025,14 @@ msgstr ""
 #. for this package. Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the email or WWW
 #. address for translation bugs. Thanks.
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "Report bugs to <%s> (in English or Finnish).\n"
 msgstr ""
-"Rapportera buggar till <%s> (på engelska eller finska).\n"
-"Rapportera översättningsfel till tp-sv@listor.tp-sv.se\n"
+"Rapportera fel till <%s> (på engelska eller finska).\n"
+"Rapportera översättningsfel till <tp-sv@listor.tp-sv.se>\n"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "%s home page: <%s>\n"
 msgstr "%s webbsida: <%s>\n"
@@ -965,9 +1041,25 @@ msgstr "%s webbsida: <%s>\n"
 msgid "THIS IS A DEVELOPMENT VERSION NOT INTENDED FOR PRODUCTION USE."
 msgstr "DETTA ÄR EN UTVECKLINGSVERSION SOM INTE ÄR AVSEDD FÖR PRODUKTIONSANVÄNDNING."
 
+#: src/xz/message.c
+msgid ""
+"Filter chains are set using the --filters=FILTERS or\n"
+"--filters1=FILTERS ... --filters9=FILTERS options. Each filter in the chain\n"
+"can be separated by spaces or '--'. Alternatively a preset <0-9>[e] can be\n"
+"specified instead of a filter chain.\n"
+msgstr ""
+"Filterkedjor ställs in med flaggorna --filters=FILTER eller\n"
+"--filters1=FILTER ... --filters9=FILTER. Varje filter i kedjan kan\n"
+"separeras med mellanslag eller ”--”. Alternativt kan en förinställning\n"
+"<0-9>[e] anges istället för en filterkedja.\n"
+
+#: src/xz/message.c
+msgid "The supported filters and their options are:"
+msgstr "Filtren som stöds och flaggorna för dem är:"
+
 #: src/xz/options.c
 #, c-format
-msgid "%s: Options must be `name=value' pairs separated with commas"
+msgid "%s: Options must be 'name=value' pairs separated with commas"
 msgstr "%s: Flaggor måste vara ”namn=värde”-par separerade med kommatecken"
 
 #: src/xz/options.c
@@ -996,8 +1088,8 @@ msgstr "%s: Filnamn har okänd filändelse, hoppar över"
 
 #: src/xz/suffix.c
 #, c-format
-msgid "%s: File already has `%s' suffix, skipping"
-msgstr "%s: Fil har redan ”%s”-ändelse, hoppar över"
+msgid "%s: File already has '%s' suffix, skipping"
+msgstr "%s: Filen har redan ändelsen ”%s”, hoppar över"
 
 #: src/xz/suffix.c
 #, c-format
@@ -1015,12 +1107,12 @@ msgid "%s: Invalid multiplier suffix"
 msgstr "%s: Ogiltig multipeländelse"
 
 #: src/xz/util.c
-msgid "Valid suffixes are `KiB' (2^10), `MiB' (2^20), and `GiB' (2^30)."
-msgstr "Giltiga ändelser är ”KiB” (2^10), ”MiB” (2^20) och ”GiB” (2^30)."
+msgid "Valid suffixes are 'KiB' (2^10), 'MiB' (2^20), and 'GiB' (2^30)."
+msgstr "Giltiga suffix är ”KiB” (2^10), ”MiB” (2^20) och ”GiB” (2^30)."
 
 #: src/xz/util.c
 #, c-format
-msgid "Value of the option `%s' must be in the range [%<PRIu64>, %<PRIu64>]"
+msgid "Value of the option '%s' must be in the range [%<PRIu64>, %<PRIu64>]"
 msgstr "Värdet för flaggan ”%s” måste vara inom intervallet [%<PRIu64>, %<PRIu64>]"
 
 #: src/xz/util.c
@@ -1031,6 +1123,23 @@ msgstr "Komprimerad data kan inte läsas från en terminal"
 msgid "Compressed data cannot be written to a terminal"
 msgstr "Komprimerad data kan inte skrivas till en terminal"
 
+#: src/lzmainfo/lzmainfo.c
+#, c-format
+msgid ""
+"Usage: %s [--help] [--version] [FILE]...\n"
+"Show information stored in the .lzma file header"
+msgstr ""
+"Användning: %s [--help] [--version] [FIL]…\n"
+"Visa information som lagrats i .lzma-filhuvudet"
+
+#: src/lzmainfo/lzmainfo.c
+msgid "File is too small to be a .lzma file"
+msgstr "Filen är för liten för att vara en giltig .lzma-fil"
+
+#: src/lzmainfo/lzmainfo.c
+msgid "Not a .lzma file"
+msgstr "Inte en .lzma-fil"
+
 #: src/common/tuklib_exit.c
 msgid "Writing to standard output failed"
 msgstr "Skrivning till standard ut misslyckades"
@@ -1038,6 +1147,9 @@ msgstr "Skrivning till standard ut misslyckades"
 #: src/common/tuklib_exit.c
 msgid "Unknown error"
 msgstr "Okänt fel"
+
+#~ msgid "Failed to enable the sandbox"
+#~ msgstr "Misslyckades med att aktivera sandlådan"
 
 #~ msgid "The selected match finder requires at least nice=%<PRIu32>"
 #~ msgstr "Den valda matchningshittaren kräver åtminstone nice=%<PRIu32>"

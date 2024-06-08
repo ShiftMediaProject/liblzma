@@ -1,22 +1,25 @@
-# Hungarian translation for xz.
-# This file is put in the public domain.
+# SPDX-License-Identifier: 0BSD
 #
-# Meskó Balázs <mesko.balazs@fsf.hu>, 2019, 2022.
+# Hungarian translation for xz.
+# This file is published under the BSD Zero Clause License.
+#
+# Meskó Balázs <mesko.balazs@fsf.hu>, 2019, 2022, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: xz 5.4.0-pre1\n"
+"Project-Id-Version: xz 5.6.0-pre2\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2024-05-28 21:28+0300\n"
-"PO-Revision-Date: 2022-11-10 12:13+0100\n"
+"POT-Creation-Date: 2024-05-29 17:41+0300\n"
+"PO-Revision-Date: 2024-02-17 18:35+0100\n"
 "Last-Translator: Meskó Balázs <mesko.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "plural-forms: nplurals=2; plural=(n != 1);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4\n"
 
 #: src/xz/args.c
 #, c-format
@@ -27,6 +30,11 @@ msgstr "%s: Érvénytelen argumentum a --block-list kapcsolóhoz"
 #, c-format
 msgid "%s: Too many arguments to --block-list"
 msgstr "%s: Túl sok argumentum a --block-list kapcsolóhoz"
+
+#: src/xz/args.c
+#, c-format
+msgid "In --block-list, block size is missing after filter chain number '%c:'"
+msgstr "A --block-list kapcsolónál hiányzik a blokkméret a(z) „%c:” szűrőláncszám után"
 
 #: src/xz/args.c
 msgid "0 can only be used as the last element in --block-list"
@@ -43,17 +51,16 @@ msgid "%s: Unsupported integrity check type"
 msgstr "%s: Nem támogatott integritás-ellenőrzési típus"
 
 #: src/xz/args.c
-msgid "Only one file can be specified with `--files' or `--files0'."
+msgid "Only one file can be specified with '--files' or '--files0'."
 msgstr "Csak egy fájl adható meg a „--files” vagy „--files0” kapcsolóknál."
 
 #. TRANSLATORS: This is a translatable
 #. string because French needs a space
 #. before the colon ("%s : %s").
 #: src/xz/args.c src/xz/coder.c src/xz/file_io.c src/xz/list.c
-#, fuzzy, c-format
-#| msgid "%s: "
+#, c-format
 msgid "%s: %s"
-msgstr "%s: "
+msgstr "%s: %s"
 
 #: src/xz/args.c
 #, c-format
@@ -73,18 +80,30 @@ msgid "Compression of lzip files (.lz) is not supported"
 msgstr "Az lzip-fájlok (.lz) tömörítése nem támogatott"
 
 #: src/xz/args.c
-#, fuzzy
-#| msgid "%s: With --format=raw, --suffix=.SUF is required unless writing to stdout"
+msgid "--block-list is ignored unless compressing to the .xz format"
+msgstr "A --block-list kapcsoló csak .xz formátum esetén van figyelembe véve"
+
+#: src/xz/args.c
 msgid "With --format=raw, --suffix=.SUF is required unless writing to stdout"
-msgstr "%s: --format=raw esetén, --suffix=.SUF szükséges, hacsak nem a szabványosra kimenetre ír"
+msgstr "A --format=raw esetén a --suffix=.SUF szükséges, hacsak nem a szabványosra kimenetre ír"
 
 #: src/xz/coder.c
 msgid "Maximum number of filters is four"
 msgstr "A szűrők legnagyobb száma négy"
 
 #: src/xz/coder.c
+#, c-format
+msgid "Error in --filters%s=FILTERS option:"
+msgstr "Hiba a --filters%s=SZŰRŐK kapcsolóban:"
+
+#: src/xz/coder.c
 msgid "Memory usage limit is too low for the given filter setup."
 msgstr "A memóriahasználat túl alacsony a megadott szűrőbeállításokhoz."
+
+#: src/xz/coder.c
+#, c-format
+msgid "filter chain %u used by --block-list but not specified with --filters%u="
+msgstr "A --block-list használja a(z) %u. szűrőláncot, de az nincs megadva a --filters%u= kapcsolóval"
 
 #: src/xz/coder.c
 msgid "Using a preset in raw mode is discouraged."
@@ -103,12 +122,18 @@ msgid "LZMA1 cannot be used with the .xz format"
 msgstr "Az LZMA1 nem használható az .xz formátummal"
 
 #: src/xz/coder.c
-msgid "The filter chain is incompatible with --flush-timeout"
-msgstr "A szűrőlánc nem kompatibilis a --flush-timeout kapcsolóval"
+#, c-format
+msgid "Filter chain %u is incompatible with --flush-timeout"
+msgstr "A(z) %u. szűrőlánc nem kompatibilis a --flush-timeout kapcsolóval"
 
 #: src/xz/coder.c
 msgid "Switching to single-threaded mode due to --flush-timeout"
 msgstr "Egyszálú módra váltás a --flush-timeout kapcsoló miatt"
+
+#: src/xz/coder.c
+#, c-format
+msgid "Unsupported options in filter chain %u"
+msgstr "Nem támogatott kapcsolók a(z) %u szűrőláncban"
 
 #: src/xz/coder.c
 #, c-format
@@ -144,14 +169,20 @@ msgstr "Egyszálú módra váltás, hogy ne lépje túl a(z) %s MiB-os memóriah
 msgid "Adjusted LZMA%c dictionary size from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
 msgstr "Az LZMA%c szótár méretének módosítása erről: %s MiB, erre: %s MiB, hogy ne lépje túl a(z) %s MiB-os korlátot"
 
+#: src/xz/coder.c
+#, c-format
+msgid "Adjusted LZMA%c dictionary size for --filters%u from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
+msgstr "A --filters%2$u szűrőhöz tartozó LZMA%1$c szótár méretének módosítása %3$s MiB-ról %4$s MiB-ra, hogy ne lépje túl a(z) %5$s MiB-os korlátot"
+
+#: src/xz/coder.c
+#, c-format
+msgid "Error changing to filter chain %u: %s"
+msgstr "Hiba a(z) %u. szűrőlánc létrehozásakor: %s"
+
 #: src/xz/file_io.c
 #, c-format
 msgid "Error creating a pipe: %s"
 msgstr "Hiba a csővezeték létrehozásakor: %s"
-
-#: src/xz/file_io.c
-msgid "Failed to enable the sandbox"
-msgstr "A homokozó engedélyezése sikertelen"
 
 #: src/xz/file_io.c
 #, c-format
@@ -526,6 +557,10 @@ msgid "--list works only on .xz files (--format=xz or --format=auto)"
 msgstr "A --list csak .xz fájlokkal működik (--format=xz vagy --format=auto)"
 
 #: src/xz/list.c
+msgid "Try 'lzmainfo' with .lzma files."
+msgstr "Az „lzmainfo” kipróbálása az .lzma fájlok esetén."
+
+#: src/xz/list.c
 msgid "--list does not support reading from standard input"
 msgstr "A --list nem támogatja a szabványos bemenetről beolvasást"
 
@@ -541,7 +576,7 @@ msgstr "%s: A bemenet váratlanul véget ért a fájlnevek olvasásakor"
 
 #: src/xz/main.c
 #, c-format
-msgid "%s: Null character found when reading filenames; maybe you meant to use `--files0' instead of `--files'?"
+msgid "%s: Null character found when reading filenames; maybe you meant to use '--files0' instead of '--files'?"
 msgstr "%s: Null karakter található a fájlnevek olvasásakor; talán a „--files0” kapcsolóra gondolt a „--files” helyett?"
 
 #: src/xz/main.c
@@ -561,7 +596,7 @@ msgstr "Az adatok nem olvashatók be a szabványos bemenetről a fájlnevek olva
 msgid "%s: "
 msgstr "%s: "
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 msgid "Internal error (bug)"
 msgstr "Belső hiba (bug)"
 
@@ -614,7 +649,7 @@ msgstr "%s: Szűrőlánc: %s\n"
 
 #: src/xz/message.c
 #, c-format
-msgid "Try `%s --help' for more information."
+msgid "Try '%s --help' for more information."
 msgstr "További információkért adja ki a következő parancsot: „%s --help”."
 
 #: src/xz/message.c
@@ -679,7 +714,7 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "      --no-sparse     do not create sparse files when decompressing\n"
-"  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
+"  -S, --suffix=.SUF   use the suffix '.SUF' on compressed files\n"
 "      --files[=FILE]  read filenames to process from FILE; if FILE is\n"
 "                      omitted, filenames are read from the standard input;\n"
 "                      filenames must be terminated with the newline character\n"
@@ -705,9 +740,9 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "  -F, --format=FMT    file format to encode or decode; possible values are\n"
-"                      `auto' (default), `xz', `lzma', `lzip', and `raw'\n"
-"  -C, --check=CHECK   integrity check type: `none' (use with caution),\n"
-"                      `crc32', `crc64' (default), or `sha256'"
+"                      'auto' (default), 'xz', 'lzma', 'lzip', and 'raw'\n"
+"  -C, --check=CHECK   integrity check type: 'none' (use with caution),\n"
+"                      'crc32', 'crc64' (default), or 'sha256'"
 msgstr ""
 "  -F, --format=FMT    a kódoláshoz vagy dekódoláshoz használt fájlformátum;\n"
 "                      lehetséges értékek „auto” (alapértelmezett), „xz”,\n"
@@ -738,12 +773,12 @@ msgstr ""
 
 #: src/xz/message.c
 msgid ""
-"  -T, --threads=NUM   use at most NUM threads; the default is 1; set to 0\n"
-"                      to use as many threads as there are processor cores"
+"  -T, --threads=NUM   use at most NUM threads; the default is 0 which uses\n"
+"                      as many threads as there are processor cores"
 msgstr ""
-"  -T, --threads=SZÁM  legfeljebb ennyi szál használata; alapértelmezett az 1;\n"
-"                      állítsa 0-ra, hogy annyi szálat használjon, amennyi\n"
-"                      processzormag áll rendelkezésre"
+"  -T, --threads=SZÁM  legfeljebb ennyi szál használata; alapértelmezett a 0,\n"
+"                      amely annyi szálat használ, amennyi processzormag áll\n"
+"                      rendelkezésre"
 
 #: src/xz/message.c
 msgid ""
@@ -757,13 +792,17 @@ msgstr ""
 
 #: src/xz/message.c
 msgid ""
-"      --block-list=SIZES\n"
+"      --block-list=BLOCKS\n"
 "                      start a new .xz block after the given comma-separated\n"
-"                      intervals of uncompressed data"
+"                      intervals of uncompressed data; optionally, specify a\n"
+"                      filter chain number (0-9) followed by a ':' before the\n"
+"                      uncompressed data size"
 msgstr ""
-"      --block-list=MÉRETEK\n"
+"      --block-list=BLOKKOK\n"
 "                      új .xz blokk indítása a vesszőkkel felsorolva megadott\n"
-"                      méretű tömörítetlen adatszakaszok után"
+"                      méretű tömörítetlen adatszakaszok után; a tömörítetlen\n"
+"                      adatok mérete előtt egy szűrőláncszám (0-9) is megadható\n"
+"                      egy „:” karakter közbeiktatásával"
 
 #: src/xz/message.c
 msgid ""
@@ -817,6 +856,34 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "\n"
+"  --filters=FILTERS   set the filter chain using the liblzma filter string\n"
+"                      syntax; use --filters-help for more information"
+msgstr ""
+"\n"
+"  --filters=SZŰRŐK    a szűrőlánc beállítása liblzma szűrőformátummal;\n"
+"                      további információkért lásd a --filters-help kapcsolót"
+
+#: src/xz/message.c
+msgid ""
+"  --filters1=FILTERS ... --filters9=FILTERS\n"
+"                      set additional filter chains using the liblzma filter\n"
+"                      string syntax to use with --block-list"
+msgstr ""
+"  --filters1=SZŰRŐK ... --filters9=SZŰRŐK\n"
+"                      további szűrőláncok beállítása liblzma formátummal a\n"
+"                      --block-list kapcsolóhoz"
+
+#: src/xz/message.c
+msgid ""
+"  --filters-help      display more information about the liblzma filter string\n"
+"                      syntax and exit."
+msgstr ""
+"  --filters-help      további információk megjelenítése a libzma\n"
+"                      szűrőformátumról, majd kilépés."
+
+#: src/xz/message.c
+msgid ""
+"\n"
 "  --lzma1[=OPTS]      LZMA1 or LZMA2; OPTS is a comma-separated list of zero or\n"
 "  --lzma2[=OPTS]      more of the following options (valid values; default):\n"
 "                        preset=PRE reset options to a preset (0-9[e])\n"
@@ -854,6 +921,7 @@ msgid ""
 "  --powerpc[=OPTS]    PowerPC BCJ filter (big endian only)\n"
 "  --ia64[=OPTS]       IA-64 (Itanium) BCJ filter\n"
 "  --sparc[=OPTS]      SPARC BCJ filter\n"
+"  --riscv[=OPTS]      RISC-V BCJ filter\n"
 "                      Valid OPTS for all BCJ filters:\n"
 "                        start=NUM  start offset for conversions (default=0)"
 msgstr ""
@@ -865,9 +933,10 @@ msgstr ""
 "  --powerpc[=KAPCS]   PowerPC BCJ szűrő (csak big endian esetén)\n"
 "  --ia64[=KAPCS]      IA-64 (Itanium) BCJ szűrő\n"
 "  --sparc[=KAPCS]     SPARC BCJ szűrő\n"
+"  --riscv[=KAPCS]     RISC-V BCJ szűrő\n"
 "                      Érvényes KAPCS az összes BCJ szűrőhöz:\n"
-"                        start=SZÁM kezdési eltolás az átalakításokhoz\n"
-"                        (alapértelmezett=0)"
+"                        start=SZÁM  kezdési eltolás az átalakításokhoz\n"
+"                                    (alapértelmezett=0)"
 
 #: src/xz/message.c
 msgid ""
@@ -940,7 +1009,8 @@ msgstr ""
 msgid "  -V, --version       display the version number and exit"
 msgstr "  -V, --version       a verziószám kiírása és kilépés"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
+#, c-format
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -952,12 +1022,12 @@ msgstr ""
 #. for this package. Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the email or WWW
 #. address for translation bugs. Thanks.
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "Report bugs to <%s> (in English or Finnish).\n"
 msgstr "Ide jelentse a hibákat: <%s> (angolul vagy finnül).\n"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "%s home page: <%s>\n"
 msgstr "%s honlap: <%s>\n"
@@ -966,9 +1036,25 @@ msgstr "%s honlap: <%s>\n"
 msgid "THIS IS A DEVELOPMENT VERSION NOT INTENDED FOR PRODUCTION USE."
 msgstr "EZ EGY FEJLESZTŐI VÁLTOZAT, NEM ÉLES HASZNÁLATRA SZÁNT."
 
+#: src/xz/message.c
+msgid ""
+"Filter chains are set using the --filters=FILTERS or\n"
+"--filters1=FILTERS ... --filters9=FILTERS options. Each filter in the chain\n"
+"can be separated by spaces or '--'. Alternatively a preset <0-9>[e] can be\n"
+"specified instead of a filter chain.\n"
+msgstr ""
+"A szűrőláncokat a --filters=SZŰRŐK vagy a\n"
+"--filters1=SZŰRŐK ... --filters9=SZŰRŐK kapcsolókkal lehet megadni. A láncban\n"
+"szereplő egyes szűrőket szóközökkel vagy „--” karakterekkel kell elválasztani.\n"
+"Illetve egy <0-9>[e] előbeállítás is megadható szűrőlánc helyett.\n"
+
+#: src/xz/message.c
+msgid "The supported filters and their options are:"
+msgstr "A támogatott szűrők és azok kapcsolói a következők:"
+
 #: src/xz/options.c
 #, c-format
-msgid "%s: Options must be `name=value' pairs separated with commas"
+msgid "%s: Options must be 'name=value' pairs separated with commas"
 msgstr "%s: A kapcsolóknak vesszőkkel elválasztott „név=érték” pároknak kell lenniük"
 
 #: src/xz/options.c
@@ -997,8 +1083,8 @@ msgstr "%s: A fájlnév utótagja ismeretlen, kihagyás"
 
 #: src/xz/suffix.c
 #, c-format
-msgid "%s: File already has `%s' suffix, skipping"
-msgstr "%s: A(z) „%s” fájlnak már van utótagja, kihagyás"
+msgid "%s: File already has '%s' suffix, skipping"
+msgstr "%s: A fájlnak már van „%s” utótagja, kihagyás"
 
 #: src/xz/suffix.c
 #, c-format
@@ -1016,12 +1102,12 @@ msgid "%s: Invalid multiplier suffix"
 msgstr "%s: Érvénytelen szorzó utótag"
 
 #: src/xz/util.c
-msgid "Valid suffixes are `KiB' (2^10), `MiB' (2^20), and `GiB' (2^30)."
+msgid "Valid suffixes are 'KiB' (2^10), 'MiB' (2^20), and 'GiB' (2^30)."
 msgstr "Az érvényes utótagok: „KiB” (2^10), „MiB” (2^20) és „GiB” (2^30)."
 
 #: src/xz/util.c
 #, c-format
-msgid "Value of the option `%s' must be in the range [%<PRIu64>, %<PRIu64>]"
+msgid "Value of the option '%s' must be in the range [%<PRIu64>, %<PRIu64>]"
 msgstr "A(z) „%s” kapcsoló értékének a(z) [%<PRIu64>, %<PRIu64>] tartományban kell lennie"
 
 #: src/xz/util.c
@@ -1032,6 +1118,23 @@ msgstr "A tömörített adatokat nem lehet beolvasni a terminálból"
 msgid "Compressed data cannot be written to a terminal"
 msgstr "A tömörített adatokat nem lehet kiírni a terminálba"
 
+#: src/lzmainfo/lzmainfo.c
+#, c-format
+msgid ""
+"Usage: %s [--help] [--version] [FILE]...\n"
+"Show information stored in the .lzma file header"
+msgstr ""
+"Használat: %s [--help] [--version] [FÁJL]…\n"
+"Az .lzma fájl fejlécében tárolt információk megjelenítése"
+
+#: src/lzmainfo/lzmainfo.c
+msgid "File is too small to be a .lzma file"
+msgstr "A fájl túl kicsi, hogy érvényes .lzma fájl legyen"
+
+#: src/lzmainfo/lzmainfo.c
+msgid "Not a .lzma file"
+msgstr "Nem .lzma fájl"
+
 #: src/common/tuklib_exit.c
 msgid "Writing to standard output failed"
 msgstr "A szabványos kimenetre írás sikertelen"
@@ -1039,6 +1142,9 @@ msgstr "A szabványos kimenetre írás sikertelen"
 #: src/common/tuklib_exit.c
 msgid "Unknown error"
 msgstr "Ismeretlen hiba"
+
+#~ msgid "Failed to enable the sandbox"
+#~ msgstr "A homokozó engedélyezése sikertelen"
 
 #, c-format
 #~ msgid "The selected match finder requires at least nice=%<PRIu32>"

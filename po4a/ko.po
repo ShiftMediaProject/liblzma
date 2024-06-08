@@ -1,12 +1,13 @@
+# SPDX-License-Identifier: 0BSD
 # Korean translation for the xz-man
-# This file is put in the public domain.
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2023.
+# This file is published under the BSD Zero Clause License..
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2023, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xz-man 5.4.4-pre1\n"
-"POT-Creation-Date: 2024-05-28 21:12+0300\n"
-"PO-Revision-Date: 2023-07-20 11:01+0900\n"
+"Project-Id-Version: xz-man 5.6.0-pre2\n"
+"POT-Creation-Date: 2024-05-29 17:45+0300\n"
+"PO-Revision-Date: 2024-02-21 00:14+0900\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean <translation-team-ko@googlegroups.com>\n"
 "Language: ko\n"
@@ -25,9 +26,10 @@ msgstr "XZ"
 
 #. type: TH
 #: ../src/xz/xz.1 ../src/xzdec/xzdec.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "2024-02-25"
 msgid "2024-04-08"
-msgstr ""
+msgstr "2024-02-25"
 
 #. type: TH
 #: ../src/xz/xz.1 ../src/xzdec/xzdec.1 ../src/lzmainfo/lzmainfo.1
@@ -69,7 +71,7 @@ msgstr "요약"
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "B<xz> [I<option...>] [I<file...>]"
-msgstr "B<xz> [I<<옵션>...>] [I<E<lt>파일E<gt>...>]"
+msgstr "B<xz> [I<E<lt>옵션E<gt>...>] [I<E<lt>파일E<gt>...>]"
 
 #. type: SH
 #: ../src/xz/xz.1
@@ -404,7 +406,7 @@ msgstr "대상 파일이 이미 있으면, 압축 또는 압축 해제 전 삭�
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "Compress or decompress even if the input is a symbolic link to a regular file, has more than one hard link, or has the setuid, setgid, or sticky bit set.  The setuid, setgid, and sticky bits are not copied to the target file."
-msgstr "입력 파일이 일반 파일을 참조하는 심볼릭 링크나 하나 이상의 하드 링크, 내지는 setuid, setgid, 끈적이 비트 세트를 설정한 상태라도 압축 또는 압축 해제를 진행합니다.  setuid, setgid, 끈적이 비트는 대상 파일에 복사하지 않습니다"
+msgstr "입력 파일이 일반 파일을 참조하는 심볼릭 링크나 하나 이상의 하드 링크, 내지는 setuid, setgid, 끈적이 비트 세트를 설정한 상태라도 압축 또는 압축 해제를 진행합니다.  setuid, setgid, 끈적이 비트는 대상 파일에 복사하지 않습니다."
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -993,7 +995,7 @@ msgstr "CompCPU는 압축 속도에 영향을 주는 LZMA2 설정의 단순화 �
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "CompMem contains the compressor memory requirements in the single-threaded mode.  It may vary slightly between B<xz> versions."
-msgstr ""
+msgstr "CompMem은 단일-스레드 모드에서 필요한 압축 프로그램의 메모리 점유 용량입니다.  B<xz> 버전에 따라 다를 수 있습니다."
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -1003,7 +1005,7 @@ msgstr "DecMem은 압축 해제 프로그램의 메모리 점유용량입니다.
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "Memory requirements of the multi-threaded mode are significantly higher than that of the single-threaded mode.  With the default value of B<--block-size>, each thread needs 3*3*DictSize plus CompMem or DecMem.  For example, four threads with preset B<-6> needs 660\\(en670\\ MiB of memory."
-msgstr ""
+msgstr "다중-스레드 모드에서 필요한 메모리 용량은 단일-스레드 모드보단 약간 더 많습니다.  B<--block-size> 기본값에 따라, 각 스레드에서는 3*3*딕셔녀리_크기 + 압축시_메모리용량 또는 압축_해제시_메모리용량 정도가 필요합니다.  예를 들면, 스레드 넷에 사전 설정 옵션 B<-6>을 사용한다면, 660\\(en670 MiB 메모리 용량이 필요합니다."
 
 #. type: TP
 #: ../src/xz/xz.1
@@ -1141,38 +1143,68 @@ msgstr "B<.xz> 형식으로 압축할 때, 입력 데이터를 I<E<lt>크기E<gt
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "In multi-threaded mode about three times I<size> bytes will be allocated in each thread for buffering input and output.  The default I<size> is three times the LZMA2 dictionary size or 1 MiB, whichever is more.  Typically a good value is 2\\(en4 times the size of the LZMA2 dictionary or at least 1 MiB.  Using I<size> less than the LZMA2 dictionary size is waste of RAM because then the LZMA2 dictionary buffer will never get fully used.  In multi-threaded mode, the sizes of the blocks are stored in the block headers.  This size information is required for multi-threaded decompression."
-msgstr ""
+msgstr "다중-스레드 모드에서는 약 3배 용량의 I<E<lt>크기E<gt>> 바이트만큼 각 스레드 별로 입출력 버퍼링용 공간을 할당합니다.  기본 I<E<lt>크기E<gt>>는 LZMA2 딕셔너리 크기 또는 1MiB 중 가장 큰 쪽의 세 배입니다.  보통 적절한 값으로 LZMA2 딕셔너리 크기 또는 최소한 1MiB 용량의 2\\(en4배입니다.  LZMA2 딕셔너리 크기보다 작은 I<E<lt>크기E<gt>>는 램의 소모적 사용 공간으로 할당하는데 LZMA2 딕셔너리 버퍼를 할당한 용량 크기 전체를 다 사용하지 않기 때문입니다.  다중-스레드 모드에서 블록 크기는 블록 헤더에 저장하며, 이 크기 정보는 다중-스레드 압축 해제시 필요합니다."
 
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "In single-threaded mode no block splitting is done by default.  Setting this option doesn't affect memory usage.  No size information is stored in block headers, thus files created in single-threaded mode won't be identical to files created in multi-threaded mode.  The lack of size information also means that B<xz> won't be able decompress the files in multi-threaded mode."
-msgstr ""
+msgstr "단일-스레드 모드에서는 기본적으로 블록 쪼개기를 하지 않습니다.  이 옵션을 설정한다고 해서 메모리 사용에 영향을 주지는 않습니다.  블록 헤더에 크기 정보를 저장하지 않기 때문에 단일-스레드 모드에서 만든 파일은 다중-스레드 모드에서 만든 파일과 동일하지 않습니다.  크기 정보의 누락은 또한 B<xz>에서 다중-스레드 모드로 압축 해제를 진행할 수 없음을 의미하기도 합니다."
 
 #. type: TP
 #: ../src/xz/xz.1
 #, no-wrap
-msgid "B<--block-list=>I<sizes>"
-msgstr "B<--block-list=>I<E<lt>크기E<gt>>"
+msgid "B<--block-list=>I<items>"
+msgstr "B<--block-list=>I<E<lt>항목E<gt>>"
 
 #. type: Plain text
 #: ../src/xz/xz.1
-msgid "When compressing to the B<.xz> format, start a new block after the given intervals of uncompressed data."
-msgstr "B<.xz> 형식으로 압축할 때, 압축하지 않은 데이터에 주어진 처리 시간 간격 이후에 새 블록 처리를 시작합니다."
+msgid "When compressing to the B<.xz> format, start a new block with an optional custom filter chain after the given intervals of uncompressed data."
+msgstr "B<.xz> 형식으로 압축할 때, 압축하지 않은 데이터로 부터 일정 간격 이후에 새 블록 처리를 시작합니다."
 
 #. type: Plain text
 #: ../src/xz/xz.1
-msgid "The uncompressed I<sizes> of the blocks are specified as a comma-separated list.  Omitting a size (two or more consecutive commas) is a shorthand to use the size of the previous block."
-msgstr "압축하지 않은 블록 I<E<lt>크기E<gt>>는 쉼표로 구분한 목록으로 지정합니다.  크기 값을 생략(둘 이상의 연속 쉼표)는 이전 블록 크기를 계속 사용하겠다는 의미입니다."
+msgid "The I<items> are a comma-separated list.  Each item consists of an optional filter chain number between 0 and 9 followed by a colon (B<:>)  and a required size of uncompressed data.  Omitting an item (two or more consecutive commas) is a shorthand to use the size and filters of the previous item."
+msgstr "I<E<lt>항목E<gt>>은 쉼표로 구분한 목록으로 지정합니다.  각 항목은 콜론 (B<:>)으로 구분한 0부터 9까지의 추가 필터 체인 번호 값으로 이루어져 있으며, 압축하지 않은 데이터의 크기 값이 필요합니다.  항목을 생략하면(둘 이상의 쉼표 연속 표기) 이전 항목의 크기와 필터를 활용하겠다는 함축 의미를 넣을 수 있습니다."
 
 #. type: Plain text
 #: ../src/xz/xz.1
-msgid "If the input file is bigger than the sum of I<sizes>, the last value in I<sizes> is repeated until the end of the file.  A special value of B<0> may be used as the last value to indicate that the rest of the file should be encoded as a single block."
-msgstr "입력 파일이 I<E<lt>크기E<gt>>의 합보다 크면, 마지막 I<E<lt>크기E<gt>> 값을 파일 마지막까지 반복해서 사용합니다.  특별히 B<0> 값을 마지막 값으로 사용하여 파일 나머지 부분을 단일 블록으로 인코딩해야 한다는 의미를 나타낼 수도 있습니다."
+msgid "If the input file is bigger than the sum of the sizes in I<items>, the last item is repeated until the end of the file.  A special value of B<0> may be used as the last size to indicate that the rest of the file should be encoded as a single block."
+msgstr "입력 파일이 I<E<lt>항목E<gt>> 크기의 합보다 크면, 마지막 항목을 파일의 끝까지 반복합니다.  특별히 B<0> 값을 마지막 값으로 사용하여 파일 나머지 부분을 단일 블록으로 인코딩해야 한다는 의미를 나타낼 수도 있습니다."
 
 #. type: Plain text
 #: ../src/xz/xz.1
-msgid "If one specifies I<sizes> that exceed the encoder's block size (either the default value in threaded mode or the value specified with B<--block-size=>I<size>), the encoder will create additional blocks while keeping the boundaries specified in I<sizes>.  For example, if one specifies B<--block-size=10MiB> B<--block-list=5MiB,10MiB,8MiB,12MiB,24MiB> and the input file is 80 MiB, one will get 11 blocks: 5, 10, 8, 10, 2, 10, 10, 4, 10, 10, and 1 MiB."
-msgstr "인코더 블록 크기를 초과하는 I<E<lt>크기E<gt>> 값을 지정하면(스레드 모드 기본값 또는 B<--block-size=>I<E<lt>크기E<gt>> 옵션으로 지정한 값), 인코더는 I<E<lt>크기E<gt>> 지정 용량 범위는 유지하면서 추가 블록을 만듭니다.  예를 들면 B<--block-size=10MiB> B<--block-list=5MiB,10MiB,8MiB,12MiB,24MiB> 옵션을 지정하고 입력 파일을 80MiB 용량으로 전달하면, 각각 5, 10, 8, 10, 2, 10, 10, 4, 10, 10, 1 MiB 용량을 차지하는 블록 11개를 결과물로 내줍니다."
+msgid "An alternative filter chain for each block can be specified in combination with the B<--filters1=>I<filters> \\&...\\& B<--filters9=>I<filters> options.  These options define filter chains with an identifier between 1\\(en9.  Filter chain 0 can be used to refer to the default filter chain, which is the same as not specifying a filter chain.  The filter chain identifier can be used before the uncompressed size, followed by a colon (B<:>).  For example, if one specifies B<--block-list=1:2MiB,3:2MiB,2:4MiB,,2MiB,0:4MiB> then blocks will be created using:"
+msgstr "B<--filters1=>I<E<lt>필터E<gt>> \\&...\\& B<--filters9=>I<E<lt>필터E<gt>> 옵션 조합으로 각 블록별 별도 필터 체인을 지정할 수 있습니다.  이 옵션은 1\\(en9번 필터 체인을 지정합니다. 필터 체인 0번은 필터 체인을 지정하지 않았을 때와 동일한 기본 필터 체인으로 참조할 수 있습니다.  필터 체인 식별 번호는 비 압축 크기 앞에 콜론(B<:>)을 붙여 사용할 수 있습니다. 예를 들면, B<--block-list=1:2MiB,3:2MiB,2:4MiB,,2MiB,0:4MiB> 옵션을 지정했을 경우 다음 규칙대로 블록을 만듭니다:"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "The filter chain specified by B<--filters1> and 2 MiB input"
+msgstr "B<--filters1> 필터 체인에서는 2MiB 입력을"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "The filter chain specified by B<--filters3> and 2 MiB input"
+msgstr "B<--filters3> 필터 체인에서는 2MiB 입력을"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "The filter chain specified by B<--filters2> and 4 MiB input"
+msgstr "B<--filters2> 필터 체인에서는 4MiB 입력을"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "The default filter chain and 2 MiB input"
+msgstr "기본 필터 체인에서는 2MiB 입력을"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "The default filter chain and 4 MiB input for every block until end of input."
+msgstr "입력이 끝나기 전의 모든 블록에는 기본 필터 체인과 4MiB 입력을 적용합니다."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "If one specifies a size that exceeds the encoder's block size (either the default value in threaded mode or the value specified with B<--block-size=>I<size>), the encoder will create additional blocks while keeping the boundaries specified in I<items>.  For example, if one specifies B<--block-size=10MiB> B<--block-list=5MiB,10MiB,8MiB,12MiB,24MiB> and the input file is 80 MiB, one will get 11 blocks: 5, 10, 8, 10, 2, 10, 10, 4, 10, 10, and 1 MiB."
+msgstr "인코더 블록 크기를 초과하는 크기 값을 지정하면(스레드 모드 기본값 또는 B<--block-size=>I<E<lt>크기E<gt>> 옵션으로 지정한 값), 인코더는 I<E<lt>크기E<gt>> 지정 용량 범위는 유지하면서 추가 블록을 만듭니다.  예를 들면 B<--block-size=10MiB> B<--block-list=5MiB,10MiB,8MiB,12MiB,24MiB> 옵션을 지정하고 입력 파일을 80MiB 용량으로 전달하면, 각각 5, 10, 8, 10, 2, 10, 10, 4, 10, 10, 1 MiB 용량을 차지하는 블록 11개를 결과물로 내줍니다."
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -1362,6 +1394,11 @@ msgstr "현재 스레딩 처리 방식은 입력을 블록 단위로 쪼개고 �
 msgid "Threaded decompression only works on files that contain multiple blocks with size information in block headers.  All large enough files compressed in multi-threaded mode meet this condition, but files compressed in single-threaded mode don't even if B<--block-size=>I<size> has been used."
 msgstr "스레드 압축 해제 방식은 여러 블록이 블록 헤더에 넣은 크기 정보와 함께 들어간 파일에만 동작합니다.  다중-스레드 모드에서 압축한 충분히 큰 모든 파일은 이 조건에 만족하지만, 단일-스레드 모드에서 압축한 파일은 B<--block-size=>I<E<lt>크기E<gt>> 옵션을 지정하더라도 조건에 만족하지 않습니다."
 
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "The default value for I<threads> is B<0>.  In B<xz> 5.4.x and older the default is B<1>."
+msgstr "I<스레드> 기본 값은 B<0>입니다.  B<xz> 5.4.x 이전의 기본값은 B<1>입니다."
+
 #. type: SS
 #: ../src/xz/xz.1
 #, no-wrap
@@ -1385,18 +1422,56 @@ msgstr "수많은 필터가 필터 체인 상에서 제약점을 가지고 있�
 
 #. type: Plain text
 #: ../src/xz/xz.1
-msgid "A custom filter chain is specified by using one or more filter options in the order they are wanted in the filter chain.  That is, the order of filter options is significant! When decoding raw streams (B<--format=raw>), the filter chain is specified in the same order as it was specified when compressing."
-msgstr "개별 필터 체인은 필터 체인에서 원하는 순서대로 하나 이상의 필터 옵션을 사용하여 지정합니다.  이는, 필터 옵션 순서가 중요하다는 뜻입니다! 원시 스트림을 디코딩할 때(B<--format=raw>), 필터 체인은 압축할 때 지정했던 동일한 순서대로 지정합니다."
+msgid "A custom filter chain can be specified in two different ways.  The options B<--filters=>I<filters> and B<--filters1=>I<filters> \\&...\\& B<--filters9=>I<filters> allow specifying an entire filter chain in one option using the liblzma filter string syntax.  Alternatively, a filter chain can be specified by using one or more individual filter options in the order they are wanted in the filter chain.  That is, the order of the individual filter options is significant! When decoding raw streams (B<--format=raw>), the filter chain must be specified in the same order as it was specified when compressing.  Any individual filter or preset options specified before the full chain option (B<--filters=>I<filters>)  will be forgotten.  Individual filters specified after the full chain option will reset the filter chain."
+msgstr "개별 필터 체인은 두가지 방식으로 지정할 수 있습니다.  B<--filters=>I<E<lt>필터E<gt>>와 B<--filters1=>I<E<lt>필터E<gt>> \\&...\\& B<--filters9=>I<E<lt>필터E<gt>> 옵션으로 liblzma 필터 문자열 문법에 따라 한가지 옵션을 필터 체인 전체를 지정할 수 있습니다.  대신, 하나 이상의 개별 필터 옵션을 원하는 필터 체인 순서대로 지정할 수도 있습니다.  이 말인 즉슨, 개별 필터 옵션의 순서가 중요하단 뜻입니다! 원시 스트림을 디코딩할 때(B<--format=raw>), 압축했을 때 지정했던 필터와 같은 순서로 필터 체인을 지정해야 합니다.  전체 체인 옵션(B<--filters=>I<E<lt>필터E<gt>>) 보다 우선 지정한 개별 필터 또는 사전 설정 옵션은 까먹을 수도 있습니다.  전체 체인 옵션 다음에 개별 필터를 지정할 경우 필터 체인의 동작을 무효로 합니다."
 
 #. type: Plain text
 #: ../src/xz/xz.1
-msgid "Filters take filter-specific I<options> as a comma-separated list.  Extra commas in I<options> are ignored.  Every option has a default value, so you need to specify only those you want to change."
-msgstr "필터는 쉼표로 구분하는 필터별 I<E<lt>옵션E<gt>>이 있습니다. I<E<lt>옵션E<gt>>에 추가로 입력한 쉼표는 무시합니다.  모든 옵션 값에는 기본값이 있어, 값을 바꾸려면 지정해야합니다."
+msgid "Both the full and individual filter options take filter-specific I<options> as a comma-separated list.  Extra commas in I<options> are ignored.  Every option has a default value, so specify those you want to change."
+msgstr "필터는 쉼표로 구분하는 필터별 I<E<lt>옵션E<gt>>이 있습니다.  I<E<lt>옵션E<gt>>에 추가로 입력한 쉼표는 무시합니다.  모든 옵션 값에는 기본값이 있어, 값을 바꾸려면 지정해야합니다."
 
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "To see the whole filter chain and I<options>, use B<xz -vv> (that is, use B<--verbose> twice).  This works also for viewing the filter chain options used by presets."
 msgstr "전체 필터 체인과 I<E<lt>옵션E<gt>>을 보려면 B<xz -vv> (B<--verbose> 두 번)명령을 사용하십시오.  이 명령은 사전 설정이 사용하는 필터 체인 옵션도 볼 수 있습니다."
+
+#. type: TP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "B<--filters=>I<filters>"
+msgstr "B<--filters=>I<E<lt>필터E<gt>>"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Specify the full filter chain or a preset in a single option.  Each filter can be separated by spaces or two dashes (B<-->).  I<filters> may need to be quoted on the shell command line so it is parsed as a single option.  To denote I<options>, use B<:> or B<=>.  A preset can be prefixed with a B<-> and followed with zero or more flags.  The only supported flag is B<e> to apply the same options as B<--extreme>."
+msgstr "전체 필터 체인 또는 사전 설정을 단일 옵션으로 지정합니다.  각 필터는 공백 문자 또는 대시 문자 두번 입력(B<-->)으로 구분합니다.  셸 명령행에서 I<필터>는 따옴표로 감싸서 단일 옵션으로 해석하도록 해야 합니다.  I<옵션>을 표기하려면 B<:> 또는 B<=>을 활용하십시오.  사전 설정 앞에 B<->를 붙일 수 있고 0개 또는 하나 이상의 플래그를 붙일 수 있습니다.  유일하게 지원하는 플래그는 B<--extreme>과 동일한 B<e>입니다."
+
+#. type: TP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "B<--filters1>=I<filters> ... B<--filters9>=I<filters>"
+msgstr "B<--filters1>=I<E<lt>필터E<gt>> ... B<--filters9>=I<E<lt>필터E<gt>>"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Specify up to nine additional filter chains that can be used with B<--block-list>."
+msgstr "B<--block-list>와 사용할 수 있는 추가 필터 체인을 최대 9개까지 지정합니다."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "For example, when compressing an archive with executable files followed by text files, the executable part could use a filter chain with a BCJ filter and the text part only the LZMA2 filter."
+msgstr "예를 들어 텍스트 파일과 실행 파일의 아카이브를 압축할 때 실행 부분에 BCJ 필터 체인을 사용하고 텍스트 부분은 LZMA2 필터를 사용할 수 있습니다."
+
+#. type: TP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "B<--filters-help>"
+msgstr "B<--filters-help>"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Display a help message describing how to specify presets and custom filter chains in the B<--filters> and B<--filters1=>I<filters> \\&...\\& B<--filters9=>I<filters> options, and exit successfully."
+msgstr "B<--filters>와 B<--filters1=>I<E<lt>필터E<gt>> \\&...\\& B<--filters9=>I<E<lt>필터E<gt>> 옵션의 사전 설정 필터와 개별 설정 필터 체인을 지정하는 방법을 설명하는 도움말 메시지를 출력하고 완전히 빠져나갑니다."
 
 #. type: TP
 #: ../src/xz/xz.1
@@ -1756,6 +1831,12 @@ msgstr "B<--ia64>[B<=>I<E<lt>옵션E<gt>>]"
 msgid "B<--sparc>[B<=>I<options>]"
 msgstr "B<--sparc>[B<=>I<E<lt>옵션E<gt>>]"
 
+#. type: TP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "B<--riscv>[B<=>I<options>]"
+msgstr "B<--riscv>[B<=>I<E<lt>옵션E<gt>>]"
+
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "Add a branch/call/jump (BCJ) filter to the filter chain.  These filters can be used only as a non-last filter in the filter chain."
@@ -1876,10 +1957,36 @@ msgstr "Itanium"
 msgid "SPARC"
 msgstr "SPARC"
 
+#. type: tbl table
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "RISC-V"
+msgstr "RISC-V"
+
 #. type: Plain text
 #: ../src/xz/xz.1
-msgid "Since the BCJ-filtered data is usually compressed with LZMA2, the compression ratio may be improved slightly if the LZMA2 options are set to match the alignment of the selected BCJ filter.  For example, with the IA-64 filter, it's good to set B<pb=4> or even B<pb=4,lp=4,lc=0> with LZMA2 (2^4=16).  The x86 filter is an exception; it's usually good to stick to LZMA2's default four-byte alignment when compressing x86 executables."
-msgstr "BCJ 필터를 사용한 데이터는 LZMA2로 보통 압축하기 때문에 LZMA2 옵션을 선택한 BCJ 필터의 정렬기준에 맞추도록 설정하면 압축율을 좀 더 개선할 수 있습니다.  예를 들면, IA-64 필터에서는 B<pb=4> 또는 LZMA2에 대해 B<pb=4,lp=4,lc=0> (2^4=16) 값이 바람직합ㄴ디ㅏ.  x86 필터는 예외로, x86 실행 파일을 압축할 경우 LZMA2의 기본 4바이트 정렬을 따르는게 좋습니다."
+msgid "Since the BCJ-filtered data is usually compressed with LZMA2, the compression ratio may be improved slightly if the LZMA2 options are set to match the alignment of the selected BCJ filter.  Examples:"
+msgstr "BCJ 필터를 사용한 데이터는 LZMA2로 보통 압축하기 때문에 LZMA2 옵션을 선택한 BCJ 필터의 정렬기준에 맞추도록 설정하면 압축율을 좀 더 개선할 수 있습니다.  예를 들면:"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "IA-64 filter has 16-byte alignment so B<pb=4,lp=4,lc=0> is good with LZMA2 (2^4=16)."
+msgstr "IA-64 필터는 16-바이트 정렬 방식으로 동작하기에 LZMA2 필터에 B<pb=4,lp=4,lc=0> 옵션(2^4=16)을 주는게 좋습니다."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "RISC-V code has 2-byte or 4-byte alignment depending on whether the file contains 16-bit compressed instructions (the C extension).  When 16-bit instructions are used, B<pb=2,lp=1,lc=3> or B<pb=1,lp=1,lc=3> is good.  When 16-bit instructions aren't present, B<pb=2,lp=2,lc=2> is the best.  B<readelf -h> can be used to check if \"RVC\" appears on the \"Flags\" line."
+msgstr "RISC-V 코드에는 16-비트 압축 명령(C 확장) 적재 여부에 따라 2-바이트 또는 4-바이트 정렬 방식을 채택합니다. 16-비트 명령을 사용하면, B<pb=2,lp=1,lc=3> 또는 B<pb=1,lp=1,lc=3> 옵션 값 사용이 바람직합니다. 16-비트 명령이 없다면, B<pb=2,lp=2,lc=2> 옵션 값을 활용하는게 좋습니다.  \"RVC\"가 \"Flags\"행에 나타나는지 확인할 때 B<readelf -h> 명령을 사용할 수 있습니다."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "ARM64 is always 4-byte aligned so B<pb=2,lp=2,lc=2> is the best."
+msgstr "ARM64는 항상 4-바이트 정렬 방식을 택하기에 B<pb=2,lp=2,lc=2> 옵션 값을 활용하는게 좋습니다."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "The x86 filter is an exception.  It's usually good to stick to LZMA2's defaults (B<pb=2,lp=0,lc=3>)  when compressing x86 executables."
+msgstr "x86 필터는 예외입니다.  x86 실행 파일을 압축할 경우에는 보통 LZMA2 기본 옵션 값(B<pb=2,lp=0,lc=3>)을 그대로 사용하는게 좋습니다."
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -2081,165 +2188,8 @@ msgstr "로봇 모드"
 
 #. type: Plain text
 #: ../src/xz/xz.1
-msgid "The robot mode is activated with the B<--robot> option.  It makes the output of B<xz> easier to parse by other programs.  Currently B<--robot> is supported only together with B<--version>, B<--info-memory>, and B<--list>.  It will be supported for compression and decompression in the future."
-msgstr "로봇 모드는 B<--robot> 옵션으로 동작합니다.  B<xz> 출력을 다른 프로그램에서 해석하기 쉽게 해줍니다.  현재로서는 B<--robot> 옵션은  B<--version>, B<--info-memory>, B<--list> 옵션하고만 사용할 수 있습니다.  앞으로는 압축 및 압축 해제 동작에 대해서도 지원합니다."
-
-#. type: SS
-#: ../src/xz/xz.1
-#, no-wrap
-msgid "Version"
-msgstr "버전"
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "B<xz --robot --version> prints the version number of B<xz> and liblzma in the following format:"
-msgstr "B<xz --robot --version> 은 B<xz> 와 liblzma의 버전 번호를 다음 형식으로 나타냅니다:"
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "B<XZ_VERSION=>I<XYYYZZZS>"
-msgstr "B<XZ_VERSION=>I<XYYYZZZS>"
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "B<LIBLZMA_VERSION=>I<XYYYZZZS>"
-msgstr "B<LIBLZMA_VERSION=>I<XYYYZZZS>"
-
-#. type: TP
-#: ../src/xz/xz.1
-#, no-wrap
-msgid "I<X>"
-msgstr "I<X>"
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "Major version."
-msgstr "주 버전."
-
-#. type: TP
-#: ../src/xz/xz.1
-#, no-wrap
-msgid "I<YYY>"
-msgstr "I<YYY>"
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "Minor version.  Even numbers are stable.  Odd numbers are alpha or beta versions."
-msgstr "부 버전.  짝수가 안정 버전입니다.  홀수는 알파 또는 베타 버전입니다."
-
-#. type: TP
-#: ../src/xz/xz.1
-#, no-wrap
-msgid "I<ZZZ>"
-msgstr "I<ZZZ>"
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "Patch level for stable releases or just a counter for development releases."
-msgstr "안정 릴리스의 패치 수준 또는 개발 릴리스의 횟수입니다."
-
-#. type: TP
-#: ../src/xz/xz.1
-#, no-wrap
-msgid "I<S>"
-msgstr "I<S>"
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "Stability.  0 is alpha, 1 is beta, and 2 is stable.  I<S> should be always 2 when I<YYY> is even."
-msgstr "안정도.  0은 알파 버전, 1은 베타 버전을 나타내며, 2는 안정 버전을 나타냅니다.  I<S>는 I<YYY> 값이 짝수라 해도 항상 2여야 합니다."
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "I<XYYYZZZS> are the same on both lines if B<xz> and liblzma are from the same XZ Utils release."
-msgstr "B<xz> 명령과 liblzma이 동일한 XZ 유틸리티 릴리스에서 나왔다면 두 행의 I<XYYYZZZS> 값은 같습니다."
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "Examples: 4.999.9beta is B<49990091> and 5.0.0 is B<50000002>."
-msgstr "예제: 4.999.9beta는 B<49990091>이며, 5.0.0은 B<50000002>입니다."
-
-#. type: SS
-#: ../src/xz/xz.1
-#, no-wrap
-msgid "Memory limit information"
-msgstr "메모리 제한 정보"
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "B<xz --robot --info-memory> prints a single line with multiple tab-separated columns:"
-msgstr "B<xz --robot --info-memory> 명령은 탭으로 나뉜 여러 컬럼을 단일 행으로 나타냅니다:"
-
-#. type: IP
-#: ../src/xz/xz.1
-#, no-wrap
-msgid "1."
-msgstr "1."
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "Total amount of physical memory (RAM) in bytes."
-msgstr "물리 메모리(RAM)의 바이트 단위 총량."
-
-#. type: IP
-#: ../src/xz/xz.1
-#, no-wrap
-msgid "2."
-msgstr "2."
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "Memory usage limit for compression in bytes (B<--memlimit-compress>).  A special value of B<0> indicates the default setting which for single-threaded mode is the same as no limit."
-msgstr "압축 진행시 바이트 단위 메모리 사용 한계값 (B<--memlimit-compress>).  특수 값 B<0>은 단일-스레드 모드에서 제한을 두지 않는 기본 설정임을 나타냅니다."
-
-#. type: IP
-#: ../src/xz/xz.1
-#, no-wrap
-msgid "3."
-msgstr "3."
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "Memory usage limit for decompression in bytes (B<--memlimit-decompress>).  A special value of B<0> indicates the default setting which for single-threaded mode is the same as no limit."
-msgstr "압축 해제시 바이트 단위 메모리 사용 한계값 (B<--memlimit-decompress>).  특수 값 B<0>은 단일-스레드 모드에서 제한을 두지 않는 기본 설정임을 나타냅니다."
-
-#. type: IP
-#: ../src/xz/xz.1
-#, no-wrap
-msgid "4."
-msgstr "4."
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "Since B<xz> 5.3.4alpha: Memory usage for multi-threaded decompression in bytes (B<--memlimit-mt-decompress>).  This is never zero because a system-specific default value shown in the column 5 is used if no limit has been specified explicitly.  This is also never greater than the value in the column 3 even if a larger value has been specified with B<--memlimit-mt-decompress>."
-msgstr "B<xz> 5.3.4alpha 이후: 다중-스레드 기반 압축 해제시 바이트 단위 메모리 사용량(B<--memlimit-mt-decompress>).  분명하게 제한을 걸어두지 않았을 경우 5번째 컬럼에 나타난 시스템별 기본값을 사용하기 때문에 0 값을 지정하면 안됩니다.  또한 B<--memlimit-mt-decompress>로 세번째 컬럼 값보다 더 크게 지정을 한다 할지라도 이 값이 세번째 컬럼 값보다 크면 안됩니다."
-
-#. type: IP
-#: ../src/xz/xz.1
-#, no-wrap
-msgid "5."
-msgstr "5."
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "Since B<xz> 5.3.4alpha: A system-specific default memory usage limit that is used to limit the number of threads when compressing with an automatic number of threads (B<--threads=0>)  and no memory usage limit has been specified (B<--memlimit-compress>).  This is also used as the default value for B<--memlimit-mt-decompress>."
-msgstr "B<xz> 5.3.4alpha 이후: A system-specific default memory usage limit that is used to limit the number of threads when compressing with an automatic number of threads (B<--threads=0>)  and no memory usage limit has been specified (B<--memlimit-compress>).  This is also used as the default value for B<--memlimit-mt-decompress>."
-
-#. type: IP
-#: ../src/xz/xz.1
-#, no-wrap
-msgid "6."
-msgstr "6."
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "Since B<xz> 5.3.4alpha: Number of available processor threads."
-msgstr "B<xz> 5.3.4alpha 이후: Number of available processor threads."
-
-#. type: Plain text
-#: ../src/xz/xz.1
-msgid "In the future, the output of B<xz --robot --info-memory> may have more columns, but never more than a single line."
-msgstr "차후, B<xz --robot --info-memory> 출력에는 더 많은 내용이 들어가지만, 한 줄 이상은 넘어가지 않습니다."
+msgid "The robot mode is activated with the B<--robot> option.  It makes the output of B<xz> easier to parse by other programs.  Currently B<--robot> is supported only together with B<--list>, B<--filters-help>, B<--info-memory>, and B<--version>.  It will be supported for compression and decompression in the future."
+msgstr "로봇 모드는 B<--robot> 옵션으로 동작합니다.  B<xz> 출력을 다른 프로그램에서 해석하기 쉽게 해줍니다.  현재로서는 B<--robot> 옵션은  B<--list>, B<--filters-help>, B<--info-memory>, B<--version> 옵션하고만 사용할 수 있습니다.  앞으로는 압축 및 압축 해제 동작에 대해서도 지원합니다."
 
 #. type: SS
 #: ../src/xz/xz.1
@@ -2323,25 +2273,55 @@ msgstr "이 행은 목록 출력의 가장 마지막에 항상 나타납니다. 
 msgid "The columns of the B<file> lines:"
 msgstr "B<파일> 행 컬럼:"
 
+#. type: IP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "2."
+msgstr "2."
+
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "Number of streams in the file"
 msgstr "파일 스트림 갯수"
+
+#. type: IP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "3."
+msgstr "3."
 
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "Total number of blocks in the stream(s)"
 msgstr "스트림의 블록 총 갯수"
 
+#. type: IP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "4."
+msgstr "4."
+
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "Compressed size of the file"
 msgstr "파일 압축 크기"
 
+#. type: IP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "5."
+msgstr "5."
+
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "Uncompressed size of the file"
 msgstr "파일 압축 해제 크기"
+
+#. type: IP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "6."
+msgstr "6."
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -2470,7 +2450,7 @@ msgstr "총 블록 압축 크기 (헤더 포함)"
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "If B<--verbose> was specified twice, additional columns are included on the B<block> lines.  These are not displayed with a single B<--verbose>, because getting this information requires many seeks and can thus be slow:"
-msgstr "B<--verbose>를 두 번 지정하면, 추가 컬럼을 B<블록> 행에 넣습니다.  B<--verbose> 단일 지정시에는 이 정보를 볼 때 탐색을 여러번 수행해야 하기 때문에 실행 과정이 느려질 수 있어서 나타내지 않습니다."
+msgstr "B<--verbose>를 두 번 지정하면, 추가 컬럼을 B<블록> 행에 넣습니다.  B<--verbose> 단일 지정시에는 이 정보를 볼 때 탐색을 여러번 수행해야 하기 때문에 실행 과정이 느려질 수 있어서 나타내지 않습니다:"
 
 #. type: IP
 #: ../src/xz/xz.1
@@ -2556,7 +2536,7 @@ msgstr "모든 블록 헤더에 압축 크기와 압축 전 원본 크기 정보
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "I<Since> B<xz> I<5.1.2alpha:>"
-msgstr "B<xz> I<5.1.2alpha> I<부터>:"
+msgstr "B<xz> I<5.1.2alpha> I<부터:>"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -2618,9 +2598,190 @@ msgstr "이 B<xz> 버전에서 파일 압축을 해제할 떄 필요한 (바이�
 msgid "Future versions may add new line types and new columns can be added to the existing line types, but the existing columns won't be changed."
 msgstr "차후 버전에서는 새 행 형식을 추가하고 기존 행 형식에 추가할 수 있는 새 컬럼을 넣기 까지는 알 수 있겠지만, 기존 컬럼은 바꾸지 않을 예정입니다."
 
+#. type: SS
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "Filters help"
+msgstr "필터 도움말"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "B<xz --robot --filters-help> prints the supported filters in the following format:"
+msgstr "B<xz --robot --filters-help> 는 다음 형식의 지원 필터 목록을 출력합니다:"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "I<filter>B<:>I<option>B<=E<lt>>I<value>B<E<gt>,>I<option>B<=E<lt>>I<value>B<E<gt>>..."
+msgstr "I<E<lt>필터E<gt>>B<:>I<E<lt>옵션E<gt>>B<=E<lt>>I<값>B<E<gt>,>I<E<lt>옵션E<gt>>B<=E<lt>>I<값>B<E<gt>>..."
+
+#. type: TP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "I<filter>"
+msgstr "I<E<lt>필터E<gt>>"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Name of the filter"
+msgstr "필터 이름"
+
+#. type: TP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "I<option>"
+msgstr "I<E<lt>옵션E<gt>>"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Name of a filter specific option"
+msgstr "필터별 옵션 이름"
+
+#. type: TP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "I<value>"
+msgstr "I<E<lt>값E<gt>>"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Numeric I<value> ranges appear as B<E<lt>>I<min>B<->I<max>B<E<gt>>.  String I<value> choices are shown within B<E<lt> E<gt>> and separated by a B<|> character."
+msgstr "숫자 I<값> 범위는 B<E<lt>>I<최소>B<->I<최대>B<E<gt>>입니다.  문자열 I<값>은 B<E<lt> E<gt>> 범위 내에서 선택하며 B<|> 문자로 구분합니다."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Each filter is printed on its own line."
+msgstr "각 필터는 한 줄에 하나씩 출력합니다."
+
+#. type: SS
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "Memory limit information"
+msgstr "메모리 제한 정보"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "B<xz --robot --info-memory> prints a single line with multiple tab-separated columns:"
+msgstr "B<xz --robot --info-memory> 명령은 탭으로 나뉜 여러 컬럼을 단일 행으로 나타냅니다:"
+
+#. type: IP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "1."
+msgstr "1."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Total amount of physical memory (RAM) in bytes."
+msgstr "물리 메모리(RAM)의 바이트 단위 총량."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Memory usage limit for compression in bytes (B<--memlimit-compress>).  A special value of B<0> indicates the default setting which for single-threaded mode is the same as no limit."
+msgstr "압축 진행시 바이트 단위 메모리 사용 한계값 (B<--memlimit-compress>).  특수 값 B<0>은 단일-스레드 모드에서 제한을 두지 않는 기본 설정임을 나타냅니다."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Memory usage limit for decompression in bytes (B<--memlimit-decompress>).  A special value of B<0> indicates the default setting which for single-threaded mode is the same as no limit."
+msgstr "압축 해제시 바이트 단위 메모리 사용 한계값 (B<--memlimit-decompress>).  특수 값 B<0>은 단일-스레드 모드에서 제한을 두지 않는 기본 설정임을 나타냅니다."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Since B<xz> 5.3.4alpha: Memory usage for multi-threaded decompression in bytes (B<--memlimit-mt-decompress>).  This is never zero because a system-specific default value shown in the column 5 is used if no limit has been specified explicitly.  This is also never greater than the value in the column 3 even if a larger value has been specified with B<--memlimit-mt-decompress>."
+msgstr "B<xz> 5.3.4alpha 이후: 다중-스레드 기반 압축 해제시 바이트 단위 메모리 사용량(B<--memlimit-mt-decompress>).  분명하게 제한을 걸어두지 않았을 경우 5번째 컬럼에 나타난 시스템별 기본값을 사용하기 때문에 0 값을 지정하면 안됩니다.  또한 B<--memlimit-mt-decompress>로 세번째 컬럼 값보다 더 크게 지정을 한다 할지라도 이 값이 세번째 컬럼 값보다 크면 안됩니다."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Since B<xz> 5.3.4alpha: A system-specific default memory usage limit that is used to limit the number of threads when compressing with an automatic number of threads (B<--threads=0>)  and no memory usage limit has been specified (B<--memlimit-compress>).  This is also used as the default value for B<--memlimit-mt-decompress>."
+msgstr "B<xz> 5.3.4alpha 이후: A system-specific default memory usage limit that is used to limit the number of threads when compressing with an automatic number of threads (B<--threads=0>)  and no memory usage limit has been specified (B<--memlimit-compress>).  This is also used as the default value for B<--memlimit-mt-decompress>."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Since B<xz> 5.3.4alpha: Number of available processor threads."
+msgstr "B<xz> 5.3.4alpha 이후: Number of available processor threads."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "In the future, the output of B<xz --robot --info-memory> may have more columns, but never more than a single line."
+msgstr "차후, B<xz --robot --info-memory> 출력에는 더 많은 내용이 들어가지만, 한 줄 이상은 넘어가지 않습니다."
+
+#. type: SS
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "Version"
+msgstr "버전"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "B<xz --robot --version> prints the version number of B<xz> and liblzma in the following format:"
+msgstr "B<xz --robot --version> 은 B<xz> 와 liblzma의 버전 번호를 다음 형식으로 나타냅니다:"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "B<XZ_VERSION=>I<XYYYZZZS>"
+msgstr "B<XZ_VERSION=>I<XYYYZZZS>"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "B<LIBLZMA_VERSION=>I<XYYYZZZS>"
+msgstr "B<LIBLZMA_VERSION=>I<XYYYZZZS>"
+
+#. type: TP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "I<X>"
+msgstr "I<X>"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Major version."
+msgstr "주 버전."
+
+#. type: TP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "I<YYY>"
+msgstr "I<YYY>"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Minor version.  Even numbers are stable.  Odd numbers are alpha or beta versions."
+msgstr "부 버전.  짝수가 안정 버전입니다.  홀수는 알파 또는 베타 버전입니다."
+
+#. type: TP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "I<ZZZ>"
+msgstr "I<ZZZ>"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Patch level for stable releases or just a counter for development releases."
+msgstr "안정 릴리스의 패치 수준 또는 개발 릴리스의 횟수입니다."
+
+#. type: TP
+#: ../src/xz/xz.1
+#, no-wrap
+msgid "I<S>"
+msgstr "I<S>"
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Stability.  0 is alpha, 1 is beta, and 2 is stable.  I<S> should be always 2 when I<YYY> is even."
+msgstr "안정도.  0은 알파 버전, 1은 베타 버전을 나타내며, 2는 안정 버전을 나타냅니다.  I<S>는 I<YYY> 값이 짝수라 해도 항상 2여야 합니다."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "I<XYYYZZZS> are the same on both lines if B<xz> and liblzma are from the same XZ Utils release."
+msgstr "B<xz> 명령과 liblzma이 동일한 XZ 유틸리티 릴리스에서 나왔다면 두 행의 I<XYYYZZZS> 값은 같습니다."
+
+#. type: Plain text
+#: ../src/xz/xz.1
+msgid "Examples: 4.999.9beta is B<49990091> and 5.0.0 is B<50000002>."
+msgstr "예제: 4.999.9beta는 B<49990091>이며, 5.0.0은 B<50000002>입니다."
+
 #. type: SH
 #: ../src/xz/xz.1 ../src/xzdec/xzdec.1 ../src/lzmainfo/lzmainfo.1
-#: ../src/scripts/xzgrep.1
+#: ../src/scripts/xzdiff.1 ../src/scripts/xzgrep.1
 #, no-wrap
 msgid "EXIT STATUS"
 msgstr "종료 상태"
@@ -2665,6 +2826,7 @@ msgstr "표준 오류에 출력하는 알림(경고 또는 오류 아님)는 종
 
 #. type: SH
 #: ../src/xz/xz.1 ../src/scripts/xzgrep.1 ../src/scripts/xzless.1
+#: ../src/scripts/xzmore.1
 #, no-wrap
 msgid "ENVIRONMENT"
 msgstr "환경"
@@ -2698,9 +2860,10 @@ msgstr "B<xz> 명령행으로 옵션 설정 값을 직접 전달할 수 없을 �
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "CW<XZ_OPT=-2v tar caf foo.tar.xz foo>\n"
 msgid "\\f(CRXZ_OPT=-2v tar caf foo.tar.xz foo\\fR\n"
-msgstr ""
+msgstr "CW<XZ_OPT=-2v tar caf foo.tar.xz foo>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -2709,11 +2872,16 @@ msgstr "예를 들면, 스크립트에서 B<XZ_OPT> 를 활용하여, 스크립�
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "CW<XZ_OPT=${XZ_OPT-\"-7e\"}\n"
+#| "export XZ_OPT>\n"
 msgid ""
 "\\f(CRXZ_OPT=${XZ_OPT-\"-7e\"}\n"
 "export XZ_OPT\\fR\n"
 msgstr ""
+"CW<XZ_OPT=${XZ_OPT-\"-7e\"}\n"
+"export XZ_OPT>\n"
 
 #. type: SH
 #: ../src/xz/xz.1
@@ -2945,9 +3113,10 @@ msgstr "I<foo> 파일을 기본 압축 수준 (B<-6>) 으로 I<foo.xz> 파일에
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "CW<xz foo>\n"
 msgid "\\f(CRxz foo\\fR\n"
-msgstr ""
+msgstr "CW<xz foo>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -2956,9 +3125,10 @@ msgstr "I<bar.xz>를 I<bar> 에 압축을 해제한 후 압축 해제가 무사�
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "CW<xz -dk bar.xz>\n"
 msgid "\\f(CRxz -dk bar.xz\\fR\n"
-msgstr ""
+msgstr "CW<xz -dk bar.xz>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -2967,9 +3137,10 @@ msgstr "기본 사전 설정 B<-6> 보다는 느리지만, 압축 및 압축 해
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "CW<tar cf - baz | xz -4e E<gt> baz.tar.xz>\n"
 msgid "\\f(CRtar cf - baz | xz -4e E<gt> baz.tar.xz\\fR\n"
-msgstr ""
+msgstr "CW<tar cf - baz | xz -4e E<gt> baz.tar.xz>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -2978,9 +3149,10 @@ msgstr "압축 및 비압축 파일을 단일 명령으로 표준 출력에 압�
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "CW<xz -dcf a.txt b.txt.xz c.txt d.txt.lzma E<gt> abcd.txt>\n"
 msgid "\\f(CRxz -dcf a.txt b.txt.xz c.txt d.txt.lzma E<gt> abcd.txt\\fR\n"
-msgstr ""
+msgstr "CW<xz -dcf a.txt b.txt.xz c.txt d.txt.lzma E<gt> abcd.txt>\n"
 
 #. type: SS
 #: ../src/xz/xz.1
@@ -2995,11 +3167,16 @@ msgstr "GNU와 *BSD에서는 B<find>(1)  명령과 B<xargs>(1)  명령으로 여
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "CW<find . -type f \\e! -name '*.xz' -print0 \\e\n"
+#| "    | xargs -0r -P4 -n16 xz -T1>\n"
 msgid ""
 "\\f(CRfind . -type f \\e! -name '*.xz' -print0 \\e\n"
 "    | xargs -0r -P4 -n16 xz -T1\\fR\n"
 msgstr ""
+"CW<find . -type f \\e! -name '*.xz' -print0 \\e\n"
+"    | xargs -0r -P4 -n16 xz -T1>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -3024,9 +3201,10 @@ msgstr "여러 파일을 압축한 후 저장할 바이트 용량을 계산합�
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "CW<xz --robot --list *.xz | awk '/^totals/{print $5-$4}'>\n"
 msgid "\\f(CRxz --robot --list *.xz | awk '/^totals/{print $5-$4}'\\fR\n"
-msgstr ""
+msgstr "CW<xz --robot --list *.xz | awk '/^totals/{print $5-$4}'>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -3035,7 +3213,13 @@ msgstr "이 스크립트에서는 충분히 최신의 B<xz> 명령을 사용하�
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "CW<if ! eval \"$(xz --robot --version 2E<gt> /dev/null)\" ||\n"
+#| "        [ \"$XZ_VERSION\" -lt 50000002 ]; then\n"
+#| "    echo \"Your xz is too old.\"\n"
+#| "fi\n"
+#| "unset XZ_VERSION LIBLZMA_VERSION>\n"
 msgid ""
 "\\f(CRif ! eval \"$(xz --robot --version 2E<gt> /dev/null)\" ||\n"
 "        [ \"$XZ_VERSION\" -lt 50000002 ]; then\n"
@@ -3043,6 +3227,11 @@ msgid ""
 "fi\n"
 "unset XZ_VERSION LIBLZMA_VERSION\\fR\n"
 msgstr ""
+"CW<if ! eval \"$(xz --robot --version 2E<gt> /dev/null)\" ||\n"
+"        [ \"$XZ_VERSION\" -lt 50000002 ]; then\n"
+"    echo \"Your xz is too old.\"\n"
+"fi\n"
+"unset XZ_VERSION LIBLZMA_VERSION>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -3051,7 +3240,14 @@ msgstr "B<XZ_OPT> 환경 변수로 압축 해제시 메뢰 사용량 한계를 �
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "CW<NEWLIM=$((123 E<lt>E<lt> 20))\\ \\ # 123 MiB\n"
+#| "OLDLIM=$(xz --robot --info-memory | cut -f3)\n"
+#| "if [ $OLDLIM -eq 0 -o $OLDLIM -gt $NEWLIM ]; then\n"
+#| "    XZ_OPT=\"$XZ_OPT --memlimit-decompress=$NEWLIM\"\n"
+#| "    export XZ_OPT\n"
+#| "fi>\n"
 msgid ""
 "\\f(CRNEWLIM=$((123 E<lt>E<lt> 20))\\ \\ # 123 MiB\n"
 "OLDLIM=$(xz --robot --info-memory | cut -f3)\n"
@@ -3060,6 +3256,12 @@ msgid ""
 "    export XZ_OPT\n"
 "fi\\fR\n"
 msgstr ""
+"CW<NEWLIM=$((123 E<lt>E<lt> 20))\\ \\ # 123 MiB\n"
+"OLDLIM=$(xz --robot --info-memory | cut -f3)\n"
+"if [ $OLDLIM -eq 0 -o $OLDLIM -gt $NEWLIM ]; then\n"
+"    XZ_OPT=\"$XZ_OPT --memlimit-decompress=$NEWLIM\"\n"
+"    export XZ_OPT\n"
+"fi>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -3069,7 +3271,7 @@ msgstr "개별 설정 필터 체인의 초단순 사용방식은 LZMA2 사전 �
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "The CompCPU columns of the tables from the descriptions of the options B<-0> ... B<-9> and B<--extreme> are useful when customizing LZMA2 presets.  Here are the relevant parts collected from those two tables:"
-msgstr "B<-0> ... B<-9> 옵션의 설명에서 테이블의 CompCPU 컬럼과 B<--extreme> 옵션은 LZMA2 사전 설정을 개별적으로 맞췄을 때 쓸만할 수도 있습니다.  여기 관련내용을 테이블 둘로 정리해서 모아보았습니다."
+msgstr "B<-0> ... B<-9> 옵션의 설명에서 테이블의 CompCPU 컬럼과 B<--extreme> 옵션은 LZMA2 사전 설정을 개별적으로 맞췄을 때 쓸만할 수도 있습니다.  여기 관련내용을 테이블 둘로 정리해서 모아보았습니다:"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -3078,9 +3280,10 @@ msgstr "어떤 파일을 압축할 때 상당히 큰 딕셔너리(예: 32MiB)가
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "CW<xz --lzma2=preset=1,dict=32MiB foo.tar>\n"
 msgid "\\f(CRxz --lzma2=preset=1,dict=32MiB foo.tar\\fR\n"
-msgstr ""
+msgstr "CW<xz --lzma2=preset=1,dict=32MiB foo.tar>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -3094,9 +3297,10 @@ msgstr "압축 프로그램과 압축 해제 프로그램에서 메모리를 엄
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "CW<xz -vv --lzma2=dict=192MiB big_foo.tar>\n"
 msgid "\\f(CRxz -vv --lzma2=dict=192MiB big_foo.tar\\fR\n"
-msgstr ""
+msgstr "CW<xz -vv --lzma2=dict=192MiB big_foo.tar>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -3110,9 +3314,10 @@ msgstr "때로는 압축 시간이 딱히 상관이 없을 수도 있습니다�
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "CW<xz --check=crc32 --lzma2=preset=6e,dict=64KiB foo>\n"
 msgid "\\f(CRxz --check=crc32 --lzma2=preset=6e,dict=64KiB foo\\fR\n"
-msgstr ""
+msgstr "CW<xz --check=crc32 --lzma2=preset=6e,dict=64KiB foo>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -3121,9 +3326,10 @@ msgstr "가능한 한 수 바이트를 더 쥐어 짜내고 싶을 때, 리터�
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "CW<xz --lzma2=preset=6e,pb=0,lc=4 source_code.tar>\n"
 msgid "\\f(CRxz --lzma2=preset=6e,pb=0,lc=4 source_code.tar\\fR\n"
-msgstr ""
+msgstr "CW<xz --lzma2=preset=6e,pb=0,lc=4 source_code.tar>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -3132,9 +3338,10 @@ msgstr "LZMA2와 다른 필터를 함께 사용하면 일부 파일 형식에 �
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "CW<xz --x86 --lzma2 libfoo.so>\n"
 msgid "\\f(CRxz --x86 --lzma2 libfoo.so\\fR\n"
-msgstr ""
+msgstr "CW<xz --x86 --lzma2 libfoo.so>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -3149,13 +3356,14 @@ msgstr "LZMA2와 델타 필터는 비트맵 그림에 최적의 결과를 가져
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "The image has to be saved in uncompressed format, for example, as uncompressed TIFF.  The distance parameter of the Delta filter is set to match the number of bytes per pixel in the image.  For example, 24-bit RGB bitmap needs B<dist=3>, and it is also good to pass B<pb=0> to LZMA2 to accommodate the three-byte alignment:"
-msgstr "예를 들어 이미지를 압축하지 않은 비압축 TIFF로 저장해야 하는 경우가 있습니다.  델타 필터의 거리 매개변수는 그림에서 픽셀당 바이트 수에 일치하도록 설정합니다.  예를 들면, 24비트 RGB 비트맵의 경우 B<dist=3> 거리 매개변수 값을 설정해야 하며, LZMA2 압축시 3바이트 정렬을 따르도록 B<pb=0> 값을 전달하는 방법도 바람직합니다."
+msgstr "예를 들어 이미지를 압축하지 않은 비압축 TIFF로 저장해야 하는 경우가 있습니다.  델타 필터의 거리 매개변수는 그림에서 픽셀당 바이트 수에 일치하도록 설정합니다.  예를 들면, 24비트 RGB 비트맵의 경우 B<dist=3> 거리 매개변수 값을 설정해야 하며, LZMA2 압축시 3바이트 정렬을 따르도록 B<pb=0> 값을 전달하는 방법도 바람직합니다:"
 
 #. type: Plain text
 #: ../src/xz/xz.1
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "CW<xz --delta=dist=3 --lzma2=pb=0 foo.tiff>\n"
 msgid "\\f(CRxz --delta=dist=3 --lzma2=pb=0 foo.tiff\\fR\n"
-msgstr ""
+msgstr "CW<xz --delta=dist=3 --lzma2=pb=0 foo.tiff>\n"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -3178,12 +3386,12 @@ msgstr "B<xzdec>(1), B<xzdiff>(1), B<xzgrep>(1), B<xzless>(1), B<xzmore>(1), B<g
 #. type: Plain text
 #: ../src/xz/xz.1
 msgid "XZ Utils: E<lt>https://tukaani.org/xz/E<gt>"
-msgstr "XZ 유틸리티: E<lt>https://tukaani.org/xz/E<gt>"
+msgstr "XZ 유틸리티: E<lt>https://tukaani.org/xz-utils/E<gt>"
 
 #. type: Plain text
 #: ../src/xz/xz.1 ../src/xzdec/xzdec.1
 msgid "XZ Embedded: E<lt>https://tukaani.org/xz/embedded.htmlE<gt>"
-msgstr "XZ 임베디드: E<lt>https://tukaani.org/xz/embedded.htmlE<gt>"
+msgstr "XZ 임베디드: E<lt>https://tukaani.org/xz/embedded/E<gt>"
 
 #. type: Plain text
 #: ../src/xz/xz.1
@@ -3288,7 +3496,7 @@ msgid "LZMAINFO"
 msgstr "LZMAINFO"
 
 #. type: TH
-#: ../src/lzmainfo/lzmainfo.1 ../src/scripts/xzmore.1
+#: ../src/lzmainfo/lzmainfo.1
 #, no-wrap
 msgid "2013-06-30"
 msgstr "2013-06-30"
@@ -3319,7 +3527,7 @@ msgid "B<lzmainfo> is included in XZ Utils primarily for backward compatibility 
 msgstr "B<lzmainfo> 는 LZMA 유틸리티 하위 호환성을 목적으로 XZ 유틸리티에 기본으로 들어있습니다."
 
 #. type: SH
-#: ../src/lzmainfo/lzmainfo.1 ../src/scripts/xzdiff.1
+#: ../src/lzmainfo/lzmainfo.1
 #, no-wrap
 msgid "BUGS"
 msgstr "버그"
@@ -3336,10 +3544,10 @@ msgid "XZDIFF"
 msgstr "XZDIFF"
 
 #. type: TH
-#: ../src/scripts/xzdiff.1
+#: ../src/scripts/xzdiff.1 ../src/scripts/xzgrep.1
 #, no-wrap
-msgid "2021-06-04"
-msgstr "2021-06-04"
+msgid "2024-02-13"
+msgstr "2024-02-13"
 
 #. type: Plain text
 #: ../src/scripts/xzdiff.1
@@ -3348,43 +3556,53 @@ msgstr "xzcmp, xzdiff, lzcmp, lzdiff - 압축 파일을 비교합니다"
 
 #. type: Plain text
 #: ../src/scripts/xzdiff.1
-msgid "B<xzcmp> [I<cmp_options>] I<file1> [I<file2>]"
-msgstr "B<xzcmp> [I<E<lt>비교_옵션E<gt>>] I<E<lt>파일1E<gt>> [I<E<lt>파일2E<gt>>]"
+msgid "B<xzcmp> [I<option...>] I<file1> [I<file2>]"
+msgstr "B<xzcmp> [I<E<lt>옵션E<gt>...>] I<E<lt>파일1E<gt>> [I<E<lt>파일2E<gt>>]"
 
 #. type: Plain text
 #: ../src/scripts/xzdiff.1
-msgid "B<xzdiff> [I<diff_options>] I<file1> [I<file2>]"
-msgstr "B<xzdiff> [I<차이_옵션>] I<E<lt>파일1E<gt>> [I<E<lt>파일2E<gt>>]"
+msgid "B<xzdiff> \\&..."
+msgstr "B<xzdiff> \\&..."
 
 #. type: Plain text
 #: ../src/scripts/xzdiff.1
-msgid "B<lzcmp> [I<cmp_options>] I<file1> [I<file2>]"
-msgstr "B<lzcmp> [I<E<lt>비교_옵션E<gt>>] I<E<lt>파일1E<gt>> [I<E<lt>파일2E<gt>>]"
+msgid "B<lzcmp> \\&..."
+msgstr "B<lzcmp> \\&..."
 
 #. type: Plain text
 #: ../src/scripts/xzdiff.1
-msgid "B<lzdiff> [I<diff_options>] I<file1> [I<file2>]"
-msgstr "B<lzdiff> [I<E<lt>차이_옵션E<gt>>] I<E<lt>파일1E<gt>> [I<E<lt>파일2E<gt>>]"
+msgid "B<lzdiff> \\&..."
+msgstr "B<lzdiff> \\&..."
 
 #. type: Plain text
 #: ../src/scripts/xzdiff.1
-msgid "B<xzcmp> and B<xzdiff> invoke B<cmp>(1)  or B<diff>(1)  on files compressed with B<xz>(1), B<lzma>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), or B<zstd>(1).  All options specified are passed directly to B<cmp>(1)  or B<diff>(1).  If only one file is specified, then the files compared are I<file1> (which must have a suffix of a supported compression format) and I<file1> from which the compression format suffix has been stripped.  If two files are specified, then they are uncompressed if necessary and fed to B<cmp>(1)  or B<diff>(1).  The exit status from B<cmp>(1)  or B<diff>(1)  is preserved unless a decompression error occurs; then exit status is 2."
-msgstr "B<xzcmp> 와 B<xzdiff> 는 B<xz>(1), B<lzma>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1) 로 압축한 파일에 대해 B<cmp>(1)  또는 B<diff>(1) 명령을 실행합니다. 지정한 모든 옵션은 직접 B<cmp>(1)  또는 B<diff>(1) 명령에 전달합니다.  파일 하나만 지정했을 경우 I<E<lt>파일1E<gt>>만 비교(지원 압축 형식 접미사를 넣어야 함)하며, I<E<lt>파일1E<gt>>의 지원 압축 형식 접미사는 빠집니다.  파일 둘을 지정하면, 필요한 경우 압축 해제하며, B<cmp>(1)  또는 B<diff>(1) 명령으로 전달합니다.  B<cmp>(1)  또는 B<diff>(1) 명령의 종료 상태는 압축 해제 오류가 나타나지 않는 한 보존됩니다. 압축 해제 오류가 나타나면 종료 상태는 2가 됩니다."
+msgid "B<xzcmp> and B<xzdiff> compare uncompressed contents of two files.  Uncompressed data and options are passed to B<cmp>(1)  or B<diff>(1)  unless B<--help> or B<--version> is specified."
+msgstr "B<xzcmp> 와 B<xzdiff> 명령은 압축 해제한 두 파일의 내용을 비교합니다.  압축 해제한 파일의 데이터와 옵션은 B<--help> 옵션 또는 B<--version> 옵션을 지정하지 않는다면, B<cmp>(1)  또는   B<diff>(1) 명령으로 전달합니다."
 
 #. type: Plain text
 #: ../src/scripts/xzdiff.1
-msgid "The names B<lzcmp> and B<lzdiff> are provided for backward compatibility with LZMA Utils."
-msgstr "B<lzcmp> 와 B<lzdiff> 명령은 LZMA 유틸리티 하위 호환성을 목적으로 제공합니다."
+msgid "If both I<file1> and I<file2> are specified, they can be uncompressed files or files in formats that B<xz>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1), or B<lz4>(1)  can decompress.  The required decompression commands are determined from the filename suffixes of I<file1> and I<file2>.  A file with an unknown suffix is assumed to be either uncompressed or in a format that B<xz>(1)  can decompress."
+msgstr "I<E<lt>파일1E<gt>> 과 I<E<lt>파일2E<gt>>를 모두 지정했다면, 지정한 파일은 이미 압축해제한 파일이거나, B<xz>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1), B<lz4>(1) 명령으로 압축해제할 수 있는 형식의 파일일 수 있습니다.  필요한 압축 해제 명령은 I<E<lt>파일1E<gt>> 과 I<E<lt>파일2E<gt>>의 파일 이름 확장자로 결정합니다.  알 수 없는 확장자를 지닌 파일은 이미 압축을 해제했거나  B<xz>(1) 명령으로 압축 해제할 수 있는 형식으로 간주합니다."
 
 #. type: Plain text
 #: ../src/scripts/xzdiff.1
-msgid "B<cmp>(1), B<diff>(1), B<xz>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1), B<zdiff>(1)"
-msgstr "B<cmp>(1), B<diff>(1), B<xz>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1), B<zdiff>(1)"
+msgid "If only one filename is provided, I<file1> must have a suffix of a supported compression format and the name for I<file2> is assumed to be I<file1> with the compression format suffix removed."
+msgstr "파일 이름을 하나만 지정한다면, I<E<lt>파일1E<gt>>의 확장자는 지원 압축 형식의 확장자여야 하며, I<E<lt>파일2E<gt>>는 I<E<lt>파일1E<gt>>에서 압축 파일 확장자를 제거한 파일로 간주합니다."
 
 #. type: Plain text
 #: ../src/scripts/xzdiff.1
-msgid "Messages from the B<cmp>(1)  or B<diff>(1)  programs refer to temporary filenames instead of those specified."
-msgstr "B<cmp>(1)  프로그램 또는 B<diff>(1)  프로그램에서 온 메시지는 지정한 파일 이름 대신 임시 파일 이름을 참조합니다."
+msgid "The commands B<lzcmp> and B<lzdiff> are provided for backward compatibility with LZMA Utils."
+msgstr "B<lzcmp>와 B<lzdiff> 명령은 LZMA 유틸리티 하위 호환용으로 제공합니다."
+
+#. type: Plain text
+#: ../src/scripts/xzdiff.1
+msgid "If a decompression error occurs, the exit status is B<2>.  Otherwise the exit status of B<cmp>(1)  or B<diff>(1)  is used."
+msgstr "압축 해제 오류가 나타나는 경우, 종료 코드는 B<2>입니다.  그렇지 않을 경우 B<cmp>(1)  또는 B<diff>(1) 명령의 종료 코드를 활용합니다."
+
+#. type: Plain text
+#: ../src/scripts/xzdiff.1
+msgid "B<cmp>(1), B<diff>(1), B<xz>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1), B<lz4>(1)"
+msgstr "B<cmp>(1), B<diff>(1), B<xz>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1), B<lz4>(1)"
 
 #. type: TH
 #: ../src/scripts/xzgrep.1
@@ -3392,21 +3610,15 @@ msgstr "B<cmp>(1)  프로그램 또는 B<diff>(1)  프로그램에서 온 메시
 msgid "XZGREP"
 msgstr "XZGREP"
 
-#. type: TH
+#. type: Plain text
 #: ../src/scripts/xzgrep.1
-#, no-wrap
-msgid "2022-07-19"
-msgstr "2022-07-19"
+msgid "xzgrep - search possibly-compressed files for patterns"
+msgstr "xzgrep - 패턴을 활용하여 가능한 방식으로 압축한 파일의 내용을 검색합니다"
 
 #. type: Plain text
 #: ../src/scripts/xzgrep.1
-msgid "xzgrep - search compressed files for a regular expression"
-msgstr "xzgrep - 정규 표현식을 활용하여 압축 파일을 검색합니다"
-
-#. type: Plain text
-#: ../src/scripts/xzgrep.1
-msgid "B<xzgrep> [I<grep_options>] [B<-e>] I<pattern> [I<file...>]"
-msgstr "B<xzgrep> [I<grep_options>] [B<-e>] I<E<lt>패턴E<gt>> [I<E<lt>파일E<gt>...>]"
+msgid "B<xzgrep> [I<option...>] [I<pattern_list>] [I<file...>]"
+msgstr "B<xzgrep> [I<E<lt>옵션E<gt>...>] [I<E<lt>패턴목록E<gt>>] [I<E<lt>파일E<gt>...>]"
 
 #. type: Plain text
 #: ../src/scripts/xzgrep.1
@@ -3435,18 +3647,73 @@ msgstr "B<lzfgrep> \\&..."
 
 #. type: Plain text
 #: ../src/scripts/xzgrep.1
-msgid "B<xzgrep> invokes B<grep>(1)  on I<files> which may be either uncompressed or compressed with B<xz>(1), B<lzma>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), or B<zstd>(1).  All options specified are passed directly to B<grep>(1)."
-msgstr "B<xzgrep> 명령은 B<xz>(1), B<lzma>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1) 로 압축을 했거나 하지 않은 I<E<lt>파일E<gt>>에 대해 B<grep>(1) 명령을 실행합니다.  모든 지정 옵션은 B<grep>(1)에 바로 전달합니다."
+msgid "B<xzgrep> invokes B<grep>(1)  on uncompressed contents of files.  The formats of the I<files> are determined from the filename suffixes.  Any I<file> with a suffix supported by B<xz>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1), or B<lz4>(1)  will be decompressed; all other files are assumed to be uncompressed."
+msgstr "B<xzgrep>은 압축 해제한 파일의 내용에 B<grep>(1)을 실행합니다.  I<E<lt>파일E<gt>> 형식은 파일 이름 확장으로 결정합니다.  I<E<lt>파일E<gt>>에서 지원하는 확장자는 B<xz>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1), B<lz4>(1)로 압축 해제할 수 있는 파일의 확장자입니다. 다른 파일은 이미 압축을 해제한 파일로 간주합니다."
 
 #. type: Plain text
 #: ../src/scripts/xzgrep.1
-msgid "If no I<file> is specified, then standard input is decompressed if necessary and fed to B<grep>(1).  When reading from standard input, B<gzip>(1), B<bzip2>(1), B<lzop>(1), and B<zstd>(1)  compressed files are not supported."
-msgstr "지정한 I<E<lt>파일E<gt>>이 없다면, 필요에 따라 표준 입력 데이터 압축을 풀어내어 B<grep>(1)  에 전달합니다.  표준 입력에서 읽을 떄, B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1) 압축 파일은 지원하지 않습니다."
+msgid "If no I<files> are specified or I<file> is B<-> then standard input is read.  When reading from standard input, only files supported by B<xz>(1)  are decompressed.  Other files are assumed to be in uncompressed form already."
+msgstr "지정한 I<E<lt>파일E<gt>>이 없거나 I<E<lt>파일E<gt>> 값이 B<->이라면 표준 입력을 읽어들입니다.  표준 입력을 읽어들일 때, B<xz>(1) 방식으로 압축을 해제하는 파일만 지원합니다.  다른 파일은 이미 압축을 해제한 파일로 간주합니다."
 
 #. type: Plain text
 #: ../src/scripts/xzgrep.1
-msgid "If B<xzgrep> is invoked as B<xzegrep> or B<xzfgrep> then B<grep -E> or B<grep -F> is used instead of B<grep>(1).  The same applies to names B<lzgrep>, B<lzegrep>, and B<lzfgrep>, which are provided for backward compatibility with LZMA Utils."
-msgstr "B<xzgrep>을 B<xzegrep> 또는 B<xzfgrep> 으로 실행하면 B<grep>(1)  대신  B<grep -E> 또는 B<grep -F> 명령을 활용합니다.  LZMA 유틸리티와 하위 호환성을 가진 B<lzgrep>, B<lzegrep>, B<lzfgrep> 명령에도 동일합니다."
+msgid "Most I<options> of B<grep>(1)  are supported.  However, the following options are not supported:"
+msgstr "대부분의 B<grep>(1)의 I<E<lt>옵션E<gt>>을 지원합니다.  그러나 다음 옵션은 지원하지 않습니다:"
+
+#. type: Plain text
+#: ../src/scripts/xzgrep.1
+msgid "B<-r>, B<--recursive>"
+msgstr "B<-r>, B<--recursive>"
+
+#. type: Plain text
+#: ../src/scripts/xzgrep.1
+msgid "B<-R>, B<--dereference-recursive>"
+msgstr "B<-R>, B<--dereference-recursive>"
+
+#. type: Plain text
+#: ../src/scripts/xzgrep.1
+msgid "B<-d>, B<--directories=>I<action>"
+msgstr "B<-d>, B<--directories=>I<action>"
+
+#. type: Plain text
+#: ../src/scripts/xzgrep.1
+msgid "B<-Z>, B<--null>"
+msgstr "B<-Z>, B<--null>"
+
+#. type: Plain text
+#: ../src/scripts/xzgrep.1
+msgid "B<-z>, B<--null-data>"
+msgstr "B<-z>, B<--null-data>"
+
+#. type: Plain text
+#: ../src/scripts/xzgrep.1
+msgid "B<--include=>I<glob>"
+msgstr "B<--include=>I<glob>"
+
+#. type: Plain text
+#: ../src/scripts/xzgrep.1
+msgid "B<--exclude=>I<glob>"
+msgstr "B<--exclude=>I<glob>"
+
+#. type: Plain text
+#: ../src/scripts/xzgrep.1
+msgid "B<--exclude-from=>I<file>"
+msgstr "B<--exclude-from=>I<file>"
+
+#. type: Plain text
+#: ../src/scripts/xzgrep.1
+msgid "B<--exclude-dir=>I<glob>"
+msgstr "B<--exclude-dir=>I<glob>"
+
+#. type: Plain text
+#: ../src/scripts/xzgrep.1
+msgid "B<xzegrep> is an alias for B<xzgrep -E>.  B<xzfgrep> is an alias for B<xzgrep -F>."
+msgstr "B<xzegrep>은 B<xzgrep -E> 명령의 별칭입니다.  B<xzfgrep>은 B<xzgrep -F> 명령의 별칭입니다."
+
+#. type: Plain text
+#: ../src/scripts/xzgrep.1
+msgid "The commands B<lzgrep>, B<lzegrep>, and B<lzfgrep> are provided for backward compatibility with LZMA Utils."
+msgstr "B<lzgrep>, B<lzegrep>, B<lzfgrep> 명령은 LZMA 유틸리티 하위 호환용으로 제공합니다."
 
 #. type: Plain text
 #: ../src/scripts/xzgrep.1
@@ -3477,13 +3744,13 @@ msgstr "B<GREP>"
 
 #. type: Plain text
 #: ../src/scripts/xzgrep.1
-msgid "If the B<GREP> environment variable is set, B<xzgrep> uses it instead of B<grep>(1), B<grep -E>, or B<grep -F>."
-msgstr "B<GREP> 환경 변수를 설정하면, B<xzgrep>을 B<grep>(1), B<grep -E>, B<grep -F> 환경 변수 대신 활용합니다."
+msgid "If B<GREP> is set to a non-empty value, it is used instead of B<grep>, B<grep -E>, or B<grep -F>."
+msgstr "B<GREP> 환경변수 값이 비어있지 않으면, B<grep>, B<grep -E>, B<grep -F> 명령 대신 활용합니다."
 
 #. type: Plain text
 #: ../src/scripts/xzgrep.1
-msgid "B<grep>(1), B<xz>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1), B<zgrep>(1)"
-msgstr "B<grep>(1), B<xz>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1), B<zgrep>(1)"
+msgid "B<grep>(1), B<xz>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1), B<lz4>(1), B<zgrep>(1)"
+msgstr "B<grep>(1), B<xz>(1), B<gzip>(1), B<bzip2>(1), B<lzop>(1), B<zstd>(1), B<lz4>(1), B<zgrep>(1)"
 
 #. type: TH
 #: ../src/scripts/xzless.1
@@ -3492,10 +3759,10 @@ msgid "XZLESS"
 msgstr "XZLESS"
 
 #. type: TH
-#: ../src/scripts/xzless.1
+#: ../src/scripts/xzless.1 ../src/scripts/xzmore.1
 #, no-wrap
-msgid "2010-09-27"
-msgstr "2010-09-27"
+msgid "2024-02-12"
+msgstr "2024-02-12"
 
 #. type: Plain text
 #: ../src/scripts/xzless.1
@@ -3514,8 +3781,8 @@ msgstr "B<lzless> [I<E<lt>파일E<gt>>...]"
 
 #. type: Plain text
 #: ../src/scripts/xzless.1
-msgid "B<xzless> is a filter that displays text from compressed files to a terminal.  It works on files compressed with B<xz>(1)  or B<lzma>(1).  If no I<files> are given, B<xzless> reads from standard input."
-msgstr "B<xzless> 는 압축 파일을 터미널에 나타내는 필터 프로그램입니다.  B<xz>(1)  또는 B<lzma>(1) 프로그램으로 압축한 파일에 대해 동작합니다.  주어진 I<E<lt>파일E<gt>> 값이 없다면, B<xzless> 는 표준 입력을 읽어들입니다."
+msgid "B<xzless> is a filter that displays text from compressed files to a terminal.  Files supported by B<xz>(1)  are decompressed; other files are assumed to be in uncompressed form already.  If no I<files> are given, B<xzless> reads from standard input."
+msgstr "B<xzless>는 압축 파일 내용을 터미널에 나타내는 필터 프로그램입니다.  B<xz>(1) 방식으로 압축을 해제하는 파일만 지원합니다.  다른 파일은 이미 압축을 해제한 파일로 간주합니다.  주어진 I<E<lt>파일E<gt>> 값이 없다면, B<xzless>는 표준 입력을 읽어들입니다."
 
 #. type: Plain text
 #: ../src/scripts/xzless.1
@@ -3567,52 +3834,45 @@ msgstr "xzmore, lzmore - xz 압축 (텍스트) 파일 또는 lzma 압축 (텍스
 
 #. type: Plain text
 #: ../src/scripts/xzmore.1
-msgid "B<xzmore> [I<file...>]"
-msgstr "B<xzmore> [I<E<lt>파일E<gt>...>]"
+msgid "B<xzmore> [I<file>...]"
+msgstr "B<xzmore> [I<E<lt>파일E<gt>>...]"
 
 #. type: Plain text
 #: ../src/scripts/xzmore.1
-msgid "B<lzmore> [I<file...>]"
-msgstr "B<lzmore> [I<E<lt>파일E<gt>...>]"
+msgid "B<lzmore> [I<file>...]"
+msgstr "B<lzmore> [I<E<lt>파일E<gt>>...]"
 
 #. type: Plain text
 #: ../src/scripts/xzmore.1
-msgid "B<xzmore> is a filter which allows examination of B<xz>(1)  or B<lzma>(1)  compressed text files one screenful at a time on a soft-copy terminal."
-msgstr "B<xzmore> 는 B<xz>(1)  또는 B<lzma>(1)  형식으로 압축한 텍스트 파일을 한 번에 한 화면만큼 소프트-복제 터미널에 표시하는 필터입니다."
+msgid "B<xzmore> displays text from compressed files to a terminal using B<more>(1).  Files supported by B<xz>(1)  are decompressed; other files are assumed to be in uncompressed form already.  If no I<files> are given, B<xzmore> reads from standard input.  See the B<more>(1)  manual for the keyboard commands."
+msgstr "B<xzmore> 명령은 압축 파일에 들어있는 텍스트를 B<more>(1) 명령으로 터미널에 나타냅니다.  B<xz>(1) 방식으로 압축을 해제하는 파일만 지원합니다.  다른 파일은 이미 압축을 해제한 파일로 간주합니다.  I<E<lt>파일E<gt>>을 지정하지 않으면, B<xzmore> 프로그램에서는 표준 입력을 읽어들입니다.  키보드 명령 정보는 B<more>(1)  설명서를 참고하십시오."
 
 #. type: Plain text
 #: ../src/scripts/xzmore.1
-msgid "To use a pager other than the default B<more,> set environment variable B<PAGER> to the name of the desired program.  The name B<lzmore> is provided for backward compatibility with LZMA Utils."
-msgstr "기본 B<more> 대신 다른 페이저 프로그램을 사용하려면,  B<PAGER> 환경 변수에 원하는 프로그램 이름을 넣으십시오.  B<lzmore>의 이름은 LZMA 유틸리티의 하위 호환성을 목적으로 제공합니다."
+msgid "Note that scrolling backwards might not be possible depending on the implementation of B<more>(1).  This is because B<xzmore> uses a pipe to pass the decompressed data to B<more>(1).  B<xzless>(1)  uses B<less>(1)  which provides more advanced features."
+msgstr "참고로 B<more>(1) 명령 구현체에 따라 반대 방향(윗방향)으로의 스크롤은 못할 수도 있습니다.  B<xzmore> 명령이 B<more>(1) 명령에 압축 해제한 데이터를 파이프로 전달하기 때문입니다.  B<xzless>(1)는   좀 더 나은 기능을 가진 B<less>(1) 명령을 활용합니다."
+
+#. type: Plain text
+#: ../src/scripts/xzmore.1
+msgid "The command B<lzmore> is provided for backward compatibility with LZMA Utils."
+msgstr "B<lzmore> 명령은 LZMA 유틸리티 하위 호환용으로 제공합니다."
 
 #. type: TP
 #: ../src/scripts/xzmore.1
 #, no-wrap
-msgid "B<e> or B<q>"
-msgstr "B<e> 또는 B<q>"
+msgid "B<PAGER>"
+msgstr "B<PAGER>"
 
 #. type: Plain text
 #: ../src/scripts/xzmore.1
-msgid "When the prompt --More--(Next file: I<file>)  is printed, this command causes B<xzmore> to exit."
-msgstr "--More--(다음 파일: I<E<lt>파일E<gt>>)  프롬프트가 뜨면, 이 명령은 B<xzmore>를 빠져나가게 합니다."
-
-#. type: TP
-#: ../src/scripts/xzmore.1
-#, no-wrap
-msgid "B<s>"
-msgstr "B<s>"
-
-#. type: Plain text
-#: ../src/scripts/xzmore.1
-msgid "When the prompt --More--(Next file: I<file>)  is printed, this command causes B<xzmore> to skip the next file and continue."
-msgstr "--More--(다음 파일: I<E<lt>파일E<gt>>)  프롬프트가 뜨면, 이 명령은 B<xzmore>에서 다음 파일로 건너뛰어 계속 실행하게 합니다."
-
-#. type: Plain text
-#: ../src/scripts/xzmore.1
-msgid "For list of keyboard commands supported while actually viewing the content of a file, refer to manual of the pager you use, usually B<more>(1)."
-msgstr "파일 내용을 실제로 보는 동안 지원하는 키보드 명령 목록을 보려면, B<more>(1)  와 같은 사용하는 페이저의 설명서를 참고하십시오."
+msgid "If B<PAGER> is set, its value is used as the pager instead of B<more>(1)."
+msgstr "B<PAGER> 환경변수 값을 설정했다면 B<more>(1) 대신 해당 환경변수 값을 사용합니다."
 
 #. type: Plain text
 #: ../src/scripts/xzmore.1
 msgid "B<more>(1), B<xz>(1), B<xzless>(1), B<zmore>(1)"
 msgstr "B<more>(1), B<xz>(1), B<xzless>(1), B<zmore>(1)"
+
+#, no-wrap
+#~ msgid "2024-01-19"
+#~ msgstr "2024-01-19"

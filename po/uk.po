@@ -1,13 +1,16 @@
-# Ukrainian translation for xz.
-# This file is put in the public domain.
+# SPDX-License-Identifier: 0BSD
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2019, 2022, 2023.
+# Ukrainian translation for xz.
+# This file is published under the BSD Zero Clause License.
+# Copyright (C) The XZ Utils authors and contributors
+#
+# Yuri Chornoivan <yurchor@ukr.net>, 2019, 2022, 2023, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: xz 5.4.4-pre1\n"
+"Project-Id-Version: xz 5.6.0-pre2\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2024-05-28 21:28+0300\n"
-"PO-Revision-Date: 2023-07-19 20:53+0300\n"
+"POT-Creation-Date: 2024-05-29 17:41+0300\n"
+"PO-Revision-Date: 2024-02-15 17:26+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -16,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #: src/xz/args.c
 #, c-format
@@ -27,6 +30,11 @@ msgstr "%s: некоректний аргумент --block-list"
 #, c-format
 msgid "%s: Too many arguments to --block-list"
 msgstr "%s: забагато аргументів --block-list"
+
+#: src/xz/args.c
+#, c-format
+msgid "In --block-list, block size is missing after filter chain number '%c:'"
+msgstr "У --block-list пропущено розмір блоку після номера ланцюжка фільтрів «%c:»"
 
 #: src/xz/args.c
 msgid "0 can only be used as the last element in --block-list"
@@ -43,7 +51,7 @@ msgid "%s: Unsupported integrity check type"
 msgstr "%s: непідтримуваний тип перевірки цілісності"
 
 #: src/xz/args.c
-msgid "Only one file can be specified with `--files' or `--files0'."
+msgid "Only one file can be specified with '--files' or '--files0'."
 msgstr "Разом із параметрами --files або --files0 можна вказувати лише один файл."
 
 #. TRANSLATORS: This is a translatable
@@ -72,6 +80,10 @@ msgid "Compression of lzip files (.lz) is not supported"
 msgstr "Підтримки стискання файлів lzip (.lz) не передбачено"
 
 #: src/xz/args.c
+msgid "--block-list is ignored unless compressing to the .xz format"
+msgstr "--block-list буде проігноровано, якщо дані не стискаються до формату .xz"
+
+#: src/xz/args.c
 msgid "With --format=raw, --suffix=.SUF is required unless writing to stdout"
 msgstr ""
 "Якщо вказано --format=raw, слід вказати і --suffix=.SUF, якщо дані\n"
@@ -82,8 +94,18 @@ msgid "Maximum number of filters is four"
 msgstr "Максимальна кількість фільтрів — чотири"
 
 #: src/xz/coder.c
+#, c-format
+msgid "Error in --filters%s=FILTERS option:"
+msgstr "Помилка у параметрі --filters%s=ФІЛЬТРИ:"
+
+#: src/xz/coder.c
 msgid "Memory usage limit is too low for the given filter setup."
 msgstr "Обмеження на використання пам'яті є надто жорстким для вказаного налаштування фільтрів."
+
+#: src/xz/coder.c
+#, c-format
+msgid "filter chain %u used by --block-list but not specified with --filters%u="
+msgstr "у --block-list використано ланцюжок фільтрів %u, але його не вказано за допомогою --filters%u="
 
 #: src/xz/coder.c
 msgid "Using a preset in raw mode is discouraged."
@@ -102,12 +124,18 @@ msgid "LZMA1 cannot be used with the .xz format"
 msgstr "LZMA1 не можна використовувати разом із визначенням формату .xz"
 
 #: src/xz/coder.c
-msgid "The filter chain is incompatible with --flush-timeout"
-msgstr "Ланцюжок фільтрування є несумісним із параметром --flush-timeout"
+#, c-format
+msgid "Filter chain %u is incompatible with --flush-timeout"
+msgstr "Ланцюжок фільтрування %u є несумісним із параметром --flush-timeout"
 
 #: src/xz/coder.c
 msgid "Switching to single-threaded mode due to --flush-timeout"
 msgstr "Перемикаємося на однопотоковий режим через використання --flush-timeout"
+
+#: src/xz/coder.c
+#, c-format
+msgid "Unsupported options in filter chain %u"
+msgstr "Непідтримувані параметри у ланцюжку фільтрів %u"
 
 #: src/xz/coder.c
 #, c-format
@@ -143,14 +171,20 @@ msgstr "Перемикаємося на однопотоковий режим, �
 msgid "Adjusted LZMA%c dictionary size from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
 msgstr "Скориговано розмір словника LZMA%c з %s МіБ до %s МіБ, щоб не перевищувати обмеження на використання пам'яті у %s МіБ"
 
+#: src/xz/coder.c
+#, c-format
+msgid "Adjusted LZMA%c dictionary size for --filters%u from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
+msgstr "Скориговано розмір словника LZMA%c для --filters%u з %s МіБ до %s МіБ, щоб не перевищувати обмеження на використання пам'яті у %s МіБ"
+
+#: src/xz/coder.c
+#, c-format
+msgid "Error changing to filter chain %u: %s"
+msgstr "Помилка під час спроби перейти до ланцюжка фільтрів %u: %s"
+
 #: src/xz/file_io.c
 #, c-format
 msgid "Error creating a pipe: %s"
 msgstr "Помилка під час створення каналу: %s"
-
-#: src/xz/file_io.c
-msgid "Failed to enable the sandbox"
-msgstr "Не вдалося увімкнути пісочницю"
 
 #: src/xz/file_io.c
 #, c-format
@@ -526,6 +560,10 @@ msgid "--list works only on .xz files (--format=xz or --format=auto)"
 msgstr "--list працює лише для файлів .xz (--format=xz або --format=auto)"
 
 #: src/xz/list.c
+msgid "Try 'lzmainfo' with .lzma files."
+msgstr "Спробуйте «lzmainfo» із файлами .lzma."
+
+#: src/xz/list.c
 msgid "--list does not support reading from standard input"
 msgstr "Використання --list скасовує підтримку читання зі стандартного джерела вхідних даних"
 
@@ -541,7 +579,7 @@ msgstr "%s: неочікуваний кінець вхідних даних пі
 
 #: src/xz/main.c
 #, c-format
-msgid "%s: Null character found when reading filenames; maybe you meant to use `--files0' instead of `--files'?"
+msgid "%s: Null character found when reading filenames; maybe you meant to use '--files0' instead of '--files'?"
 msgstr "%s: під час читання назв файлів виявлено нуль-символ; можливо, ви хотіли скористатися --files0, а не --files?"
 
 #: src/xz/main.c
@@ -561,7 +599,7 @@ msgstr "Читання даних зі стандартного джерела �
 msgid "%s: "
 msgstr "%s: "
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 msgid "Internal error (bug)"
 msgstr "Внутрішня помилка (вада)"
 
@@ -614,7 +652,7 @@ msgstr "%s: ланцюжок фільтрування: %s\n"
 
 #: src/xz/message.c
 #, c-format
-msgid "Try `%s --help' for more information."
+msgid "Try '%s --help' for more information."
 msgstr "Спробуйте «%s --help» для отримання докладнішого опису."
 
 #: src/xz/message.c
@@ -681,7 +719,7 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "      --no-sparse     do not create sparse files when decompressing\n"
-"  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
+"  -S, --suffix=.SUF   use the suffix '.SUF' on compressed files\n"
 "      --files[=FILE]  read filenames to process from FILE; if FILE is\n"
 "                      omitted, filenames are read from the standard input;\n"
 "                      filenames must be terminated with the newline character\n"
@@ -707,9 +745,9 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "  -F, --format=FMT    file format to encode or decode; possible values are\n"
-"                      `auto' (default), `xz', `lzma', `lzip', and `raw'\n"
-"  -C, --check=CHECK   integrity check type: `none' (use with caution),\n"
-"                      `crc32', `crc64' (default), or `sha256'"
+"                      'auto' (default), 'xz', 'lzma', 'lzip', and 'raw'\n"
+"  -C, --check=CHECK   integrity check type: 'none' (use with caution),\n"
+"                      'crc32', 'crc64' (default), or 'sha256'"
 msgstr ""
 "  -F, --format=ФОРМАТ формат файлів для кодування або декодування; можливими\n"
 "                      є значення auto (типове), xz, lzma, lzip та raw\n"
@@ -740,13 +778,12 @@ msgstr ""
 
 #: src/xz/message.c
 msgid ""
-"  -T, --threads=NUM   use at most NUM threads; the default is 1; set to 0\n"
-"                      to use as many threads as there are processor cores"
+"  -T, --threads=NUM   use at most NUM threads; the default is 0 which uses\n"
+"                      as many threads as there are processor cores"
 msgstr ""
 "  -T, --threads=N     використовувати не більше N потоків; типовим є\n"
-"                      значення 1; встановіть значення 0, щоб програма\n"
-"                      використовувала стільки потоків, скільки є ядер\n"
-"                      у процесора"
+"                      значення 0, за якого програма використовує стільки\n"
+"                      потоків, скільки є ядер у процесора"
 
 #: src/xz/message.c
 msgid ""
@@ -762,13 +799,17 @@ msgstr ""
 
 #: src/xz/message.c
 msgid ""
-"      --block-list=SIZES\n"
+"      --block-list=BLOCKS\n"
 "                      start a new .xz block after the given comma-separated\n"
-"                      intervals of uncompressed data"
+"                      intervals of uncompressed data; optionally, specify a\n"
+"                      filter chain number (0-9) followed by a ':' before the\n"
+"                      uncompressed data size"
 msgstr ""
-"      --block-list=РОЗМІРИ\n"
+"      --block-list=БЛОКИ\n"
 "                      розпочинати нові блоки .xz після вказаних інтервалів\n"
-"                      нестиснених даних; записи відокремлюються комами"
+"                      нестиснених даних; записи відокремлюються комами;\n"
+"                      можна вказати номер ланцюжка фільтрів (0-9) із\n"
+"                      завершальною «:» до розміру нестиснених даних"
 
 #: src/xz/message.c
 msgid ""
@@ -823,6 +864,36 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "\n"
+"  --filters=FILTERS   set the filter chain using the liblzma filter string\n"
+"                      syntax; use --filters-help for more information"
+msgstr ""
+"\n"
+"  --filters=ФІЛЬТРИ   встановити ланцюжок фільтрів за допомогою синтаксису\n"
+"                      рядків фільтрів liblzma; скористайтеся --filters-help,\n"
+"                      щоб дізнатися більше"
+
+#: src/xz/message.c
+msgid ""
+"  --filters1=FILTERS ... --filters9=FILTERS\n"
+"                      set additional filter chains using the liblzma filter\n"
+"                      string syntax to use with --block-list"
+msgstr ""
+"  --filters1=ФІЛЬТРИ ... --filters9=ФІЛЬТРИ\n"
+"                      встановити додаткові ланцюжки фільтрів за допомогою\n"
+"                      синтаксису рядків ланцюжка фільтрів liblzma для\n"
+"                      використання з --block-list"
+
+#: src/xz/message.c
+msgid ""
+"  --filters-help      display more information about the liblzma filter string\n"
+"                      syntax and exit."
+msgstr ""
+"  --filters-help      вивести докладніші відомості щодо синтаксису рядків\n"
+"                      liblzma і завершити роботу."
+
+#: src/xz/message.c
+msgid ""
+"\n"
 "  --lzma1[=OPTS]      LZMA1 or LZMA2; OPTS is a comma-separated list of zero or\n"
 "  --lzma2[=OPTS]      more of the following options (valid values; default):\n"
 "                        preset=PRE reset options to a preset (0-9[e])\n"
@@ -861,6 +932,7 @@ msgid ""
 "  --powerpc[=OPTS]    PowerPC BCJ filter (big endian only)\n"
 "  --ia64[=OPTS]       IA-64 (Itanium) BCJ filter\n"
 "  --sparc[=OPTS]      SPARC BCJ filter\n"
+"  --riscv[=OPTS]      RISC-V BCJ filter\n"
 "                      Valid OPTS for all BCJ filters:\n"
 "                        start=NUM  start offset for conversions (default=0)"
 msgstr ""
@@ -872,6 +944,7 @@ msgstr ""
 "  --powerpc[=ПАРАМ]  фільтр BCJ PowerPC (лише зворотний порядок байтів)\n"
 "  --ia64[=ПАРАМ]     фільтр BCJ IA-64 (Itanium)\n"
 "  --sparc[=ПАРАМ]    фільтр BCJ SPARC\n"
+"  --riscv[=ПАРАМ]    фільтр BCJ RISC-V\n"
 "                     Коректні значення ПАРАМЕТРИ для усіх фільтрів BCJ:\n"
 "                      start=N початковий зсув для перетворень (типовий=0)"
 
@@ -946,7 +1019,8 @@ msgstr ""
 msgid "  -V, --version       display the version number and exit"
 msgstr "  -V, --version       вивести дані щодо версії програми і завершити роботу"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
+#, c-format
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -959,14 +1033,14 @@ msgstr ""
 #. for this package. Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the email or WWW
 #. address for translation bugs. Thanks.
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "Report bugs to <%s> (in English or Finnish).\n"
 msgstr ""
 "Сповіщайте розробників про вади за адресою <%s>\n"
 "(англійською і фінською).\n"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "%s home page: <%s>\n"
 msgstr "Домашня сторінка %s: <%s>\n"
@@ -975,9 +1049,25 @@ msgstr "Домашня сторінка %s: <%s>\n"
 msgid "THIS IS A DEVELOPMENT VERSION NOT INTENDED FOR PRODUCTION USE."
 msgstr "ЦЕ ТЕСТОВА ВЕРСІЯ, ЯКУ НЕ ПРИЗНАЧЕНО ДЛЯ ПРОМИСЛОВОГО ВИКОРИСТАННЯ."
 
+#: src/xz/message.c
+msgid ""
+"Filter chains are set using the --filters=FILTERS or\n"
+"--filters1=FILTERS ... --filters9=FILTERS options. Each filter in the chain\n"
+"can be separated by spaces or '--'. Alternatively a preset <0-9>[e] can be\n"
+"specified instead of a filter chain.\n"
+msgstr ""
+"Ланцюжки фільтрування встановлюються за допомогою параметрів --filters=ФІЛЬТРИ\n"
+"або --filters1=ФІЛЬТРИ ... --filters9=ФІЛЬТРИ. Кожен фільтр у ланцюжку\n"
+"можна відокремлювати від інших пробілами або «--». Крім того, можна вказати\n"
+"шаблон <0-9>[e] замість ланцюжка фільтрів.\n"
+
+#: src/xz/message.c
+msgid "The supported filters and their options are:"
+msgstr "Підтримувані фільтри та їхні параметри:"
+
 #: src/xz/options.c
 #, c-format
-msgid "%s: Options must be `name=value' pairs separated with commas"
+msgid "%s: Options must be 'name=value' pairs separated with commas"
 msgstr "%s: параметри -- пари «назва=значення», відокремлені комами"
 
 #: src/xz/options.c
@@ -1006,7 +1096,7 @@ msgstr "%s: назва файла має невідомий суфікс; про
 
 #: src/xz/suffix.c
 #, c-format
-msgid "%s: File already has `%s' suffix, skipping"
+msgid "%s: File already has '%s' suffix, skipping"
 msgstr "%s: файл вже має суфікс назви %s; пропускаємо"
 
 #: src/xz/suffix.c
@@ -1025,12 +1115,12 @@ msgid "%s: Invalid multiplier suffix"
 msgstr "%s: некоректний суфікс множника"
 
 #: src/xz/util.c
-msgid "Valid suffixes are `KiB' (2^10), `MiB' (2^20), and `GiB' (2^30)."
+msgid "Valid suffixes are 'KiB' (2^10), 'MiB' (2^20), and 'GiB' (2^30)."
 msgstr "Коректними є суфікси «KiB» (2^10), «MiB» (2^20) та «GiB» (2^30)."
 
 #: src/xz/util.c
 #, c-format
-msgid "Value of the option `%s' must be in the range [%<PRIu64>, %<PRIu64>]"
+msgid "Value of the option '%s' must be in the range [%<PRIu64>, %<PRIu64>]"
 msgstr "Значення параметра «%s» має належати до діапазону [%<PRIu64>, %<PRIu64>]"
 
 #: src/xz/util.c
@@ -1041,6 +1131,23 @@ msgstr "Стиснені дані неможливо прочитати з те�
 msgid "Compressed data cannot be written to a terminal"
 msgstr "Стиснені дані неможливо записати до термінала"
 
+#: src/lzmainfo/lzmainfo.c
+#, c-format
+msgid ""
+"Usage: %s [--help] [--version] [FILE]...\n"
+"Show information stored in the .lzma file header"
+msgstr ""
+"Користування: %s [--help] [--version] [ФАЙЛ]...\n"
+"Показати відомості, що зберігаються у заголовку файла .lzma"
+
+#: src/lzmainfo/lzmainfo.c
+msgid "File is too small to be a .lzma file"
+msgstr "Файл є надто малим, щоб бути файлом .lzma"
+
+#: src/lzmainfo/lzmainfo.c
+msgid "Not a .lzma file"
+msgstr "Не є файлом .lzma"
+
 #: src/common/tuklib_exit.c
 msgid "Writing to standard output failed"
 msgstr "Не вдалося записати дані до стандартного виведення"
@@ -1049,43 +1156,5 @@ msgstr "Не вдалося записати дані до стандартно�
 msgid "Unknown error"
 msgstr "Невідома помилка"
 
-#~ msgid "The selected match finder requires at least nice=%<PRIu32>"
-#~ msgstr "Вибраний засіб пошуку відповідності потребує принаймні nice=%<PRIu32>"
-
-#~ msgid "Memory usage limit for compression:    "
-#~ msgstr "Обмеження пам'яті для пакування:        "
-
-#~ msgid "  Streams:            %s\n"
-#~ msgstr "  Потоки:                  %s\n"
-
-#~ msgid "  Blocks:             %s\n"
-#~ msgstr "  Блоки:                   %s\n"
-
-#~ msgid "  Ratio:              %s\n"
-#~ msgstr "  Коефіцієнт:              %s\n"
-
-#~ msgid "  Check:              %s\n"
-#~ msgstr "  Перевірка:               %s\n"
-
-#~ msgid ""
-#~ "  Streams:\n"
-#~ "    Stream    Blocks      CompOffset    UncompOffset        CompSize      UncompSize  Ratio  Check      Padding"
-#~ msgstr ""
-#~ "  Потоки:\n"
-#~ "     Потік     Блоки      ЗсувСтисн.    ЗсувНестисн.      РозмСтисн.     РозмНестисн  Коеф.  Перевірка  Доповнення"
-
-#~ msgid ""
-#~ "  Blocks:\n"
-#~ "    Stream     Block      CompOffset    UncompOffset       TotalSize      UncompSize  Ratio  Check"
-#~ msgstr ""
-#~ "  Блоки:\n"
-#~ "     Потік      Блок      ЗсувСтисн.    ЗсувНестисн.        ЗагРозм.     РозмНестисн  Коеф.  Перевірка"
-
-#~ msgid "      CheckVal %*s Header  Flags        CompSize    MemUsage  Filters"
-#~ msgstr "  ЗначПер %*s  Загол.  Прапорці    РозмСтисн      ВикПам  Фільтри"
-
-#~ msgid "Sandbox is disabled due to incompatible command line arguments"
-#~ msgstr "Пісочницю вимкнено через несумісні параметри у рядку команди"
-
-#~ msgid "Sandbox was successfully enabled"
-#~ msgstr "Пісочницю успішно увімкнено"
+#~ msgid "Failed to enable the sandbox"
+#~ msgstr "Не вдалося увімкнути пісочницю"

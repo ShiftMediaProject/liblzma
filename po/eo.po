@@ -1,13 +1,15 @@
+# SPDX-License-Identifier: 0BSD
+#
 # Esperanto translations for xz package.
-# This file is put in the public domain.
-# Keith Bowes <zooplah@gmail.com>, 2019, 2023.
+# This file is published under the BSD Zero Clause License.
+# Keith Bowes <zooplah@gmail.com>, 2019, 2023–2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xz 5.4.4-pre1\n"
+"Project-Id-Version: xz 5.6.0-pre2\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2024-05-28 21:28+0300\n"
-"PO-Revision-Date: 2023-08-26 11:30-0400\n"
+"POT-Creation-Date: 2024-05-29 17:41+0300\n"
+"PO-Revision-Date: 2024-02-24 00:16-0500\n"
 "Last-Translator: Keith Bowes <zooplah@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
@@ -28,6 +30,11 @@ msgid "%s: Too many arguments to --block-list"
 msgstr "%s: Tro da argumentoj por --block-list"
 
 #: src/xz/args.c
+#, c-format
+msgid "In --block-list, block size is missing after filter chain number '%c:'"
+msgstr "En --block-list, la blokgrando mankas post numero de la filtrila ĉeno '%c:'"
+
+#: src/xz/args.c
 msgid "0 can only be used as the last element in --block-list"
 msgstr "0 povas nur esti uzata kiel la lasta elemento en --block-list"
 
@@ -42,8 +49,8 @@ msgid "%s: Unsupported integrity check type"
 msgstr "%s: Nekomprenata tipo de integra kontrolo"
 
 #: src/xz/args.c
-msgid "Only one file can be specified with `--files' or `--files0'."
-msgstr "Nur oni dosiero estas specifebla per `--files' aŭ `--files0'."
+msgid "Only one file can be specified with '--files' or '--files0'."
+msgstr "Nur unu dosiero estas specifebla per '--files' aŭ '--files0'."
 
 #. TRANSLATORS: This is a translatable
 #. string because French needs a space
@@ -71,6 +78,10 @@ msgid "Compression of lzip files (.lz) is not supported"
 msgstr "Ne povas kunpremi lzip-dosierojn (.lz)"
 
 #: src/xz/args.c
+msgid "--block-list is ignored unless compressing to the .xz format"
+msgstr "--block-list estas ignorata se ne kunpremas al la formato .xz"
+
+#: src/xz/args.c
 msgid "With --format=raw, --suffix=.SUF is required unless writing to stdout"
 msgstr "Kun --format=raw, --suffix=.SUF estas postulata se ne skribi al la ĉefeligujo"
 
@@ -79,8 +90,18 @@ msgid "Maximum number of filters is four"
 msgstr "Maksimuma nombra da filtriloj estas kvar"
 
 #: src/xz/coder.c
+#, c-format
+msgid "Error in --filters%s=FILTERS option:"
+msgstr "Erora en la --filters%s=FILTRILOJ elekto:"
+
+#: src/xz/coder.c
 msgid "Memory usage limit is too low for the given filter setup."
 msgstr "Memoruzada limigo estas tro malgranda por la donita filtrila elekto."
+
+#: src/xz/coder.c
+#, c-format
+msgid "filter chain %u used by --block-list but not specified with --filters%u="
+msgstr "filtrila ĉeno %u uzata de --block-list sed ne specifita per --filters%u="
 
 #: src/xz/coder.c
 msgid "Using a preset in raw mode is discouraged."
@@ -99,12 +120,18 @@ msgid "LZMA1 cannot be used with the .xz format"
 msgstr "LZMA ne estas uzebla por la .xz-formato"
 
 #: src/xz/coder.c
-msgid "The filter chain is incompatible with --flush-timeout"
-msgstr "La filtrila ĉeno estas nekongrua kun --flush-timeout"
+#, c-format
+msgid "Filter chain %u is incompatible with --flush-timeout"
+msgstr "La filtrila ĉeno %u estas nekongrua kun --flush-timeout"
 
 #: src/xz/coder.c
 msgid "Switching to single-threaded mode due to --flush-timeout"
 msgstr "Ŝanĝas al unufadena reĝimo pro --flush-timeout"
+
+#: src/xz/coder.c
+#, c-format
+msgid "Unsupported options in filter chain %u"
+msgstr "Nekomprenataj elektoj en filtrila ĉeno %u"
 
 #: src/xz/coder.c
 #, c-format
@@ -140,14 +167,20 @@ msgstr "Ŝanĝas al unufadena reĝimo por ne superi la memoruzadan limigon de %s
 msgid "Adjusted LZMA%c dictionary size from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
 msgstr "Alĝŭstigis vortara grando de LZMA%c de %s megabajtoj ĝis %s megabajtoj por ne superi la memoruzadan limigon de %s megabajtoj"
 
+#: src/xz/coder.c
+#, c-format
+msgid "Adjusted LZMA%c dictionary size for --filters%u from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
+msgstr "Alĝustigis vortara grando de LZMA%c por --filters%u de %s megabajtoj ĝis %s megabajtoj por ne superi la memoruzadan limigon de %s megabajtoj"
+
+#: src/xz/coder.c
+#, c-format
+msgid "Error changing to filter chain %u: %s"
+msgstr "Eraro dum ŝanĝiĝo al filtrila ĉeno %u: %s"
+
 #: src/xz/file_io.c
 #, c-format
 msgid "Error creating a pipe: %s"
 msgstr "Eraro dum krei dukton: %s"
-
-#: src/xz/file_io.c
-msgid "Failed to enable the sandbox"
-msgstr "Malsukcesis aktivigi la sablujon"
 
 #: src/xz/file_io.c
 #, c-format
@@ -522,6 +555,10 @@ msgid "--list works only on .xz files (--format=xz or --format=auto)"
 msgstr "--list funkcias nur por .xz-dosierojn (--format=xz aŭ --format=auto)"
 
 #: src/xz/list.c
+msgid "Try 'lzmainfo' with .lzma files."
+msgstr "Provi la programon 'lzmainfo' por .lzma-dosieroj."
+
+#: src/xz/list.c
 msgid "--list does not support reading from standard input"
 msgstr "--list ne regas legadon el la ĉefenigujo"
 
@@ -537,8 +574,8 @@ msgstr "%s: Neatendita fino de enigo dum legi dosiernomojn"
 
 #: src/xz/main.c
 #, c-format
-msgid "%s: Null character found when reading filenames; maybe you meant to use `--files0' instead of `--files'?"
-msgstr "%s: Nula signo trovita dum legi dosiernomojn; eble vi celis uzi la parametron`--files0' anstataŭ `--files'"
+msgid "%s: Null character found when reading filenames; maybe you meant to use '--files0' instead of '--files'?"
+msgstr "%s: Nula signo trovita dum legi dosiernomojn; eble vi celis uzi la parametron '--files0' anstataŭ '--files'"
 
 #: src/xz/main.c
 msgid "Compression and decompression with --robot are not supported yet."
@@ -557,7 +594,7 @@ msgstr "Ne eblas legi datumojn el la ĉefenigujo dum legi dosiernomojn el la ĉe
 msgid "%s: "
 msgstr "%s: "
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 msgid "Internal error (bug)"
 msgstr "Interna programeraro"
 
@@ -610,8 +647,8 @@ msgstr "%s: Filtrila ĉeno: %s\n"
 
 #: src/xz/message.c
 #, c-format
-msgid "Try `%s --help' for more information."
-msgstr "`%s --help' provindas por pliaj informaj."
+msgid "Try '%s --help' for more information."
+msgstr "'%s --help' por pliaj informaj."
 
 #: src/xz/message.c
 #, c-format
@@ -620,7 +657,7 @@ msgid ""
 "Compress or decompress FILEs in the .xz format.\n"
 "\n"
 msgstr ""
-"Uzado: %s [ELEKTO].. [DOSIERO]...\n"
+"Uzmaniero: %s [ELEKTO].. [DOSIERO]...\n"
 "Kunpremi aŭ malkunpremi DOSIEROjN laŭ la .xz-formato.\n"
 "\n"
 
@@ -677,18 +714,18 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "      --no-sparse     do not create sparse files when decompressing\n"
-"  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
+"  -S, --suffix=.SUF   use the suffix '.SUF' on compressed files\n"
 "      --files[=FILE]  read filenames to process from FILE; if FILE is\n"
 "                      omitted, filenames are read from the standard input;\n"
 "                      filenames must be terminated with the newline character\n"
 "      --files0[=FILE] like --files but use the null character as terminator"
 msgstr ""
-"      --no-sparse     ne krei maldensajn dosierojn dum malkunpremi\n"
-"  -S, --suffix=.SUF   uzi la sufikson `.SUF' ĉe kunpremataj dosieroj\n"
+"      --no-sparse     ne krei maldensajn dosierojn dum malkunpremiĝo\n"
+"  -S, --suffix=.SUF   uzi la sufikson '.SUF' ĉe kunpremataj dosieroj\n"
 "      --files[=DOSIERO]\n"
-"                      legi dosiernomojn traktotajn de DOSIERO; se DOSIERO estas\n"
-"                      forlasita, dosieroj estas legotaj el la ĉefenigujo;\n"
-"                      dosiernomojn devas finigi novlinio signo\n"
+"                      legi dosiernomojn traktotajn el DOSIERO; se DOSIERO estas\n"
+"                      forlasita, dosiernomoj estas legataj el la ĉefenigujo;\n"
+"                      dosiernomojn devas finigi novlinia signo\n"
 "      --files0[=DOSIERO]\n"
 "                      kiel --files sed uzi la nulan signon por finigi"
 
@@ -703,14 +740,14 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "  -F, --format=FMT    file format to encode or decode; possible values are\n"
-"                      `auto' (default), `xz', `lzma', `lzip', and `raw'\n"
-"  -C, --check=CHECK   integrity check type: `none' (use with caution),\n"
-"                      `crc32', `crc64' (default), or `sha256'"
+"                      'auto' (default), 'xz', 'lzma', 'lzip', and 'raw'\n"
+"  -C, --check=CHECK   integrity check type: 'none' (use with caution),\n"
+"                      'crc32', 'crc64' (default), or 'sha256'"
 msgstr ""
-"  -F, --format=FMT    dosierformato kodota aŭ malkodato; validaj valoroj estas\n"
-"                      `auto' (apriora), `xz', `lzma', 'lzip' kaj `raw'\n"
-"  -C, --check=KONT    tipo de integra kontrolo: `none' (estu atentema),\n"
-"                      `crc32', `crc64' (apriora) aŭ `sha256'"
+"h  -F, --format=FMT    dosierformato kodota aŭ malkodata; validaj valoroj estas\n"
+"                      'auto' (apriora), 'xz', 'lzma', 'lzip' kaj 'raw'\n"
+"  -C, --check=KONT    tipo de integra kontrolo: 'none' (estu atentema),\n"
+"                      'crc32', 'crc64' (apriora) aŭ 'sha256'"
 
 #: src/xz/message.c
 msgid "      --ignore-check  don't verify the integrity check when decompressing"
@@ -735,12 +772,12 @@ msgstr ""
 
 #: src/xz/message.c
 msgid ""
-"  -T, --threads=NUM   use at most NUM threads; the default is 1; set to 0\n"
-"                      to use as many threads as there are processor cores"
+"  -T, --threads=NUM   use at most NUM threads; the default is 0 which uses\n"
+"                      as many threads as there are processor cores"
 msgstr ""
 "  -T, --threads=NOMBRO\n"
-"                      uzi maksimume NOMBRO da fadenoj; apriore 1; 0 por\n"
-"                      uzi fadenojn samnombrajn kiel procesoraj kernoj"
+"                      uzi maksimume NOMBRO da fadenoj; apriore 0, kiu\n"
+"                      uzas fadenojn samnombrajn kiel procesorajn kernojn"
 
 #: src/xz/message.c
 msgid ""
@@ -754,13 +791,17 @@ msgstr ""
 
 #: src/xz/message.c
 msgid ""
-"      --block-list=SIZES\n"
+"      --block-list=BLOCKS\n"
 "                      start a new .xz block after the given comma-separated\n"
-"                      intervals of uncompressed data"
+"                      intervals of uncompressed data; optionally, specify a\n"
+"                      filter chain number (0-9) followed by a ':' before the\n"
+"                      uncompressed data size"
 msgstr ""
-"      --block-list=GRANDOJ\n"
+"      --block-list=BLOKOJ\n"
 "                      komenci novan .xz-blokon post la donitajn intertempojn de\n"
-"                      nekunpremitaj datumoj, apartigataj de komoj"
+"                      nekunpremitaj datumoj, apartigataj de komoj. Laŭvole\n"
+"                      specifi numero (0-9) de filtrila ĉeno kaj poste ':' antaŭ\n"
+"                      la malkunpremita datuma grando"
 
 #: src/xz/message.c
 msgid ""
@@ -812,6 +853,34 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "\n"
+"  --filters=FILTERS   set the filter chain using the liblzma filter string\n"
+"                      syntax; use --filters-help for more information"
+msgstr ""
+"\n"
+"  --filters=FILTRILOJ   agordi la filtrilan ĉenan uzanta la sintakso de la\n"
+"                      lzma-filtrila ĉeno.  --filters-help or pliaj informoj"
+
+#: src/xz/message.c
+msgid ""
+"  --filters1=FILTERS ... --filters9=FILTERS\n"
+"                      set additional filter chains using the liblzma filter\n"
+"                      string syntax to use with --block-list"
+msgstr ""
+"  --filters=FILTRILOJ ... --filters9=FILTRILOJ\n"
+"                      agordi aldonajn filtrilajn ĉenojn por uzi kun\n"
+"                      --block-list per la sintakso de liblzma-filtrila ĉeno"
+
+#: src/xz/message.c
+msgid ""
+"  --filters-help      display more information about the liblzma filter string\n"
+"                      syntax and exit."
+msgstr ""
+"  --filters-help      montri pliajn informojn pri la sintakso de la\n"
+"                      liblzma-filtrila ĉeno kaj poste eliri."
+
+#: src/xz/message.c
+msgid ""
+"\n"
 "  --lzma1[=OPTS]      LZMA1 or LZMA2; OPTS is a comma-separated list of zero or\n"
 "  --lzma2[=OPTS]      more of the following options (valid values; default):\n"
 "                        preset=PRE reset options to a preset (0-9[e])\n"
@@ -852,11 +921,12 @@ msgid ""
 "  --powerpc[=OPTS]    PowerPC BCJ filter (big endian only)\n"
 "  --ia64[=OPTS]       IA-64 (Itanium) BCJ filter\n"
 "  --sparc[=OPTS]      SPARC BCJ filter\n"
+"  --riscv[=OPTS]      RISC-V BCJ filter\n"
 "                      Valid OPTS for all BCJ filters:\n"
 "                        start=NUM  start offset for conversions (default=0)"
 msgstr ""
 "\n"
-"  --x86[=ELEKTOJ]     x86-BCJ-filtrilo (32-bita and 64-bita)\n"
+"  --x86[=ELEKTOJ]     x86-BCJ-filtrilo (32-bita kaj 64-bita)\n"
 "  --arm[=ELEKTOJ]     ARM-BCJ-filtrilo\n"
 "  --armthumb[=ELEKTOJ]\n"
 "                      ARM-Thumb-BCJ-filtrilo\n"
@@ -864,6 +934,7 @@ msgstr ""
 "  --powerpc[=ELEKTOJ] PowerPC-BCJ-filtrilo (nur pezkomenca)\n"
 "  --ia64[=ELEKTOJ]    IA-64 (Itanium)-BCJ-filtrilo\n"
 "  --sparc[=ELEKTOJ]   SPARC-BCJ-filtrilo\n"
+"  --riscv[=ELEKTOJ]   RISC-V_BCJ-filtrilo\n"
 "                      Validaj ELEKTOJ por ĉiuj BCJ-filters:\n"
 "                        start=NOMBRO  komenca deŝovo por konvertoj (apriore 0)"
 
@@ -934,7 +1005,8 @@ msgstr ""
 msgid "  -V, --version       display the version number and exit"
 msgstr "  -V, --version       montri la eldonan numeron kaj finiĝi"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
+#, c-format
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -946,12 +1018,12 @@ msgstr ""
 #. for this package. Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the email or WWW
 #. address for translation bugs. Thanks.
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "Report bugs to <%s> (in English or Finnish).\n"
 msgstr "Raporti programerarojn al <%s> (en la angla aŭ la suoma).\n"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "%s home page: <%s>\n"
 msgstr "%s ĉefpaĝo: <%s>\n"
@@ -960,10 +1032,26 @@ msgstr "%s ĉefpaĝo: <%s>\n"
 msgid "THIS IS A DEVELOPMENT VERSION NOT INTENDED FOR PRODUCTION USE."
 msgstr "ĈI TIU ESTAS DISVOLVA REDAKCIO, NE CELATA POR ĈIUTAGA UZADO."
 
+#: src/xz/message.c
+msgid ""
+"Filter chains are set using the --filters=FILTERS or\n"
+"--filters1=FILTERS ... --filters9=FILTERS options. Each filter in the chain\n"
+"can be separated by spaces or '--'. Alternatively a preset <0-9>[e] can be\n"
+"specified instead of a filter chain.\n"
+msgstr ""
+"Filtrilaj ĉenoj estas agorditaj per la elektoj --filters=FIILTRILOJ aŭ\n"
+"--filters1=FILTRILOJ ... --filters9=FILTRILOJ. Ĉiu filtrilo en la ĉeno\n"
+"estas apartigebla per spacetoj aŭ '--'. Alternative antaŭargordo <0-9>[e]\n"
+"anstataŭ filtrila ĉeno estas specifebla.\n"
+
+#: src/xz/message.c
+msgid "The supported filters and their options are:"
+msgstr "La komprenataj filtriloj aŭ filtrilaj elektoj estas:"
+
 #: src/xz/options.c
 #, c-format
-msgid "%s: Options must be `name=value' pairs separated with commas"
-msgstr "%s: Elektoj devas esti paroj de `name=value`, apartigitaj per komoj"
+msgid "%s: Options must be 'name=value' pairs separated with commas"
+msgstr "%s: Elektoj devas esti paroj de 'name=value', apartigitaj per komoj"
 
 #: src/xz/options.c
 #, c-format
@@ -991,8 +1079,8 @@ msgstr "%s: Dosiernomo havas nekonatan sufikson, preterpasas"
 
 #: src/xz/suffix.c
 #, c-format
-msgid "%s: File already has `%s' suffix, skipping"
-msgstr "%s: Dosiero jam havas la sufikson `%s', preterpasas"
+msgid "%s: File already has '%s' suffix, skipping"
+msgstr "%s: Dosiero jam havas la sufikson '%s', preterpasas"
 
 #: src/xz/suffix.c
 #, c-format
@@ -1010,13 +1098,13 @@ msgid "%s: Invalid multiplier suffix"
 msgstr "%s: Nevalida multiplika sufikso"
 
 #: src/xz/util.c
-msgid "Valid suffixes are `KiB' (2^10), `MiB' (2^20), and `GiB' (2^30)."
-msgstr "Validaj sufiksoj estas `KiB' (2^10), `MiB' (2^20) kaj `GiB' (2^30)."
+msgid "Valid suffixes are 'KiB' (2^10), 'MiB' (2^20), and 'GiB' (2^30)."
+msgstr "Validaj sufiksoj estas 'KiB' (2^10), 'MiB' (2^20) kaj 'GiB' (2^30)."
 
 #: src/xz/util.c
 #, c-format
-msgid "Value of the option `%s' must be in the range [%<PRIu64>, %<PRIu64>]"
-msgstr "Valoro de la elekto `%s' devas esti inkluzive inter %<PRIu64> kaj %<PRIu64>"
+msgid "Value of the option '%s' must be in the range [%<PRIu64>, %<PRIu64>]"
+msgstr "Valoro de la elekto '%s' devas esti inkluzive inter %<PRIu64> kaj %<PRIu64>"
 
 #: src/xz/util.c
 msgid "Compressed data cannot be read from a terminal"
@@ -1024,7 +1112,24 @@ msgstr "Kunpremitaj datumoj ne povas esti ligataj de terminalo"
 
 #: src/xz/util.c
 msgid "Compressed data cannot be written to a terminal"
-msgstr "Kunpmremitaj datumoj ne povas esti skribataj al terminalo"
+msgstr "Kunpremitaj datumoj ne povas esti skribataj al terminalo"
+
+#: src/lzmainfo/lzmainfo.c
+#, c-format
+msgid ""
+"Usage: %s [--help] [--version] [FILE]...\n"
+"Show information stored in the .lzma file header"
+msgstr ""
+"Uzmaniero: %s [--help] [--version] [DOSIERO]...\n"
+"Montri informojn konservitaj en la .lzma-dosiera ĉapo"
+
+#: src/lzmainfo/lzmainfo.c
+msgid "File is too small to be a .lzma file"
+msgstr "Dosiero malgrandas por esti .lzma-dosiero"
+
+#: src/lzmainfo/lzmainfo.c
+msgid "Not a .lzma file"
+msgstr "Ne .lzma-dosiero"
 
 #: src/common/tuklib_exit.c
 msgid "Writing to standard output failed"
@@ -1033,3 +1138,6 @@ msgstr "Skribi al la ĉefeligujo malsukcesis"
 #: src/common/tuklib_exit.c
 msgid "Unknown error"
 msgstr "Nekonata eraro"
+
+#~ msgid "Failed to enable the sandbox"
+#~ msgstr "Malsukcesis aktivigi la sablujon"

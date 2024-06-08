@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: 0BSD
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 /// \file       test_index.c
@@ -7,10 +9,6 @@
 //
 //  Authors:    Jia Tan
 //              Lasse Collin
-//
-//
-//  This file has been put into the public domain.
-//  You can do whatever you want with this file.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -141,7 +139,7 @@ test_lzma_index_append(void)
 	lzma_index_end(idx, NULL);
 
 	// Test compressed .xz file size growing too large. This also tests
-	// a failing assert fixed in 68bda971bb8b666a009331455fcedb4e18d837a4.
+	// a failing assert fixed in ae5c07b22a6b3766b84f409f1b6b5c100469068a.
 	// Should result in LZMA_DATA_ERROR.
 	idx = lzma_index_init(NULL);
 
@@ -230,28 +228,28 @@ test_lzma_index_checks(void)
 	assert_lzma_ret(lzma_index_stream_flags(idx, &stream_flags),
 			LZMA_OK);
 	assert_uint_eq(lzma_index_checks(idx),
-			UINT32_C(1) << LZMA_CHECK_NONE);
+			LZMA_INDEX_CHECK_MASK_NONE);
 
 	// Set the check type to CRC32 and repeat
 	stream_flags.check = LZMA_CHECK_CRC32;
 	assert_lzma_ret(lzma_index_stream_flags(idx, &stream_flags),
 			LZMA_OK);
 	assert_uint_eq(lzma_index_checks(idx),
-			UINT32_C(1) << LZMA_CHECK_CRC32);
+			LZMA_INDEX_CHECK_MASK_CRC32);
 
 	// Set the check type to CRC64 and repeat
 	stream_flags.check = LZMA_CHECK_CRC64;
 	assert_lzma_ret(lzma_index_stream_flags(idx, &stream_flags),
 			LZMA_OK);
 	assert_uint_eq(lzma_index_checks(idx),
-			UINT32_C(1) << LZMA_CHECK_CRC64);
+			LZMA_INDEX_CHECK_MASK_CRC64);
 
 	// Set the check type to SHA256 and repeat
 	stream_flags.check = LZMA_CHECK_SHA256;
 	assert_lzma_ret(lzma_index_stream_flags(idx, &stream_flags),
 			LZMA_OK);
 	assert_uint_eq(lzma_index_checks(idx),
-			UINT32_C(1) << LZMA_CHECK_SHA256);
+			LZMA_INDEX_CHECK_MASK_SHA256);
 
 	// Create second lzma_index and cat to first
 	lzma_index *second = lzma_index_init(NULL);
@@ -263,14 +261,14 @@ test_lzma_index_checks(void)
 			LZMA_OK);
 
 	assert_uint_eq(lzma_index_checks(second),
-			UINT32_C(1) << LZMA_CHECK_CRC32);
+			LZMA_INDEX_CHECK_MASK_CRC32);
 
 	assert_lzma_ret(lzma_index_cat(idx, second, NULL), LZMA_OK);
 
 	// Index should now have both CRC32 and SHA256
 	assert_uint_eq(lzma_index_checks(idx),
-			(UINT32_C(1) << LZMA_CHECK_CRC32) |
-			(UINT32_C(1) << LZMA_CHECK_SHA256));
+			LZMA_INDEX_CHECK_MASK_CRC32 |
+			LZMA_INDEX_CHECK_MASK_SHA256);
 
 	// Change the check type of the second Stream to SHA256
 	stream_flags.check = LZMA_CHECK_SHA256;
@@ -279,7 +277,7 @@ test_lzma_index_checks(void)
 
 	// Index should now have only SHA256
 	assert_uint_eq(lzma_index_checks(idx),
-			UINT32_C(1) << LZMA_CHECK_SHA256);
+			LZMA_INDEX_CHECK_MASK_SHA256);
 
 	// Test with a third Stream
 	lzma_index *third = lzma_index_init(NULL);
@@ -290,14 +288,14 @@ test_lzma_index_checks(void)
 			LZMA_OK);
 
 	assert_uint_eq(lzma_index_checks(third),
-			UINT32_C(1) << LZMA_CHECK_CRC64);
+			LZMA_INDEX_CHECK_MASK_CRC64);
 
 	assert_lzma_ret(lzma_index_cat(idx, third, NULL), LZMA_OK);
 
 	// Index should now have CRC64 and SHA256
 	assert_uint_eq(lzma_index_checks(idx),
-			(UINT32_C(1) << LZMA_CHECK_CRC64) |
-			(UINT32_C(1) << LZMA_CHECK_SHA256));
+			LZMA_INDEX_CHECK_MASK_CRC64 |
+			LZMA_INDEX_CHECK_MASK_SHA256);
 
 	lzma_index_end(idx, NULL);
 }
@@ -940,8 +938,9 @@ test_lzma_index_iter_next(void)
 	// Verify both Blocks
 
 	// Next call to iterate Block should return true because the
-	// first Block can already be read from the LZMA_INDEX_ITER_STREAM
-	// call.
+	// first Block can already be read from the earlier *successful*
+	// LZMA_INDEX_ITER_STREAM call; the previous failed call doesn't
+	// modify the iterator.
 	assert_true(lzma_index_iter_next(&iter, LZMA_INDEX_ITER_BLOCK));
 
 	// Rewind to test LZMA_INDEX_ITER_ANY
@@ -1167,6 +1166,7 @@ test_lzma_index_iter_locate(void)
 	for (n = 0; n < group_multiple; ++n)
 		assert_lzma_ret(lzma_index_append(idx, NULL, 8, 0),
 				LZMA_OK);
+
 	assert_lzma_ret(lzma_index_append(idx, NULL, 16, 1), LZMA_OK);
 	assert_false(lzma_index_iter_locate(&iter, 0));
 	assert_uint_eq(iter.block.total_size, 16);
@@ -1196,17 +1196,17 @@ test_lzma_index_cat(void)
 	assert_lzma_ret(lzma_index_cat(dest, NULL, NULL), LZMA_PROG_ERROR);
 	assert_lzma_ret(lzma_index_cat(NULL, src, NULL), LZMA_PROG_ERROR);
 
-	// Check for uncompressed size overflow
+	// Check for compressed size overflow
 	assert_lzma_ret(lzma_index_append(dest, NULL,
 			(UNPADDED_SIZE_MAX / 2) + 1, 1), LZMA_OK);
 	assert_lzma_ret(lzma_index_append(src, NULL,
 			(UNPADDED_SIZE_MAX / 2) + 1, 1), LZMA_OK);
 	assert_lzma_ret(lzma_index_cat(dest, src, NULL), LZMA_DATA_ERROR);
 
-	// Check for compressed size overflow
 	lzma_index_end(src, NULL);
 	lzma_index_end(dest, NULL);
 
+	// Check for uncompressed size overflow
 	dest = lzma_index_init(NULL);
 	assert_true(dest != NULL);
 
@@ -1298,6 +1298,7 @@ my_alloc(void *opaque, size_t a, size_t b)
 	return malloc(a * b);
 }
 
+
 static const lzma_allocator test_index_dup_alloc = { &my_alloc, NULL, NULL };
 
 
@@ -1353,6 +1354,7 @@ test_lzma_index_dup(void)
 	lzma_index_end(copy, NULL);
 	lzma_index_end(idx, NULL);
 }
+
 
 #if defined(HAVE_ENCODERS) && defined(HAVE_DECODERS)
 static void
@@ -1487,6 +1489,7 @@ test_lzma_index_encoder(void)
 #endif
 }
 
+
 static void
 generate_index_decode_buffer(void)
 {
@@ -1614,8 +1617,8 @@ test_lzma_index_buffer_encode(void)
 #if !defined(HAVE_ENCODERS) || !defined(HAVE_DECODERS)
 	assert_skip("Encoder or decoder support disabled");
 #else
-	// More simple test than test_lzma_index_encoder() because
-	// currently lzma_index_buffer_encode() is mostly a wrapper
+	// These are simpler test than in test_lzma_index_encoder()
+	// because lzma_index_buffer_encode() is mostly a wrapper
 	// around lzma_index_encoder() anyway.
 	lzma_index *idx = lzma_index_init(NULL);
 	assert_true(idx != NULL);

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: 0BSD
+
+#############################################################################
 #
 # SYNOPSIS
 #
@@ -17,13 +20,11 @@
 #       GetSystemInfo() is used on Cygwin)
 #     - pstat_getdynamic(): HP-UX
 #
-# COPYING
+#############################################################################
 #
-#   Author: Lasse Collin
+# Author: Lasse Collin
 #
-#   This file has been put into the public domain.
-#   You can do whatever you want with this file.
-#
+#############################################################################
 
 AC_DEFUN_ONCE([TUKLIB_CPUCORES], [
 AC_REQUIRE([TUKLIB_COMMON])

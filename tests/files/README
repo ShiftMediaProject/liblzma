@@ -1,6 +1,6 @@
 
-.xz and .lzma Test Files
-------------------------
+.xz, .lzma, and .lz Test Files
+------------------------------
 
 0. Introduction
 
@@ -8,7 +8,8 @@
     .lzma (LZMA_Alone), and .lz (lzip) files in decoder implementations.
     Many of the files have been created by hand with a hex editor, thus
     there is no better "source code" than the files themselves. All the
-    test files and this README have been put into the public domain.
+    test files and this README may be distributed under the terms of
+    the BSD Zero Clause License (0BSD).
 
 
 1. File Types
@@ -65,20 +66,25 @@
     good-1-delta-lzma2.tiff.xz is an image file that compresses
     better with Delta+LZMA2 than with plain LZMA2.
 
-    good-1-x86-lzma2.xz uses the x86 filter (BCJ) and LZMA2. The
-    uncompressed file is compress_prepared_bcj_x86 found from the tests
-    directory.
-
-    good-1-sparc-lzma2.xz uses the SPARC filter and LZMA2. The
-    uncompressed file is compress_prepared_bcj_sparc found from the tests
-    directory.
-
     good-1-arm64-lzma2-1.xz uses the ARM64 filter and LZMA2. The
     uncompressed data is constructed so that it tests integer
-    wrap around and sign extension.
+    wrap around and sign extension. To recreate the file, compress
+    using XZ Utils 5.4.x (newer may or may not work too):
+
+        ./debug/testfilegen-arm64 \
+            | xz -T1 -Ccrc32 --arm64 \
+                             --lzma2=dict=64KiB,lp=2,lc=2 \
+            > good-1-arm64-lzma2-1.xz
 
     good-1-arm64-lzma2-2.xz is like good-1-arm64-lzma2-1.xz but with
     non-zero start offset. XZ Embedded doesn't support this file.
+    To recreate the file, compress using XZ Utils 5.4.x (newer may or
+    may not work too):
+
+        ./debug/testfilegen-arm64 \
+            | xz -T1 -Ccrc32 --arm64=start=4294963200 \
+                             --lzma2=dict=64KiB,lp=2,lc=2 \
+            > good-1-arm64-lzma2-2.xz
 
     good-1-lzma2-1.xz has two LZMA2 chunks, of which the second sets
     new properties.

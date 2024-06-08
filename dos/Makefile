@@ -1,11 +1,10 @@
+# SPDX-License-Identifier: 0BSD
+
 ###############################################################################
 #
 # Makefile to build XZ Utils using DJGPP
 #
 # Author: Lasse Collin
-#
-# This file has been put into the public domain.
-# You can do whatever you want with this file.
 #
 ###############################################################################
 

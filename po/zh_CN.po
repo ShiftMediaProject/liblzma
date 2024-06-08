@@ -1,14 +1,14 @@
 # Chinese translations for xz package
 # xz 软件包的简体中文翻译。
 # This file is put in the public domain.
-# Boyuan Yang <073plan@gmail.com>, 2019, 2022, 2023.
+# Boyuan Yang <073plan@gmail.com>, 2019, 2022, 2023, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xz 5.4.4-pre1\n"
+"Project-Id-Version: xz 5.6.0-pre1\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2024-05-28 21:28+0300\n"
-"PO-Revision-Date: 2023-07-19 14:24-0400\n"
+"POT-Creation-Date: 2024-05-29 17:41+0300\n"
+"PO-Revision-Date: 2024-02-05 15:15-0500\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: src/xz/args.c
 #, c-format
@@ -28,6 +28,11 @@ msgstr "%s：--block-list 的无效参数"
 #, c-format
 msgid "%s: Too many arguments to --block-list"
 msgstr "%s：--block-list 得到过多参数"
+
+#: src/xz/args.c
+#, c-format
+msgid "In --block-list, block size is missing after filter chain number '%c:'"
+msgstr "在 --block-list 中，块大小在过滤器链编号 '%c:' 之后缺失"
 
 #: src/xz/args.c
 msgid "0 can only be used as the last element in --block-list"
@@ -44,8 +49,8 @@ msgid "%s: Unsupported integrity check type"
 msgstr "%s：不支持的完整性检查类型"
 
 #: src/xz/args.c
-msgid "Only one file can be specified with `--files' or `--files0'."
-msgstr "仅可使用“--files”或“--files0”指定一个文件。"
+msgid "Only one file can be specified with '--files' or '--files0'."
+msgstr "仅可使用 '--files' 或 '--files0' 指定单个文件。"
 
 #. TRANSLATORS: This is a translatable
 #. string because French needs a space
@@ -73,6 +78,10 @@ msgid "Compression of lzip files (.lz) is not supported"
 msgstr "不支持对 lzip 文件 (.lz) 的压缩"
 
 #: src/xz/args.c
+msgid "--block-list is ignored unless compressing to the .xz format"
+msgstr "除非压缩为 .xz 格式，--block-list 将被忽略"
+
+#: src/xz/args.c
 msgid "With --format=raw, --suffix=.SUF is required unless writing to stdout"
 msgstr "启用 --format-raw 选项时，必须指定 --suffix=.SUF 获知写入至标准输出"
 
@@ -81,8 +90,18 @@ msgid "Maximum number of filters is four"
 msgstr "过滤器最多数量为四"
 
 #: src/xz/coder.c
+#, c-format
+msgid "Error in --filters%s=FILTERS option:"
+msgstr "在 --filters%s=过滤器 选项中出现错误："
+
+#: src/xz/coder.c
 msgid "Memory usage limit is too low for the given filter setup."
 msgstr "内存用量限制对指定过滤器设置过低。"
+
+#: src/xz/coder.c
+#, c-format
+msgid "filter chain %u used by --block-list but not specified with --filters%u="
+msgstr "--block-list 使用了过滤器链 %u，但未经由 --filters%u= 指定"
 
 #: src/xz/coder.c
 msgid "Using a preset in raw mode is discouraged."
@@ -101,12 +120,18 @@ msgid "LZMA1 cannot be used with the .xz format"
 msgstr "LZMA1 无法用于 .xz 格式"
 
 #: src/xz/coder.c
-msgid "The filter chain is incompatible with --flush-timeout"
-msgstr "过滤器链和 --flush-timeout 不兼容"
+#, c-format
+msgid "Filter chain %u is incompatible with --flush-timeout"
+msgstr "过滤器链 %u 和 --flush-timeout 不兼容"
 
 #: src/xz/coder.c
 msgid "Switching to single-threaded mode due to --flush-timeout"
 msgstr "因 --flush-timeout 而切换至单线程模式"
+
+#: src/xz/coder.c
+#, c-format
+msgid "Unsupported options in filter chain %u"
+msgstr "过滤器链 %u 中存在不支持的选项"
 
 #: src/xz/coder.c
 #, c-format
@@ -142,14 +167,21 @@ msgstr "正在切换到单线程模式以不超出 %s MiB 的内存用量限制"
 msgid "Adjusted LZMA%c dictionary size from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
 msgstr "已调整 LZMA%c 字典大小（从 %s MiB 调整为 %s MiB），以不超出 %s MiB 的内存用量限制"
 
+#: src/xz/coder.c
+#, fuzzy, c-format
+#| msgid "Adjusted LZMA%c dictionary size from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
+msgid "Adjusted LZMA%c dictionary size for --filters%u from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
+msgstr "已调整 LZMA%c 字典大小（从 %s MiB 调整为 %s MiB），以不超出 %s MiB 的内存用量限制"
+
+#: src/xz/coder.c
+#, c-format
+msgid "Error changing to filter chain %u: %s"
+msgstr "更改为过滤器链 %u 时出错：%s"
+
 #: src/xz/file_io.c
 #, c-format
 msgid "Error creating a pipe: %s"
 msgstr "创建管道时出错：%s"
-
-#: src/xz/file_io.c
-msgid "Failed to enable the sandbox"
-msgstr "沙盒启用失败"
 
 #: src/xz/file_io.c
 #, c-format
@@ -523,6 +555,10 @@ msgid "--list works only on .xz files (--format=xz or --format=auto)"
 msgstr "--list 仅适用于 .xz 文件（--format=xz 或 --format=auto）"
 
 #: src/xz/list.c
+msgid "Try 'lzmainfo' with .lzma files."
+msgstr ""
+
+#: src/xz/list.c
 msgid "--list does not support reading from standard input"
 msgstr "--list 不支持从标准输入读取"
 
@@ -538,8 +574,8 @@ msgstr "%s：读取文件名列表时遇到未预期的输入结束"
 
 #: src/xz/main.c
 #, c-format
-msgid "%s: Null character found when reading filenames; maybe you meant to use `--files0' instead of `--files'?"
-msgstr "%s：读取文件名列表时获得了空字符；您可能想要使用“--files0”而非“--files”？"
+msgid "%s: Null character found when reading filenames; maybe you meant to use '--files0' instead of '--files'?"
+msgstr "%s：读取文件名列表时获得了空字符；您可能想要使用 '--files0' 而非 '--files'？"
 
 #: src/xz/main.c
 msgid "Compression and decompression with --robot are not supported yet."
@@ -558,7 +594,7 @@ msgstr "无法同时从标准输入读取数据和文件名列表"
 msgid "%s: "
 msgstr "%s："
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 msgid "Internal error (bug)"
 msgstr "内部错误（bug）"
 
@@ -611,8 +647,8 @@ msgstr "%s：过滤器链：%s\n"
 
 #: src/xz/message.c
 #, c-format
-msgid "Try `%s --help' for more information."
-msgstr "请尝试执行“%s --help”来获取更多信息。"
+msgid "Try '%s --help' for more information."
+msgstr "请尝试执行 '%s --help' 来获取更多信息。"
 
 #: src/xz/message.c
 #, c-format
@@ -670,9 +706,17 @@ msgid ""
 msgstr "      --single-stream 仅解压缩第一个流，忽略其后可能继续出现的输入数据"
 
 #: src/xz/message.c
+#, fuzzy
+#| msgid ""
+#| "      --no-sparse     do not create sparse files when decompressing\n"
+#| "  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
+#| "      --files[=FILE]  read filenames to process from FILE; if FILE is\n"
+#| "                      omitted, filenames are read from the standard input;\n"
+#| "                      filenames must be terminated with the newline character\n"
+#| "      --files0[=FILE] like --files but use the null character as terminator"
 msgid ""
 "      --no-sparse     do not create sparse files when decompressing\n"
-"  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
+"  -S, --suffix=.SUF   use the suffix '.SUF' on compressed files\n"
 "      --files[=FILE]  read filenames to process from FILE; if FILE is\n"
 "                      omitted, filenames are read from the standard input;\n"
 "                      filenames must be terminated with the newline character\n"
@@ -693,11 +737,17 @@ msgstr ""
 " 基本文件格式和压缩选项：\n"
 
 #: src/xz/message.c
+#, fuzzy
+#| msgid ""
+#| "  -F, --format=FMT    file format to encode or decode; possible values are\n"
+#| "                      `auto' (default), `xz', `lzma', `lzip', and `raw'\n"
+#| "  -C, --check=CHECK   integrity check type: `none' (use with caution),\n"
+#| "                      `crc32', `crc64' (default), or `sha256'"
 msgid ""
 "  -F, --format=FMT    file format to encode or decode; possible values are\n"
-"                      `auto' (default), `xz', `lzma', `lzip', and `raw'\n"
-"  -C, --check=CHECK   integrity check type: `none' (use with caution),\n"
-"                      `crc32', `crc64' (default), or `sha256'"
+"                      'auto' (default), 'xz', 'lzma', 'lzip', and 'raw'\n"
+"  -C, --check=CHECK   integrity check type: 'none' (use with caution),\n"
+"                      'crc32', 'crc64' (default), or 'sha256'"
 msgstr ""
 "  -F, --format=格式   要编码或解码的文件格式；可能的值包括\n"
 "                      “auto”（默认）、“xz”、“lzma”、\n"
@@ -726,9 +776,13 @@ msgstr ""
 "                      不会影响解压缩的内存需求量"
 
 #: src/xz/message.c
+#, fuzzy
+#| msgid ""
+#| "  -T, --threads=NUM   use at most NUM threads; the default is 1; set to 0\n"
+#| "                      to use as many threads as there are processor cores"
 msgid ""
-"  -T, --threads=NUM   use at most NUM threads; the default is 1; set to 0\n"
-"                      to use as many threads as there are processor cores"
+"  -T, --threads=NUM   use at most NUM threads; the default is 0 which uses\n"
+"                      as many threads as there are processor cores"
 msgstr ""
 "  -T, --threads=数量  使用最多指定数量的线程；默认值为 1；设置为 0\n"
 "                      可以使用与处理器内核数量相同的线程数"
@@ -744,10 +798,17 @@ msgstr ""
 "                      使用该选项可以设置多线程压缩中的块大小"
 
 #: src/xz/message.c
+#, fuzzy
+#| msgid ""
+#| "      --block-list=SIZES\n"
+#| "                      start a new .xz block after the given comma-separated\n"
+#| "                      intervals of uncompressed data"
 msgid ""
-"      --block-list=SIZES\n"
+"      --block-list=BLOCKS\n"
 "                      start a new .xz block after the given comma-separated\n"
-"                      intervals of uncompressed data"
+"                      intervals of uncompressed data; optionally, specify a\n"
+"                      filter chain number (0-9) followed by a ':' before the\n"
+"                      uncompressed data size"
 msgstr ""
 "      --block-list=块大小列表\n"
 "                      在所给出的未压缩数据间隔大小的数据之后开始一个新的\n"
@@ -800,6 +861,26 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "\n"
+"  --filters=FILTERS   set the filter chain using the liblzma filter string\n"
+"                      syntax; use --filters-help for more information"
+msgstr ""
+
+#: src/xz/message.c
+msgid ""
+"  --filters1=FILTERS ... --filters9=FILTERS\n"
+"                      set additional filter chains using the liblzma filter\n"
+"                      string syntax to use with --block-list"
+msgstr ""
+
+#: src/xz/message.c
+msgid ""
+"  --filters-help      display more information about the liblzma filter string\n"
+"                      syntax and exit."
+msgstr ""
+
+#: src/xz/message.c
+msgid ""
+"\n"
 "  --lzma1[=OPTS]      LZMA1 or LZMA2; OPTS is a comma-separated list of zero or\n"
 "  --lzma2[=OPTS]      more of the following options (valid values; default):\n"
 "                        preset=PRE reset options to a preset (0-9[e])\n"
@@ -827,6 +908,18 @@ msgstr ""
 "                        depth=数字 最大搜索深度； 0=自动（默认）"
 
 #: src/xz/message.c
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "  --x86[=OPTS]        x86 BCJ filter (32-bit and 64-bit)\n"
+#| "  --arm[=OPTS]        ARM BCJ filter\n"
+#| "  --armthumb[=OPTS]   ARM-Thumb BCJ filter\n"
+#| "  --arm64[=OPTS]      ARM64 BCJ filter\n"
+#| "  --powerpc[=OPTS]    PowerPC BCJ filter (big endian only)\n"
+#| "  --ia64[=OPTS]       IA-64 (Itanium) BCJ filter\n"
+#| "  --sparc[=OPTS]      SPARC BCJ filter\n"
+#| "                      Valid OPTS for all BCJ filters:\n"
+#| "                        start=NUM  start offset for conversions (default=0)"
 msgid ""
 "\n"
 "  --x86[=OPTS]        x86 BCJ filter (32-bit and 64-bit)\n"
@@ -836,6 +929,7 @@ msgid ""
 "  --powerpc[=OPTS]    PowerPC BCJ filter (big endian only)\n"
 "  --ia64[=OPTS]       IA-64 (Itanium) BCJ filter\n"
 "  --sparc[=OPTS]      SPARC BCJ filter\n"
+"  --riscv[=OPTS]      RISC-V BCJ filter\n"
 "                      Valid OPTS for all BCJ filters:\n"
 "                        start=NUM  start offset for conversions (default=0)"
 msgstr ""
@@ -911,7 +1005,8 @@ msgstr ""
 msgid "  -V, --version       display the version number and exit"
 msgstr "  -V, --version       显示软件版本号并退出"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
+#, c-format
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -923,7 +1018,7 @@ msgstr ""
 #. for this package. Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the email or WWW
 #. address for translation bugs. Thanks.
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "Report bugs to <%s> (in English or Finnish).\n"
 msgstr ""
@@ -931,7 +1026,7 @@ msgstr ""
 "请使用中文向 TP 简体中文翻译团队 <i18n-zh@googlegroups.com>\n"
 "报告软件的简体中文翻译错误。\n"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "%s home page: <%s>\n"
 msgstr "%s 主页：<%s>\n"
@@ -940,10 +1035,24 @@ msgstr "%s 主页：<%s>\n"
 msgid "THIS IS A DEVELOPMENT VERSION NOT INTENDED FOR PRODUCTION USE."
 msgstr "这是开发版本，不适用于生产环境使用。"
 
+#: src/xz/message.c
+msgid ""
+"Filter chains are set using the --filters=FILTERS or\n"
+"--filters1=FILTERS ... --filters9=FILTERS options. Each filter in the chain\n"
+"can be separated by spaces or '--'. Alternatively a preset <0-9>[e] can be\n"
+"specified instead of a filter chain.\n"
+msgstr ""
+
+#: src/xz/message.c
+#, fuzzy
+#| msgid "Unsupported filter chain or filter options"
+msgid "The supported filters and their options are:"
+msgstr "不支持的过滤器链或过滤器选项"
+
 #: src/xz/options.c
 #, c-format
-msgid "%s: Options must be `name=value' pairs separated with commas"
-msgstr "%s：选项必须按照“名称=值”的格式成对出现，使用半角逗号分隔"
+msgid "%s: Options must be 'name=value' pairs separated with commas"
+msgstr "%s：选项必须按照 '名称=值' 的格式成对出现，使用半角逗号分隔"
 
 #: src/xz/options.c
 #, c-format
@@ -971,8 +1080,8 @@ msgstr "%s：文件名有未知后缀，跳过"
 
 #: src/xz/suffix.c
 #, c-format
-msgid "%s: File already has `%s' suffix, skipping"
-msgstr "%s：文件已有“%s”后缀名，跳过"
+msgid "%s: File already has '%s' suffix, skipping"
+msgstr "%s：文件已有 '%s' 后缀名，跳过"
 
 #: src/xz/suffix.c
 #, c-format
@@ -990,12 +1099,15 @@ msgid "%s: Invalid multiplier suffix"
 msgstr "%s：无效的乘数后缀"
 
 #: src/xz/util.c
-msgid "Valid suffixes are `KiB' (2^10), `MiB' (2^20), and `GiB' (2^30)."
+#, fuzzy
+#| msgid "Valid suffixes are `KiB' (2^10), `MiB' (2^20), and `GiB' (2^30)."
+msgid "Valid suffixes are 'KiB' (2^10), 'MiB' (2^20), and 'GiB' (2^30)."
 msgstr "有效的后缀包括“KiB”（2^10）、“MiB”（2^20）和“GiB”（2^30）。"
 
 #: src/xz/util.c
-#, c-format
-msgid "Value of the option `%s' must be in the range [%<PRIu64>, %<PRIu64>]"
+#, fuzzy, c-format
+#| msgid "Value of the option `%s' must be in the range [%<PRIu64>, %<PRIu64>]"
+msgid "Value of the option '%s' must be in the range [%<PRIu64>, %<PRIu64>]"
 msgstr "选项“%s”的值必须位于 [%<PRIu64>, %<PRIu64>] 范围内"
 
 #: src/xz/util.c
@@ -1006,6 +1118,23 @@ msgstr "压缩数据不能从终端读取"
 msgid "Compressed data cannot be written to a terminal"
 msgstr "压缩数据不能向终端写入"
 
+#: src/lzmainfo/lzmainfo.c
+#, c-format
+msgid ""
+"Usage: %s [--help] [--version] [FILE]...\n"
+"Show information stored in the .lzma file header"
+msgstr ""
+
+#: src/lzmainfo/lzmainfo.c
+#, fuzzy
+#| msgid "%s: Too small to be a valid .xz file"
+msgid "File is too small to be a .lzma file"
+msgstr "%s：过小而不是有效的 .xz 文件"
+
+#: src/lzmainfo/lzmainfo.c
+msgid "Not a .lzma file"
+msgstr ""
+
 #: src/common/tuklib_exit.c
 msgid "Writing to standard output failed"
 msgstr "写入标准输出失败"
@@ -1013,6 +1142,9 @@ msgstr "写入标准输出失败"
 #: src/common/tuklib_exit.c
 msgid "Unknown error"
 msgstr "未知错误"
+
+#~ msgid "Failed to enable the sandbox"
+#~ msgstr "沙盒启用失败"
 
 #~ msgid "The selected match finder requires at least nice=%<PRIu32>"
 #~ msgstr "所选中的匹配搜索器（match finder）至少需要 nice=%<PRIu32>"

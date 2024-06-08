@@ -1,13 +1,14 @@
+# SPDX-License-Identifier: 0BSD
 # Korean translation for the xz.
-# This file is put in the public domain.
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2019, 2022, 2023.
+# This file is published under the BSD Zero Clause License.
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2019, 2022, 2023, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xz 5.4.4-pre1\n"
+"Project-Id-Version: xz 5.6.0-pre2\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2024-05-28 21:28+0300\n"
-"PO-Revision-Date: 2023-07-20 10:59+0900\n"
+"POT-Creation-Date: 2024-05-29 17:41+0300\n"
+"PO-Revision-Date: 2024-02-18 01:45+0900\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean <translation-team-ko@googlegroups.com>\n"
 "Language: ko\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: src/xz/args.c
 #, c-format
@@ -27,6 +28,11 @@ msgstr "%s: --block-list의 인자값이 잘못됨"
 #, c-format
 msgid "%s: Too many arguments to --block-list"
 msgstr "%s: --block-list 인자 갯수가 너무 많음"
+
+#: src/xz/args.c
+#, c-format
+msgid "In --block-list, block size is missing after filter chain number '%c:'"
+msgstr "--block-list에서 필터 체인 번호 '%c:' 다음 블록 크기가 빠졌습니다."
 
 #: src/xz/args.c
 msgid "0 can only be used as the last element in --block-list"
@@ -43,8 +49,8 @@ msgid "%s: Unsupported integrity check type"
 msgstr "%s: 지원하지 않는 무결성 검사 형식"
 
 #: src/xz/args.c
-msgid "Only one file can be specified with `--files' or `--files0'."
-msgstr "`--files' 또는 `--files0' 옵션으로 하나의 파일만 지정할 수 있습니다."
+msgid "Only one file can be specified with '--files' or '--files0'."
+msgstr "'--files' 또는 '--files0' 옵션에는 하나의 파일만 지정할 수 있습니다."
 
 #. TRANSLATORS: This is a translatable
 #. string because French needs a space
@@ -69,19 +75,33 @@ msgstr "빌드 시점에 압축 해제 기능을 비활성했습니다"
 
 #: src/xz/args.c
 msgid "Compression of lzip files (.lz) is not supported"
-msgstr "lzip 파일(.lz) 압축은 지원하지 않습니다"
+msgstr "lzip 파일 (.lz) 압축은 지원하지 않습니다"
+
+#: src/xz/args.c
+msgid "--block-list is ignored unless compressing to the .xz format"
+msgstr ".xz 형식으로 압축하지 않으면 --block-list 옵션은 무시합니다"
 
 #: src/xz/args.c
 msgid "With --format=raw, --suffix=.SUF is required unless writing to stdout"
-msgstr "표준 출력으로 기록하지 않는 한 --format=raw, --suffix=.SUF 옵션이 필요합니다"
+msgstr "표준 출력으로 기록하지 않는 한 --format=raw, --suffix=.<확장자> 옵션이 필요합니다"
 
 #: src/xz/coder.c
 msgid "Maximum number of filters is four"
 msgstr "최대 필터 갯수는 4 입니다"
 
 #: src/xz/coder.c
+#, c-format
+msgid "Error in --filters%s=FILTERS option:"
+msgstr "--filters%s=<필터> 옵션 오류:"
+
+#: src/xz/coder.c
 msgid "Memory usage limit is too low for the given filter setup."
 msgstr "주어진 필터 설정으로는 메모리 사용 제한 값이 너무 적습니다."
+
+#: src/xz/coder.c
+#, c-format
+msgid "filter chain %u used by --block-list but not specified with --filters%u="
+msgstr "--block-lisk에서 필터 체인 %u번을 사용하고 있지만 --filters%u= 옵션으로 지정하지 않았습니다"
 
 #: src/xz/coder.c
 msgid "Using a preset in raw mode is discouraged."
@@ -100,8 +120,9 @@ msgid "LZMA1 cannot be used with the .xz format"
 msgstr ".xz 형식에는 LZMA1 필터를 사용할 수 없습니다"
 
 #: src/xz/coder.c
-msgid "The filter chain is incompatible with --flush-timeout"
-msgstr "--flush-timeout 옵션에는 필터 체인이 맞지 않습니다"
+#, c-format
+msgid "Filter chain %u is incompatible with --flush-timeout"
+msgstr "필터 체인 %u번이 --flush-timeout 옵션과 맞지 않습니다"
 
 #: src/xz/coder.c
 msgid "Switching to single-threaded mode due to --flush-timeout"
@@ -109,8 +130,13 @@ msgstr "--flush-timeout 옵션을 지정하였으므로 단일 스레드 모드�
 
 #: src/xz/coder.c
 #, c-format
+msgid "Unsupported options in filter chain %u"
+msgstr "필터 체인 %u번에서 지원하지 않는 옵션"
+
+#: src/xz/coder.c
+#, c-format
 msgid "Using up to %<PRIu32> threads."
-msgstr "최대 %<PRIu32> 스레드를 사용합니다."
+msgstr "최대 스레드 %<PRIu32>개를 사용합니다."
 
 #: src/xz/coder.c
 msgid "Unsupported filter chain or filter options"
@@ -129,26 +155,32 @@ msgstr "메모리 사용량 %s MiB 제한을 넘지 않으려 스레드 수를 %
 #: src/xz/coder.c
 #, c-format
 msgid "Reduced the number of threads from %s to one. The automatic memory usage limit of %s MiB is still being exceeded. %s MiB of memory is required. Continuing anyway."
-msgstr "스레드 수가 %s(에)서 하나로 줄었습니다. 메모리 사용 자동 제한량 %s MiB를 여전히 초과합니다. 메모리 공간 %s MiB가 필요합니다. 어쨌든 계속합니다."
+msgstr "스레드 수가 %s(에)서 하나로 줄었습니다. 메모리 사용 자동 제한량 %sMiB를 여전히 초과합니다. 메모리 공간 %sMiB가 필요합니다. 어쨌든 계속합니다."
 
 #: src/xz/coder.c
 #, c-format
 msgid "Switching to single-threaded mode to not exceed the memory usage limit of %s MiB"
-msgstr "메모리 사용량 %s MiB 제한을 넘지 않으려 단일 스레드 모드로 전환합니다"
+msgstr "메모리 사용 제한량 %sMiB를 넘지 않으려 단일 스레드 모드로 전환합니다"
 
 #: src/xz/coder.c
 #, c-format
 msgid "Adjusted LZMA%c dictionary size from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
-msgstr "메모리 사용량 %4$s MiB 제한을 넘지 않으려 %2$s MiB에서 %3$s MiB로 LZMA%1$c 딕셔너리 크기를 조정했습니다"
+msgstr "메모리 사용 제한량 %4$sMiB를 넘지 않으려 %2$sMiB에서 %3$sMiB로 LZMA%1$c 딕셔너리 크기를 조정했습니다"
+
+#: src/xz/coder.c
+#, c-format
+msgid "Adjusted LZMA%c dictionary size for --filters%u from %s MiB to %s MiB to not exceed the memory usage limit of %s MiB"
+msgstr "메모리 사용 제한량 %5$sMiB를 넘지 않으려 %3$sMiB에서 %4$sMiB로 --filters%2$u의 LZMA%1$c 딕셔너리 크기를 조정했습니다"
+
+#: src/xz/coder.c
+#, c-format
+msgid "Error changing to filter chain %u: %s"
+msgstr "필터 체인 %u번 전환 오류: %s"
 
 #: src/xz/file_io.c
 #, c-format
 msgid "Error creating a pipe: %s"
 msgstr "파이프 생성 오류: %s"
-
-#: src/xz/file_io.c
-msgid "Failed to enable the sandbox"
-msgstr "샌드 박스 활성화 실패"
 
 #: src/xz/file_io.c
 #, c-format
@@ -280,7 +312,7 @@ msgstr "사용 안함"
 
 #: src/xz/hardware.c
 msgid "Amount of physical memory (RAM):"
-msgstr "물리 메모리 양(RAM):"
+msgstr "물리 메모리 양 (RAM):"
 
 #: src/xz/hardware.c
 msgid "Number of processor threads:"
@@ -308,7 +340,7 @@ msgstr "하드웨어 정보:"
 
 #: src/xz/hardware.c
 msgid "Memory usage limits:"
-msgstr "메모리 사용량 제한:"
+msgstr "메모리 사용 제한량:"
 
 #: src/xz/list.c
 msgid "Streams:"
@@ -504,7 +536,7 @@ msgstr "아니요"
 #: src/xz/list.c
 #, c-format
 msgid "  Minimum XZ Utils version: %s\n"
-msgstr "  최소 XZ Utils 버전: %s\n"
+msgstr "  최소 XZ 유틸리티 버전: %s\n"
 
 #. TRANSLATORS: %s is an integer. Only the plural form of this
 #. message is used (e.g. "2 files"). Test with "xz -l foo.xz bar.xz".
@@ -523,6 +555,10 @@ msgid "--list works only on .xz files (--format=xz or --format=auto)"
 msgstr "--list 옵션은 .xz 파일에만 동작합니다(--format=xz 또는 --format=auto)"
 
 #: src/xz/list.c
+msgid "Try 'lzmainfo' with .lzma files."
+msgstr "'lzmainfo' 명령에 .lzma 파일 이름을 붙여 실행해보십시오."
+
+#: src/xz/list.c
 msgid "--list does not support reading from standard input"
 msgstr "--list 옵션은 표준 입력 읽기를 지원하지 않습니다"
 
@@ -538,8 +574,8 @@ msgstr "%s: 파일 이름 읽는 중 예상치 못한 입력 끝"
 
 #: src/xz/main.c
 #, c-format
-msgid "%s: Null character found when reading filenames; maybe you meant to use `--files0' instead of `--files'?"
-msgstr "%s: 파일 이름을 읽는 도중 NULL 문자 발견. `--files' 옵션 대신 `--files0' 옵션을 사용하시려는게 아닙니까?"
+msgid "%s: Null character found when reading filenames; maybe you meant to use '--files0' instead of '--files'?"
+msgstr "%s: 파일 이름을 읽는 도중 NULL 문자 발견. '--files' 옵션 대신 '--files0' 옵션을 사용하시려는게 아닙니까?"
 
 #: src/xz/main.c
 msgid "Compression and decompression with --robot are not supported yet."
@@ -558,9 +594,9 @@ msgstr "표준 출력에서 파일 이름을 읽을 때 표준 입력에서 데�
 msgid "%s: "
 msgstr "%s: "
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 msgid "Internal error (bug)"
-msgstr "내부 오류(버그)"
+msgstr "내부 오류 (버그)"
 
 #: src/xz/message.c
 msgid "Cannot establish signal handlers"
@@ -602,7 +638,7 @@ msgstr "%s MiB 메모리 용량이 필요합니다. 제한을 비활성합니다
 #: src/xz/message.c
 #, c-format
 msgid "%s MiB of memory is required. The limit is %s."
-msgstr "%s MiB 메모리 용량이 필요합니다. 제한 값은 %s 입니다."
+msgstr "%s MiB 메모리 용량이 필요합니다. 제한 용량은 %s 입니다."
 
 #: src/xz/message.c
 #, c-format
@@ -611,8 +647,8 @@ msgstr "%s: 필터 체인: %s\n"
 
 #: src/xz/message.c
 #, c-format
-msgid "Try `%s --help' for more information."
-msgstr "자세한 사용법은 `%s --help'를 입력하십시오."
+msgid "Try '%s --help' for more information."
+msgstr "자세한 사용법은 '%s --help'를 입력하십시오."
 
 #: src/xz/message.c
 #, c-format
@@ -622,7 +658,7 @@ msgid ""
 "\n"
 msgstr ""
 "사용법: %s [<옵션>]... [<파일>]...\n"
-".xz 형식으로 <파일> 다수를 압축(해제)합니다.\n"
+".xz 형식(으로) <파일> 다수를 압축(해제)합니다.\n"
 "\n"
 
 #: src/xz/message.c
@@ -659,7 +695,7 @@ msgid ""
 "  -f, --force         force overwrite of output file and (de)compress links\n"
 "  -c, --stdout        write to standard output and don't delete input files"
 msgstr ""
-"  -k, --keep          입력 파일을 유지합니다(삭제 안함)\n"
+"  -k, --keep          입력 파일을 유지합니다 (삭제 안함)\n"
 "  -f, --force         출력 파일을 강제로 덮어쓰고 링크도 압축(해제)합니다\n"
 "  -c, --stdout        표준 출력으로 기록하고 입력 파일을 삭제하지 않습니다"
 
@@ -674,19 +710,18 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "      --no-sparse     do not create sparse files when decompressing\n"
-"  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
+"  -S, --suffix=.SUF   use the suffix '.SUF' on compressed files\n"
 "      --files[=FILE]  read filenames to process from FILE; if FILE is\n"
 "                      omitted, filenames are read from the standard input;\n"
 "                      filenames must be terminated with the newline character\n"
 "      --files0[=FILE] like --files but use the null character as terminator"
 msgstr ""
-"      --no-sparse     압축 해제에 활용할 분할 파일을 만들지 않음\n"
+"      --no-sparse     압축 해제에 활용할 분할 파일을 만들지 않습니다\n"
 "  -S, --suffix=.<확장자>\n"
-"                      압축 파일 확장자에 `.<확장자>'를 사용합니다\n"
-"      --files[=<파일>]\n"
-"                      <파일> 에서 처리할 파일 이름을 읽습니다. <파일>을\n"
-"                      생략하면 표준 입력에서 파일 이름을 읽습니다.\n"
-"                      파일 이름은 개행 문자로 끝나야합니다\n"
+"                      압축 파일 확장자에 '.<확장자>'를 사용합니다\n"
+"      --files[=<파일>] <파일> 에서 처리할 파일 이름을 읽습니다.\n"
+"                      <파일>을 생략하면 표준 입력에서 파일 이름을\n"
+"                      읽습니다. 파일 이름은 개행 문자로 끝나야 합니다\n"
 "      --files0[=<파일>]\n"
 "                      --files 옵션과 비슷하지만 NULL 문자로 끝납니다"
 
@@ -701,14 +736,14 @@ msgstr ""
 #: src/xz/message.c
 msgid ""
 "  -F, --format=FMT    file format to encode or decode; possible values are\n"
-"                      `auto' (default), `xz', `lzma', `lzip', and `raw'\n"
-"  -C, --check=CHECK   integrity check type: `none' (use with caution),\n"
-"                      `crc32', `crc64' (default), or `sha256'"
+"                      'auto' (default), 'xz', 'lzma', 'lzip', and 'raw'\n"
+"  -C, --check=CHECK   integrity check type: 'none' (use with caution),\n"
+"                      'crc32', 'crc64' (default), or 'sha256'"
 msgstr ""
 "  -F, --format=<형식> 인코딩 디코딩할 파일 형식입니다. 가능한 값:\n"
-"                      `auto' (기본), `xz', `lzma', `lzip', `raw'\n"
-"  -C, --check=<검사>  무결성 검사 형식: `none'(위험),\n"
-"                      `crc32', `crc64'(기본), `sha256'"
+"                      'auto' (기본), 'xz', 'lzma', 'lzip', 'raw'\n"
+"  -C, --check=<검사>  무결성 검사 형식: 'none' (위험),\n"
+"                      'crc32', 'crc64' (기본), 'sha256'"
 
 #: src/xz/message.c
 msgid "      --ignore-check  don't verify the integrity check when decompressing"
@@ -719,7 +754,7 @@ msgid ""
 "  -0 ... -9           compression preset; default is 6; take compressor *and*\n"
 "                      decompressor memory usage into account before using 7-9!"
 msgstr ""
-"  -0 ... -9           압축 프리셋. 기본값은 6 입니다. 7-9를 사용하려면 입축\n"
+"  -0 ... -9           압축 사전 설정. 기본값은 6 입니다. 7-9를 사용하려면 압축\n"
 "                      메모리 사용량*과* 압축 해제 메모리 사용량을 지정하십시오!"
 
 #: src/xz/message.c
@@ -727,18 +762,17 @@ msgid ""
 "  -e, --extreme       try to improve compression ratio by using more CPU time;\n"
 "                      does not affect decompressor memory requirements"
 msgstr ""
-"  -e, --extreme       CPU 점유시간을 더 확보하여 압축률을 개선합니다.\n"
+"  -e, --extreme       CPU 점유 시간을 더 확보하여 압축률을 개선합니다.\n"
 "                      압축 해제시 메모리 요구 용량에는 영향을 주지 않습니다"
 
 #: src/xz/message.c
 msgid ""
-"  -T, --threads=NUM   use at most NUM threads; the default is 1; set to 0\n"
-"                      to use as many threads as there are processor cores"
+"  -T, --threads=NUM   use at most NUM threads; the default is 0 which uses\n"
+"                      as many threads as there are processor cores"
 msgstr ""
 "  -T, --threads=<개수>\n"
-"                      최대 스레드 <개수>를 사용합니다. 기본값은 1 입니다\n"
-"                      실제 프로세서 코어만큼의 스레드를 사용하려면 0 값으로\n"
-"                      지정합니다"
+"                      최대 스레드 <개수>를 사용합니다. 기본값은 실제 프로세서\n"
+"                      코어 수 만큼의 스레드를 사용하도록 지정하는 0 값입니다"
 
 #: src/xz/message.c
 msgid ""
@@ -752,13 +786,17 @@ msgstr ""
 
 #: src/xz/message.c
 msgid ""
-"      --block-list=SIZES\n"
+"      --block-list=BLOCKS\n"
 "                      start a new .xz block after the given comma-separated\n"
-"                      intervals of uncompressed data"
+"                      intervals of uncompressed data; optionally, specify a\n"
+"                      filter chain number (0-9) followed by a ':' before the\n"
+"                      uncompressed data size"
 msgstr ""
 "      --block-list=<크기>\n"
-"                      콤마로 구분한 연속 지정값 만큼 압축해제한 데이터 용량을\n"
-"                      넘긴 후 새 .xz 블록을 시작합니다"
+"                      콤마로 구분한 연속 지정값 만큼 압축 해제한 데이터\n"
+"                      용량 다음, 새 .xz 블록을 시작합니다. 압축 해제 데이터\n"
+"                      크기 앞에 콜론(':') 표기 후 필터 체인 번호(0-9)를 추가로\n"
+"                      지정할 수 있습니다"
 
 #: src/xz/message.c
 msgid ""
@@ -768,8 +806,8 @@ msgid ""
 "                      would block, all pending data is flushed out"
 msgstr ""
 "      --flush-timeout=<제한시간>\n"
-"                      앞서 플러싱한 후 더 많은 블록 입력을 읽어들일 때 밀리초\n"
-"                      단위 <제한시간>을 넘기면 모든 대기 데이터를\n"
+"                      이전 데이터를 플러싱한 후 더 많은 블록 입력을 읽어들일 때\n"
+"                      밀리초단위 <제한시간>을 넘기면 모든 대기 데이터를\n"
 "                      플러싱아웃합니다"
 
 #: src/xz/message.c
@@ -788,8 +826,8 @@ msgstr ""
 "      --memlimit-mt-decompress=<제한용량>\n"
 "  -M, --memlimit=<제한용량>\n"
 "                      압축, 압축해제, 또는 각각의 경우에 대한 메모리 사용량\n"
-"                      제한값을 설정합니다. <제한용량> 값 단위는 바이트 또는 램\n"
-"                      용량 백분율이며, 기본 값은 0 입니다"
+"                      제한값을 설정합니다. <제한용량> 값 단위는 바이트 또는\n"
+"                      램 용량 백분율이며, 기본값은 0 입니다"
 
 #: src/xz/message.c
 msgid ""
@@ -805,7 +843,35 @@ msgid ""
 " Custom filter chain for compression (alternative for using presets):"
 msgstr ""
 "\n"
-" 압축용 개별 필터 체인 설정(사전 설정 사용을 대신함):"
+" 압축용 개별 필터 체인 설정 (사전 설정 사용을 대신함):"
+
+#: src/xz/message.c
+msgid ""
+"\n"
+"  --filters=FILTERS   set the filter chain using the liblzma filter string\n"
+"                      syntax; use --filters-help for more information"
+msgstr ""
+"\n"
+"  --filters=<필터>    liblzma 필터 문자열 문법으로 필터 체인을 설정합니다.\n"
+"                      자세한 정보는 --filters-help 옵션을 사용하십시오"
+
+#: src/xz/message.c
+msgid ""
+"  --filters1=FILTERS ... --filters9=FILTERS\n"
+"                      set additional filter chains using the liblzma filter\n"
+"                      string syntax to use with --block-list"
+msgstr ""
+"  --filters1=<필터> ... --filters9=<필터>\n"
+"                      --block-list 옵션을 함께 활용할 수 있는 liblzma 필터\n"
+"                      문자열 문법으로 추가 필터 체인을 설정합니다"
+
+#: src/xz/message.c
+msgid ""
+"  --filters-help      display more information about the liblzma filter string\n"
+"                      syntax and exit."
+msgstr ""
+"  --filters-help      liblzma 필터 문자열 문법 추가 정보를 나타낸 후\n"
+"                      빠져나갑니다."
 
 #: src/xz/message.c
 msgid ""
@@ -834,7 +900,7 @@ msgstr ""
 "                        mode=<모드>     압축 모드 fast 또는 normal, normal)\n"
 "                        nice=<숫자>     nice 일치 길이 값(2-273, 64)\n"
 "                        mf=<이름>       일치 탐색기(hc3, hc4, bt2, bt3, bt4\n"
-"                                        중 하나. bt4)\n"
+"                                        중 하나. 기본값은 bt4)\n"
 "                        depth=<숫자>    최대 검색 깊이. 0=자동(기본값)"
 
 #: src/xz/message.c
@@ -847,17 +913,19 @@ msgid ""
 "  --powerpc[=OPTS]    PowerPC BCJ filter (big endian only)\n"
 "  --ia64[=OPTS]       IA-64 (Itanium) BCJ filter\n"
 "  --sparc[=OPTS]      SPARC BCJ filter\n"
+"  --riscv[=OPTS]      RISC-V BCJ filter\n"
 "                      Valid OPTS for all BCJ filters:\n"
 "                        start=NUM  start offset for conversions (default=0)"
 msgstr ""
 "\n"
-"  --x86[=<옵션>]      x86 BCJ 필터(32-bit, 64-bit)\n"
+"  --x86[=<옵션>]      x86 BCJ 필터(32-비트, 64-비트)\n"
 "  --arm[=<옵션>]      ARM BCJ 필터\n"
 "  --armthumb[=<옵션>] ARM-Thumb BCJ 필터\n"
 "  --arm64[=<옵션>]    ARM64 BCJ 필터\n"
 "  --powerpc[=<옵션>]  PowerPC BCJ 필터 (빅 엔디언 전용)\n"
 "  --ia64[=<옵션>]     IA-64 (아이태니엄) BCJ 필터\n"
 "  --sparc[=<옵션>]    SPARC BCJ 필터\n"
+"  --riscv[=<옵션>]    RISC-V BCJ 필터\n"
 "                     모든 BCJ 필터의 유효한 <옵션>:\n"
 "                        start=<숫자>  변환 시작 오프셋(기본값=0)"
 
@@ -870,8 +938,8 @@ msgid ""
 msgstr ""
 "\n"
 "  --delta[=<옵션>]    델타 필터. 유효한 <옵션> (유효값, 기본값):\n"
-"                        dist=<숫자>   각 바이트 값의 차이 값\n"
-"                                     (1-256, 1)"
+"                        dist=<숫자> 각 바이트 값의 차이 값\n"
+"                                    (1-256, 1)"
 
 #: src/xz/message.c
 msgid ""
@@ -895,7 +963,7 @@ msgstr "  -Q, --no-warn       경고가 종료 상태에 영향을 주지 않게
 
 #: src/xz/message.c
 msgid "      --robot         use machine-parsable messages (useful for scripts)"
-msgstr "      --robot         기계 해석용 메시지를 사용합니다(스크립트에 적합)"
+msgstr "      --robot         기계 해석용 메시지를 사용합니다 (스크립트에 적합)"
 
 #: src/xz/message.c
 msgid ""
@@ -910,7 +978,7 @@ msgid ""
 "  -h, --help          display the short help (lists only the basic options)\n"
 "  -H, --long-help     display this long help and exit"
 msgstr ""
-"  -h, --help          간단한 도움말을 표시합니다(기본 옵션만 나열)\n"
+"  -h, --help          간단한 도움말을 표시합니다 (기본 옵션만 나열)\n"
 "  -H, --long-help     긴 도움말을 표시하고 빠져나갑니다"
 
 #: src/xz/message.c
@@ -919,13 +987,14 @@ msgid ""
 "  -H, --long-help     display the long help (lists also the advanced options)"
 msgstr ""
 "  -h, --help          간단한 도움말을 표시하고 빠져나갑니다\n"
-"  -H, --long-help     긴 도움말을 표시합니다(고급 옵션도 나열)"
+"  -H, --long-help     긴 도움말을 표시합니다 (고급 옵션도 나열)"
 
 #: src/xz/message.c
 msgid "  -V, --version       display the version number and exit"
 msgstr "  -V, --version       버전 번호를 표시하고 빠져나갑니다"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
+#, c-format
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -937,12 +1006,12 @@ msgstr ""
 #. for this package. Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the email or WWW
 #. address for translation bugs. Thanks.
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "Report bugs to <%s> (in English or Finnish).\n"
 msgstr "<%s> (영문 또는 핀란드어)에 버그를 보고하십시오.\n"
 
-#: src/xz/message.c
+#: src/xz/message.c src/lzmainfo/lzmainfo.c
 #, c-format
 msgid "%s home page: <%s>\n"
 msgstr "%s 홈페이지: <%s>\n"
@@ -951,10 +1020,25 @@ msgstr "%s 홈페이지: <%s>\n"
 msgid "THIS IS A DEVELOPMENT VERSION NOT INTENDED FOR PRODUCTION USE."
 msgstr "!! 주의 !! 개발 버전이며 실제 사용 용도가 아닙니다."
 
+#: src/xz/message.c
+msgid ""
+"Filter chains are set using the --filters=FILTERS or\n"
+"--filters1=FILTERS ... --filters9=FILTERS options. Each filter in the chain\n"
+"can be separated by spaces or '--'. Alternatively a preset <0-9>[e] can be\n"
+"specified instead of a filter chain.\n"
+msgstr ""
+"--filters=<필터> 또는 --filters1=<필터> ... --filters9=<필터> 옵션으로\n"
+"필터 체인을 지정합니다. 체인의 각 필터는 공백 문자 또는 '--'으로 구분할 수 있습니다.\n"
+"필터 체인 대신 <0-9>[e] 사전 설정 값을 지정할 수 있습니다.\n"
+
+#: src/xz/message.c
+msgid "The supported filters and their options are:"
+msgstr "지원하는 필터와 옵션은 다음과 같습니다:"
+
 #: src/xz/options.c
 #, c-format
-msgid "%s: Options must be `name=value' pairs separated with commas"
-msgstr "%s: 옵션은 쉼표로 구분한 `이름=값' 쌍이어야합니다"
+msgid "%s: Options must be 'name=value' pairs separated with commas"
+msgstr "%s: 옵션은 쉼표로 구분한 '이름=값' 쌍이어야합니다"
 
 #: src/xz/options.c
 #, c-format
@@ -969,7 +1053,7 @@ msgstr "%s: 잘못된 옵션 값"
 #: src/xz/options.c
 #, c-format
 msgid "Unsupported LZMA1/LZMA2 preset: %s"
-msgstr "지원하지 않는 LZMA1/LZMA2 프리셋: %s"
+msgstr "지원하지 않는 LZMA1/LZMA2 사전 설정: %s"
 
 #: src/xz/options.c
 msgid "The sum of lc and lp must not exceed 4"
@@ -982,8 +1066,8 @@ msgstr "%s: 파일 이름에 알 수 없는 확장자 붙음, 건너뜀"
 
 #: src/xz/suffix.c
 #, c-format
-msgid "%s: File already has `%s' suffix, skipping"
-msgstr "%s: 파일에 이미 `%s' 확장자가 붙음, 건너뜀"
+msgid "%s: File already has '%s' suffix, skipping"
+msgstr "%s: 파일에 이미 '%s' 확장자가 붙음, 건너뜀"
 
 #: src/xz/suffix.c
 #, c-format
@@ -998,16 +1082,16 @@ msgstr "%s: 값은 10진 양수입니다"
 #: src/xz/util.c
 #, c-format
 msgid "%s: Invalid multiplier suffix"
-msgstr "%s: 잘못된 승수 후위 단위"
+msgstr "%s: 잘못된 승수 단위"
 
 #: src/xz/util.c
-msgid "Valid suffixes are `KiB' (2^10), `MiB' (2^20), and `GiB' (2^30)."
-msgstr "유효한 후위 단위는 `KiB' (2^10), `MiB' (2^20), and `GiB' (2^30) 입니다."
+msgid "Valid suffixes are 'KiB' (2^10), 'MiB' (2^20), and 'GiB' (2^30)."
+msgstr "사용할 수 있는 단위는 'KiB' (2^10), 'MiB' (2^20), 'GiB' (2^30) 입니다."
 
 #: src/xz/util.c
 #, c-format
-msgid "Value of the option `%s' must be in the range [%<PRIu64>, %<PRIu64>]"
-msgstr "`%s' 옵션 값은 범위[%<PRIu64>, %<PRIu64>] 안에 있어야 합니다"
+msgid "Value of the option '%s' must be in the range [%<PRIu64>, %<PRIu64>]"
+msgstr "'%s' 옵션 값은 [%<PRIu64>, %<PRIu64>] 범위 안에 있어야 합니다"
 
 #: src/xz/util.c
 msgid "Compressed data cannot be read from a terminal"
@@ -1017,6 +1101,23 @@ msgstr "압축 데이터를 터미널에서 읽을 수 없습니다"
 msgid "Compressed data cannot be written to a terminal"
 msgstr "압축 데이터를 터미널에 기록할 수 없습니다"
 
+#: src/lzmainfo/lzmainfo.c
+#, c-format
+msgid ""
+"Usage: %s [--help] [--version] [FILE]...\n"
+"Show information stored in the .lzma file header"
+msgstr ""
+"사용법: %s [--help] [--version] [<파일>]...\n"
+".lzma 파일 헤더에 저장한 정보를 보여줍니다"
+
+#: src/lzmainfo/lzmainfo.c
+msgid "File is too small to be a .lzma file"
+msgstr ".lzma 파일이기에는 너무 작습니다"
+
+#: src/lzmainfo/lzmainfo.c
+msgid "Not a .lzma file"
+msgstr ".lzma 파일이 아닙니다"
+
 #: src/common/tuklib_exit.c
 msgid "Writing to standard output failed"
 msgstr "표준 출력 기록 실패"
@@ -1025,43 +1126,5 @@ msgstr "표준 출력 기록 실패"
 msgid "Unknown error"
 msgstr "알 수 없는 오류"
 
-#~ msgid "The selected match finder requires at least nice=%<PRIu32>"
-#~ msgstr "선택한 일치 탐색기는 최소한 nice=%<PRIu32> 상태여야합니다"
-
-#~ msgid "Sandbox is disabled due to incompatible command line arguments"
-#~ msgstr "비호환 명령행 인자값이 있어 샌드박스를 비활성했습니다"
-
-#~ msgid "Sandbox was successfully enabled"
-#~ msgstr "샌드 박스 활성화에 성공했습니다"
-
-#~ msgid "Memory usage limit for compression:    "
-#~ msgstr "압축 메모리 사용 제한량:    "
-
-#~ msgid "  Streams:            %s\n"
-#~ msgstr "  스트림:            %s\n"
-
-#~ msgid "  Blocks:             %s\n"
-#~ msgstr "  블록:             %s\n"
-
-#~ msgid "  Ratio:              %s\n"
-#~ msgstr "  압축률:              %s\n"
-
-#~ msgid "  Check:              %s\n"
-#~ msgstr "  검사:              %s\n"
-
-#~ msgid ""
-#~ "  Streams:\n"
-#~ "    Stream    Blocks      CompOffset    UncompOffset        CompSize      UncompSize  Ratio  Check      Padding"
-#~ msgstr ""
-#~ "  스트림:\n"
-#~ "    스트림       블록       압축오프셋   압축해제 오프셋         압축용량     압축해제용량  압축율   검사      패딩"
-
-#~ msgid ""
-#~ "  Blocks:\n"
-#~ "    Stream     Block      CompOffset    UncompOffset       TotalSize      UncompSize  Ratio  Check"
-#~ msgstr ""
-#~ "  블록:\n"
-#~ "    스트림     블록      압축오프셋    압축해제오프셋       총용량      압축해제용량  압축율  검사"
-
-#~ msgid "      CheckVal %*s Header  Flags        CompSize    MemUsage  Filters"
-#~ msgstr "      CheckVal %*s Header  플래그        압축용량    메모리사용량  필터"
+#~ msgid "Failed to enable the sandbox"
+#~ msgstr "샌드박스 활성화 실패"

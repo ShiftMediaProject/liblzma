@@ -1,4 +1,5 @@
 #!@POSIX_SHELL@
+# SPDX-License-Identifier: GPL-2.0-or-later
 
 # Copyright (C) 1998, 2002, 2006, 2007 Free Software Foundation
 
@@ -23,7 +24,7 @@
 # specified via XZ_OPT.
 xz='@xz@ --format=auto'
 
-version='xzless (@PACKAGE_NAME@) @VERSION@'
+version='xzless (@PACKAGE_NAME@) @PACKAGE_VERSION@'
 
 usage="Usage: ${0##*/} [OPTION]... [FILE]...
 Like 'less', but operate on the uncompressed contents of xz compressed FILEs.
