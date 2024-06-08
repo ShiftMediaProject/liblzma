@@ -18,7 +18,7 @@
 AC_PREREQ([2.69])
 
 AC_INIT([XZ Utils], m4_esyscmd([/bin/sh build-aux/version.sh]),
-	[xz@tukaani.org], [xz], [https://xz.tukaani.org/xz-utils/])
+	[xz@tukaani.org], [xz], [https://tukaani.org/xz/])
 AC_CONFIG_SRCDIR([src/liblzma/common/common.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
@@ -707,61 +707,80 @@ fi
 # --with-pic and --without-pic though. As long as neither --with-pic nor
 # --without-pic is used then we can use #ifdef PIC to detect if the file is
 # being built for a shared library.
-if test "x$enable_symbol_versions" = xno ; then
+AS_IF([test "x$enable_symbol_versions" = xno], [
 	enable_symbol_versions=no
 	AC_MSG_RESULT([no])
-elif test "x$enable_shared" = xno ; then
+], [test "x$enable_shared" = xno], [
 	enable_symbol_versions=no
 	AC_MSG_RESULT([no (not building a shared library)])
-else
-	case "$host_cpu-$host_os" in
-		microblaze*)
-			# GCC 12 on MicroBlaze doesn't support __symver__
-			# attribute. It's simplest and safest to use the
-			# generic version on that platform since then only
-			# the linker script is needed. The RHEL/CentOS 7
-			# compatibility symbols don't matter on MicroBlaze.
-			enable_symbol_versions=generic
-			;;
-		*-linux*)
-			case "$pic_mode-$enable_static" in
-				default-*)
-					# Use symvers if PIC is defined.
-					have_symbol_versions_linux=2
-					;;
-				*-no)
-					# Not building static library.
-					# Use symvers unconditionally.
-					have_symbol_versions_linux=1
-					;;
-				*)
-					AC_MSG_RESULT([])
-					AC_MSG_ERROR([
+], [
+	# "yes" means that symbol version are to be used but we need to
+	# autodetect which variant to use.
+	if test "x$enable_symbol_versions" = xyes ; then
+		case "$host_cpu-$host_os" in
+			microblaze*)
+				# GCC 12 on MicroBlaze doesn't support
+				# __symver__ attribute. It's simplest and
+				# safest to use the generic version on that
+				# platform since then only the linker script
+				# is needed. The RHEL/CentOS 7 compatibility
+				# symbols don't matter on MicroBlaze.
+				enable_symbol_versions=generic
+				;;
+			*-linux*)
+				# NVIDIA HPC Compiler doesn't support symbol
+				# versioning but the linker script can still
+				# be used.
+				AC_EGREP_CPP([use_generic_symbol_versioning],
+					[#ifdef __NVCOMPILER
+					use_generic_symbol_versioning
+					#endif],
+					[enable_symbol_versions=generic],
+					[enable_symbol_versions=linux])
+				;;
+			*)
+				enable_symbol_versions=generic
+				;;
+		esac
+	fi
+
+	if test "x$enable_symbol_versions" = xlinux ; then
+		case "$pic_mode-$enable_static" in
+			default-*)
+				# Use symvers if PIC is defined.
+				have_symbol_versions_linux=2
+				;;
+			*-no)
+				# Not building static library.
+				# Use symvers unconditionally.
+				have_symbol_versions_linux=1
+				;;
+			*)
+				AC_MSG_RESULT([])
+				AC_MSG_ERROR([
     On GNU/Linux, building both shared and static library at the same time
     is not supported if --with-pic or --without-pic is used.
     Use either --disable-shared or --disable-static to build one type
     of library at a time. If both types are needed, build one at a time,
     possibly picking only src/liblzma/.libs/liblzma.a from the static build.])
-					;;
-			esac
-			enable_symbol_versions=linux
-			AC_DEFINE_UNQUOTED([HAVE_SYMBOL_VERSIONS_LINUX],
-				[$have_symbol_versions_linux],
-				[Define to 1 to if GNU/Linux-specific details
-				are unconditionally wanted for symbol
-				versioning. Define to 2 to if these are wanted
-				only if also PIC is defined (allows building
-				both shared and static liblzma at the same
-				time with Libtool if neither --with-pic nor
-				--without-pic is used). This define must be
-				used together with liblzma_linux.map.])
-			;;
-		*)
-			enable_symbol_versions=generic
-			;;
-	esac
+				;;
+		esac
+		AC_DEFINE_UNQUOTED([HAVE_SYMBOL_VERSIONS_LINUX],
+			[$have_symbol_versions_linux],
+			[Define to 1 to if GNU/Linux-specific details
+			are unconditionally wanted for symbol
+			versioning. Define to 2 to if these are wanted
+			only if also PIC is defined (allows building
+			both shared and static liblzma at the same
+			time with Libtool if neither --with-pic nor
+			--without-pic is used). This define must be
+			used together with liblzma_linux.map.])
+	elif test "x$enable_symbol_versions" != xgeneric ; then
+		AC_MSG_RESULT([])
+		AC_MSG_ERROR([unknown symbol versioning variant '$enable_symbol_versions'])
+	fi
 	AC_MSG_RESULT([yes ($enable_symbol_versions)])
-fi
+])
 
 AM_CONDITIONAL([COND_SYMVERS_LINUX],
 	[test "x$enable_symbol_versions" = xlinux])

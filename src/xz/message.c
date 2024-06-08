@@ -42,7 +42,7 @@ static bool current_filename_printed = false;
 
 /// True if we should print progress indicator and update it automatically
 /// if also verbose >= V_VERBOSE.
-static bool progress_automatic;
+static bool progress_automatic = false;
 
 /// True if message_progress_start() has been called but
 /// message_progress_end() hasn't been called yet.
@@ -120,25 +120,6 @@ message_init(void)
 	// to make us print progress information once without automatic
 	// updating.
 	progress_automatic = is_tty(STDERR_FILENO);
-
-	// Commented out because COLUMNS is rarely exported to environment.
-	// Most users have at least 80 columns anyway, let's think something
-	// fancy here if enough people complain.
-/*
-	if (progress_automatic) {
-		// stderr is a terminal. Check the COLUMNS environment
-		// variable to see if the terminal is wide enough. If COLUMNS
-		// doesn't exist or it has some unparsable value, we assume
-		// that the terminal is wide enough.
-		const char *columns_str = getenv("COLUMNS");
-		if (columns_str != NULL) {
-			char *endptr;
-			const long columns = strtol(columns_str, &endptr, 10);
-			if (*endptr != '\0' || columns < 80)
-				progress_automatic = false;
-		}
-	}
-*/
 
 #ifdef SIGALRM
 	// Establish the signal handlers which set a flag to tell us that

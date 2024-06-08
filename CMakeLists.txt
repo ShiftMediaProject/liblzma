@@ -45,7 +45,7 @@
 #
 #############################################################################
 
-cmake_minimum_required(VERSION 3.13...3.27 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.13...3.29 FATAL_ERROR)
 
 include(CMakePushCheckState)
 include(CheckIncludeFile)
@@ -61,7 +61,7 @@ include(cmake/tuklib_mbstr.cmake)
 
 set(PACKAGE_NAME "XZ Utils")
 set(PACKAGE_BUGREPORT "xz@tukaani.org")
-set(PACKAGE_URL "https://xz.tukaani.org/xz-utils/")
+set(PACKAGE_URL "https://tukaani.org/xz/")
 
 # Get the package version from version.h into PACKAGE_VERSION variable.
 file(READ src/liblzma/api/lzma/version.h PACKAGE_VERSION)
@@ -206,6 +206,69 @@ endif()
 #############################################################################
 
 option(BUILD_SHARED_LIBS "Build liblzma as a shared library instead of static")
+
+if(NOT WIN32)
+    # Symbol versioning only affects ELF shared libraries. The option is
+    # ignored for static libraries.
+    #
+    # Determine the default value so that it's always set with
+    # shared libraries in mind which helps if the build dir is reconfigured
+    # from static to shared libs without resetting the cache variables.
+    set(SYMBOL_VERSIONING_DEFAULT OFF)
+
+    if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND
+            (CMAKE_SYSTEM_PROCESSOR MATCHES "[Mm]icro[Bb]laze" OR
+             CMAKE_C_COMPILER_ID STREQUAL "NVHPC"))
+        # As a special case, GNU/Linux on MicroBlaze gets the generic
+        # symbol versioning because GCC 12 doesn't support the __symver__
+        # attribute on MicroBlaze. On Linux, CMAKE_SYSTEM_PROCESSOR comes
+        # from "uname -m" for native builds (should be "microblaze") or from
+        # the CMake toolchain file (not perfectly standardized but it very
+        # likely has "microblaze" in lower case or mixed case somewhere in
+        # the string).
+        #
+        # NVIDIA HPC Compiler doesn't support symbol versioning but
+        # it uses the linked from the system so the linker script
+        # can still be used to get the generic symbol versioning.
+        set(SYMBOL_VERSIONING_DEFAULT "generic")
+
+    elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+        # GNU/Linux-specific symbol versioning for shared liblzma.
+        # This includes a few extra compatibility symbols for RHEL/CentOS 7
+        # which are pointless on non-glibc non-Linux systems.
+        #
+        # Avoid symvers on Linux with non-glibc like musl and uClibc.
+        # In Autoconf it's enough to check that $host_os equals linux-gnu
+        # instead of, for example, linux-musl. CMake doesn't provide such
+        # a method.
+        #
+        # This check is here for now since it's not strictly required
+        # by anything else.
+        check_c_source_compiles(
+                "#include <features.h>
+                #if defined(__GLIBC__) && !defined(__UCLIBC__)
+                int main(void) { return 0; }
+                #else
+                compile error
+                #endif
+            "
+            IS_LINUX_WITH_GLIBC)
+
+        if(IS_LINUX_WITH_GLIBC)
+            set(SYMBOL_VERSIONING_DEFAULT "linux")
+        endif()
+
+    elseif(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
+        set(SYMBOL_VERSIONING_DEFAULT "generic")
+    endif()
+
+    set(SYMBOL_VERSIONING "${SYMBOL_VERSIONING_DEFAULT}" CACHE STRING
+        "Enable ELF shared library symbol versioning (OFF, generic, linux)")
+
+    # Show a dropdown menu in CMake GUI:
+    set_property(CACHE SYMBOL_VERSIONING PROPERTY STRINGS "OFF;generic;linux")
+endif()
+
 
 add_library(liblzma
     src/common/mythread.h
@@ -891,8 +954,7 @@ if(WIN32)
         # Disable __declspec(dllimport) when linking against static liblzma.
         target_compile_definitions(liblzma INTERFACE LZMA_API_STATIC)
     endif()
-elseif(BUILD_SHARED_LIBS AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    # GNU/Linux-specific symbol versioning for shared liblzma.
+elseif(BUILD_SHARED_LIBS AND SYMBOL_VERSIONING STREQUAL "linux")
     # Note that adding link options doesn't affect static builds
     # but HAVE_SYMBOL_VERSIONS_LINUX must not be used with static builds
     # because it would put symbol versions into the static library which
@@ -908,9 +970,7 @@ elseif(BUILD_SHARED_LIBS AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set_target_properties(liblzma PROPERTIES
         LINK_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/liblzma/liblzma_linux.map"
     )
-elseif(BUILD_SHARED_LIBS AND CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
-    # Symbol versioning for shared liblzma for non-GNU/Linux.
-    # FIXME? What about Solaris?
+elseif(BUILD_SHARED_LIBS AND SYMBOL_VERSIONING STREQUAL "generic")
     target_link_options(liblzma PRIVATE
         "-Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/src/liblzma/liblzma_generic.map"
     )

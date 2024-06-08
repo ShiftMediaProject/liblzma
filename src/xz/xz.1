@@ -6,7 +6,7 @@
 .\" This file has been put into the public domain.
 .\" You can do whatever you want with this file.
 .\"
-.TH XZ 1 "2024-01-19" "Tukaani" "XZ Utils"
+.TH XZ 1 "2024-04-08" "Tukaani" "XZ Utils"
 .
 .SH NAME
 xz, unxz, xzcat, lzma, unlzma, lzcat \- Compress or decompress .xz and .lzma files
@@ -801,8 +801,6 @@ in the single-threaded mode.
 It may vary slightly between
 .B xz
 versions.
-Memory requirements of some of the future multithreaded modes may
-be dramatically higher than that of the single-threaded mode.
 .IP \(bu 3
 DecMem contains the decompressor memory requirements.
 That is, the compression settings determine
@@ -811,6 +809,15 @@ The exact decompressor memory usage is slightly more than
 the LZMA2 dictionary size, but the values in the table
 have been rounded up to the next full MiB.
 .RE
+.IP ""
+Memory requirements of the multi-threaded mode are
+significantly higher than that of the single-threaded mode.
+With the default value of
+.BR \-\-block\-size ,
+each thread needs 3*3*DictSize plus CompMem or DecMem.
+For example, four threads with preset
+.B \-6
+needs 660\(en670\ MiB of memory.
 .TP
 .BR \-e ", " \-\-extreme
 Use a slower variant of the selected compression preset level
@@ -902,17 +909,16 @@ Using
 .I size
 less than the LZMA2 dictionary size is waste of RAM
 because then the LZMA2 dictionary buffer will never get fully used.
-The sizes of the blocks are stored in the block headers,
-which a future version of
-.B xz
-will use for multi-threaded decompression.
+In multi-threaded mode,
+the sizes of the blocks are stored in the block headers.
+This size information is required for multi-threaded decompression.
 .IP ""
 In single-threaded mode no block splitting is done by default.
 Setting this option doesn't affect memory usage.
 No size information is stored in block headers,
 thus files created in single-threaded mode
 won't be identical to files created in multi-threaded mode.
-The lack of size information also means that a future version of
+The lack of size information also means that
 .B xz
 won't be able decompress the files in multi-threaded mode.
 .TP
@@ -2391,7 +2397,7 @@ is run by a script or tool, for example, GNU
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 XZ_OPT=\-2v tar caf foo.tar.xz foo
 .ft R
 .fi
@@ -2411,7 +2417,7 @@ scripts one may use something like this:
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 XZ_OPT=${XZ_OPT\-"\-7e"}
 export XZ_OPT
 .ft R
@@ -2669,7 +2675,7 @@ if compression is successful:
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 xz foo
 .ft R
 .fi
@@ -2685,7 +2691,7 @@ even if decompression is successful:
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 xz \-dk bar.xz
 .ft R
 .fi
@@ -2703,7 +2709,7 @@ and 5\ MiB, respectively):
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 tar cf \- baz | xz \-4e > baz.tar.xz
 .ft R
 .fi
@@ -2714,7 +2720,7 @@ to standard output with a single command:
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 xz \-dcf a.txt b.txt.xz c.txt d.txt.lzma > abcd.txt
 .ft R
 .fi
@@ -2729,7 +2735,7 @@ can be used to parallelize compression of many files:
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 find . \-type f \e! \-name '*.xz' \-print0 \e
     | xargs \-0r \-P4 \-n16 xz \-T1
 .ft R
@@ -2769,7 +2775,7 @@ after compressing multiple files:
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 xz \-\-robot \-\-list *.xz | awk '/^totals/{print $5\-$4}'
 .ft R
 .fi
@@ -2789,7 +2795,7 @@ option:
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 if ! eval "$(xz \-\-robot \-\-version 2> /dev/null)" ||
         [ "$XZ_VERSION" \-lt 50000002 ]; then
     echo "Your xz is too old."
@@ -2805,7 +2811,7 @@ but if a limit has already been set, don't increase it:
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 NEWLIM=$((123 << 20))\ \ # 123 MiB
 OLDLIM=$(xz \-\-robot \-\-info\-memory | cut \-f3)
 if [ $OLDLIM \-eq 0 \-o $OLDLIM \-gt $NEWLIM ]; then
@@ -2858,7 +2864,7 @@ can be modified to use a bigger dictionary:
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 xz \-\-lzma2=preset=1,dict=32MiB foo.tar
 .ft R
 .fi
@@ -2886,7 +2892,7 @@ would use:
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 xz \-vv \-\-lzma2=dict=192MiB big_foo.tar
 .ft R
 .fi
@@ -2916,7 +2922,7 @@ using about 100\ KiB of memory.
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 xz \-\-check=crc32 \-\-lzma2=preset=6e,dict=64KiB foo
 .ft R
 .fi
@@ -2944,7 +2950,7 @@ slightly (like 0.1\ %) smaller file than
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 xz \-\-lzma2=preset=6e,pb=0,lc=4 source_code.tar
 .ft R
 .fi
@@ -2957,7 +2963,7 @@ using the x86 BCJ filter:
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 xz \-\-x86 \-\-lzma2 libfoo.so
 .ft R
 .fi
@@ -2992,7 +2998,7 @@ to LZMA2 to accommodate the three-byte alignment:
 .RS
 .PP
 .nf
-.ft CW
+.ft CR
 xz \-\-delta=dist=3 \-\-lzma2=pb=0 foo.tiff
 .ft R
 .fi
@@ -3013,8 +3019,8 @@ have the same number of bytes per pixel.
 .BR bzip2 (1),
 .BR 7z (1)
 .PP
-XZ Utils: <https://xz.tukaani.org/xz-utils/>
+XZ Utils: <https://tukaani.org/xz/>
 .br
-XZ Embedded: <https://xz.tukaani.org/xz-embedded/>
+XZ Embedded: <https://tukaani.org/xz/embedded.html>
 .br
 LZMA SDK: <https://7-zip.org/sdk.html>

@@ -25,7 +25,6 @@ dist_doc_DATA = \
 	NEWS \
 	README \
 	THANKS \
-	TODO \
 	doc/faq.txt \
 	doc/history.txt \
 	doc/xz-file-format.txt \
@@ -38,6 +37,7 @@ dist_examples_DATA = \
 	doc/examples/02_decompress.c \
 	doc/examples/03_compress_custom.c \
 	doc/examples/04_compress_easy_mt.c \
+	doc/examples/11_file_info.c \
 	doc/examples/Makefile
 
 examplesolddir = $(docdir)/examples_old
@@ -73,6 +73,7 @@ EXTRA_DIST = \
 	COPYING.LGPLv2.1 \
 	INSTALL.generic \
 	PACKAGERS \
+	TODO \
 	build-aux/manconv.sh \
 	build-aux/version.sh
 
@@ -119,10 +120,11 @@ dist-hook:
 	fi
 
 # This works with GNU tar and gives cleaner package than normal 'make dist'.
-# This also ensures that the man page translations are up to date (dist-hook
+# This also ensures that the translations are up to date (dist-hook
 # would be too late for that).
 mydist:
 	sh "$(srcdir)/src/liblzma/validate_map.sh"
+	cd po && $(MAKE) xz.pot-update
 	cd "$(srcdir)/po4a" && sh update-po
 	cd "$(srcdir)/doxygen" && sh update-doxygen
 	VERSION=$(VERSION); \

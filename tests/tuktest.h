@@ -4,7 +4,8 @@
 /// \brief      Helper macros for writing simple test programs
 /// \version    2023-01-08
 ///
-/// Some inspiration was taken from STest by Keith Nicholas.
+/// Some inspiration was taken from Seatest by Keith Nicholas and
+/// from STest which is a fork of Seatest by Jia Tan.
 ///
 /// This is standard C99/C11 only and thus should be fairly portable
 /// outside POSIX systems too.
@@ -110,8 +111,8 @@
 ///     Meson: https://mesonbuild.com/Unit-tests.html
 ///
 ///     CMake handles passing and failing tests by default but treats hard
-///     errors as regular fails. To CMake support skipped tests correctly,
-///     one has to set the SKIP_RETURN_CODE property for each test:
+///     errors as regular fails. To make CMake support skipped tests
+///     correctly, one has to set the SKIP_RETURN_CODE property for each test:
 ///
 ///     set_tests_properties(foo_test_name PROPERTIES SKIP_RETURN_CODE 77)
 ///

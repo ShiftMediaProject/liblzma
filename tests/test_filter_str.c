@@ -20,37 +20,56 @@ test_lzma_str_to_filters(void)
 	int error_pos;
 
 	// Test with NULL string.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters(NULL, &error_pos, filters, 0,
 			NULL) != NULL);
+	assert_int_eq(error_pos, 0);
 
 	// Test with NULL filter array.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2", &error_pos, NULL, 0,
 			NULL) != NULL);
+	assert_int_eq(error_pos, 0);
 
 	// Test with unsupported flags.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2", &error_pos, filters,
 			UINT32_MAX, NULL) != NULL);
+	assert_int_eq(error_pos, 0);
 
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2", &error_pos, filters,
 			LZMA_STR_NO_SPACES << 1, NULL) != NULL);
+	assert_int_eq(error_pos, 0);
 
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2", &error_pos, filters,
 			LZMA_STR_NO_SPACES, NULL) != NULL);
+	assert_int_eq(error_pos, 0);
 
 	// Test with empty string.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("", &error_pos,
 			filters, 0, NULL) != NULL);
 	assert_int_eq(error_pos, 0);
 
 	// Test with invalid filter name and missing filter name.
+	error_pos = -1;
+	assert_true(lzma_str_to_filters("abcd", &error_pos,
+			filters, 0, NULL) != NULL);
+	assert_int_eq(error_pos, 0);
+
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2 abcd", &error_pos,
 			filters, 0, NULL) != NULL);
 	assert_int_eq(error_pos, 6);
 
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2--abcd", &error_pos,
 			filters, 0, NULL) != NULL);
 	assert_int_eq(error_pos, 7);
 
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2--", &error_pos,
 			filters, 0, NULL) != NULL);
 	assert_int_eq(error_pos, 7);
@@ -58,12 +77,15 @@ test_lzma_str_to_filters(void)
 	// Test LZMA_STR_ALL_FILTERS flag (should work with LZMA1 if built).
 #if defined(HAVE_ENCODER_LZMA1) || defined(HAVE_DECODER_LZMA1)
 	// Using LZMA1 as a Filter should fail without LZMA_STR_ALL_FILTERS.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma1", &error_pos, filters,
 			0, NULL) != NULL);
 	assert_int_eq(error_pos, 0);
 
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma1", &error_pos, filters,
 			LZMA_STR_ALL_FILTERS, NULL) == NULL);
+	assert_int_eq(error_pos, 5);
 
 	// Verify Filters array IDs are correct. The array should contain
 	// only two elements:
@@ -79,11 +101,15 @@ test_lzma_str_to_filters(void)
 	// same Filter multiple times in the chain and having a non-last
 	// Filter like lzma2 appear before another Filter.
 	// Without the flag, "lzma2 lzma2" must fail.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2 lzma2", &error_pos, filters,
 			0, NULL) != NULL);
+	assert_int_eq(error_pos, 11);
 
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2 lzma2", &error_pos, filters,
 			LZMA_STR_NO_VALIDATION, NULL) == NULL);
+	assert_int_eq(error_pos, 11);
 
 	assert_uint_eq(filters[0].id, LZMA_FILTER_LZMA2);
 	assert_uint_eq(filters[1].id, LZMA_FILTER_LZMA2);
@@ -92,48 +118,65 @@ test_lzma_str_to_filters(void)
 	lzma_filters_free(filters, NULL);
 
 	// Should fail with invalid Filter options (lc + lp must be <= 4).
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2:lc=3,lp=3", &error_pos, filters,
 			LZMA_STR_NO_VALIDATION, NULL) != NULL);
+	assert_int_eq(error_pos, 15);
 
 	// Test invalid option name.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2:foo=1,bar=2", &error_pos,
 			filters, 0, NULL) != NULL);
 	assert_int_eq(error_pos, 6);
 
+	error_pos = -1;
+	assert_true(lzma_str_to_filters("lzma2:pb=1,bar=2", &error_pos,
+			filters, 0, NULL) != NULL);
+	assert_int_eq(error_pos, 11);
+
 	// Test missing option value.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2:lc=", &error_pos,
 			filters, 0, NULL) != NULL);
 	assert_int_eq(error_pos, 9);
 
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2:=,pb=1", &error_pos,
 			filters, 0, NULL) != NULL);
 	assert_int_eq(error_pos, 6);
 
 	// Test unsupported preset value.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("-10", &error_pos,
 			filters, 0, NULL) != NULL);
 	assert_int_eq(error_pos, 2);
 
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("-5f", &error_pos,
 			filters, 0, NULL) != NULL);
 	assert_int_eq(error_pos, 2);
 
 	// Test filter chain too long.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2 lzma2 lzma2 lzma2 lzma2",
 			&error_pos, filters, LZMA_STR_NO_VALIDATION,
 			NULL) != NULL);
-	assert_int_eq(error_pos, 24);
+	assert_int_eq(error_pos, 24); // The fifth is too many.
 
 #if defined(HAVE_ENCODER_LZMA1) || defined(HAVE_DECODER_LZMA1)
 	// Should fail with a Filter not supported in the .xz format (lzma1).
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma1", &error_pos, filters,
 			LZMA_STR_NO_VALIDATION, NULL) != NULL);
+	assert_int_eq(error_pos, 0);
 #endif
 
 	// Test setting options with the "=" format.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2=dict=4096,lc=2,lp=2,pb=1,"
 			"mode=fast,nice=3,mf=hc3,depth=10", &error_pos,
 			filters, 0, NULL) == NULL);
+	assert_int_eq(error_pos, 63);
 	assert_uint_eq(filters[0].id, LZMA_FILTER_LZMA2);
 	assert_uint_eq(filters[1].id, LZMA_VLI_UNKNOWN);
 
@@ -151,8 +194,10 @@ test_lzma_str_to_filters(void)
 
 #if defined(HAVE_ENCODER_X86) || defined(HAVE_DECODER_X86)
 	// Test BCJ Filter options.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("x86:start=16", &error_pos, filters,
 			LZMA_STR_NO_VALIDATION, NULL) == NULL);
+	assert_int_eq(error_pos, 12);
 
 	assert_uint_eq(filters[0].id, LZMA_FILTER_X86);
 	assert_uint_eq(filters[1].id, LZMA_VLI_UNKNOWN);
@@ -165,8 +210,10 @@ test_lzma_str_to_filters(void)
 
 #if defined(HAVE_ENCODER_DELTA) || defined(HAVE_DECODER_DELTA)
 	// Test Delta Filter options.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("delta:dist=20", &error_pos, filters,
 			LZMA_STR_NO_VALIDATION, NULL) == NULL);
+	assert_int_eq(error_pos, 13);
 
 	assert_uint_eq(filters[0].id, LZMA_FILTER_DELTA);
 	assert_uint_eq(filters[1].id, LZMA_VLI_UNKNOWN);
@@ -178,8 +225,10 @@ test_lzma_str_to_filters(void)
 #endif
 
 	// Test skipping leading spaces.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("    lzma2", &error_pos, filters,
 			0, NULL) == NULL);
+	assert_int_eq(error_pos, 9);
 
 	assert_uint_eq(filters[0].id, LZMA_FILTER_LZMA2);
 	assert_uint_eq(filters[1].id, LZMA_VLI_UNKNOWN);
@@ -187,8 +236,10 @@ test_lzma_str_to_filters(void)
 	lzma_filters_free(filters, NULL);
 
 	// Test skipping trailing spaces.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2    ", &error_pos, filters,
 			0, NULL) == NULL);
+	assert_int_eq(error_pos, 9);
 
 	assert_uint_eq(filters[0].id, LZMA_FILTER_LZMA2);
 	assert_uint_eq(filters[1].id, LZMA_VLI_UNKNOWN);
@@ -196,8 +247,10 @@ test_lzma_str_to_filters(void)
 	lzma_filters_free(filters, NULL);
 
 	// Test with "--" instead of space separating.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2--lzma2", &error_pos, filters,
 			LZMA_STR_NO_VALIDATION, NULL) == NULL);
+	assert_int_eq(error_pos, 12);
 
 	assert_uint_eq(filters[0].id, LZMA_FILTER_LZMA2);
 	assert_uint_eq(filters[1].id, LZMA_FILTER_LZMA2);
@@ -206,24 +259,30 @@ test_lzma_str_to_filters(void)
 	lzma_filters_free(filters, NULL);
 
 	// Test preset with and without leading "-", and with "e".
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("-3", &error_pos, filters,
 			0, NULL) == NULL);
+	assert_int_eq(error_pos, 2);
 
 	assert_uint_eq(filters[0].id, LZMA_FILTER_LZMA2);
 	assert_uint_eq(filters[1].id, LZMA_VLI_UNKNOWN);
 
 	lzma_filters_free(filters, NULL);
 
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("4", &error_pos, filters,
 			0, NULL) == NULL);
+	assert_int_eq(error_pos, 1);
 
 	assert_uint_eq(filters[0].id, LZMA_FILTER_LZMA2);
 	assert_uint_eq(filters[1].id, LZMA_VLI_UNKNOWN);
 
 	lzma_filters_free(filters, NULL);
 
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("9e", &error_pos, filters,
 			0, NULL) == NULL);
+	assert_int_eq(error_pos, 2);
 
 	assert_uint_eq(filters[0].id, LZMA_FILTER_LZMA2);
 	assert_uint_eq(filters[1].id, LZMA_VLI_UNKNOWN);
@@ -231,8 +290,10 @@ test_lzma_str_to_filters(void)
 	lzma_filters_free(filters, NULL);
 
 	// Test using a preset as an lzma2 option.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2:preset=9e", &error_pos, filters,
 			0, NULL) == NULL);
+	assert_int_eq(error_pos, 15);
 
 	assert_uint_eq(filters[0].id, LZMA_FILTER_LZMA2);
 	assert_uint_eq(filters[1].id, LZMA_VLI_UNKNOWN);
@@ -240,23 +301,33 @@ test_lzma_str_to_filters(void)
 	lzma_filters_free(filters, NULL);
 
 	// Test setting dictionary size with invalid modifier suffix.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2:dict=4096ZiB", &error_pos, filters,
 			0, NULL) != NULL);
+	assert_int_eq(error_pos, 15);
 
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2:dict=4096KiBs", &error_pos, filters,
 			0, NULL) != NULL);
+	assert_int_eq(error_pos, 15);
 
 	// Test option that cannot have multiplier modifier.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2:pb=1k", &error_pos, filters,
 			0, NULL) != NULL);
+	assert_int_eq(error_pos, 10);
 
 	// Test option value too large.
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2:dict=4096GiB", &error_pos, filters,
 			0, NULL) != NULL);
+	assert_int_eq(error_pos, 11);
 
 	// Test valid uses of multiplier modifiers (k,m,g).
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2:dict=4096KiB", &error_pos, filters,
 			0, NULL) == NULL);
+	assert_int_eq(error_pos, 18);
 
 	assert_uint_eq(filters[0].id, LZMA_FILTER_LZMA2);
 	assert_uint_eq(filters[1].id, LZMA_VLI_UNKNOWN);
@@ -266,8 +337,10 @@ test_lzma_str_to_filters(void)
 
 	lzma_filters_free(filters, NULL);
 
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2:dict=40Mi", &error_pos, filters,
 			0, NULL) == NULL);
+	assert_int_eq(error_pos, 15);
 
 	assert_uint_eq(filters[0].id, LZMA_FILTER_LZMA2);
 	assert_uint_eq(filters[1].id, LZMA_VLI_UNKNOWN);
@@ -277,8 +350,10 @@ test_lzma_str_to_filters(void)
 
 	lzma_filters_free(filters, NULL);
 
+	error_pos = -1;
 	assert_true(lzma_str_to_filters("lzma2:dict=1g", &error_pos, filters,
 			0, NULL) == NULL);
+	assert_int_eq(error_pos, 13);
 
 	assert_uint_eq(filters[0].id, LZMA_FILTER_LZMA2);
 	assert_uint_eq(filters[1].id, LZMA_VLI_UNKNOWN);
@@ -362,6 +437,10 @@ test_lzma_str_from_filters(void)
 	assert_true(lzma_str_to_filters("x86 lzma2", NULL, filters, 0, NULL)
 			== NULL);
 
+	// It always allocates the options structure even when it's not
+	// needed due to start_offset = 0 being the default.
+	assert_true(filters[0].options != NULL);
+
 	assert_lzma_ret(lzma_str_from_filters(&output_str, filters, 0, NULL),
 			LZMA_OK);
 
@@ -370,9 +449,7 @@ test_lzma_str_from_filters(void)
 	free(output_str);
 
 	// Test setting BCJ option to NULL.
-	assert_false(filters[0].options == NULL);
 	free(filters[0].options);
-
 	filters[0].options = NULL;
 
 	assert_lzma_ret(lzma_str_from_filters(&output_str, filters, 0, NULL),
@@ -386,6 +463,7 @@ test_lzma_str_from_filters(void)
 
 	lzma_options_lzma opts;
 	assert_false(lzma_lzma_preset(&opts, LZMA_PRESET_DEFAULT));
+
 	// Test with too many Filters (array terminated after 4+ filters).
 	lzma_filter oversized_filters[LZMA_FILTERS_MAX + 2];
 
@@ -512,18 +590,23 @@ test_lzma_str_list_filters(void)
 	// Test with bad flags.
 	assert_lzma_ret(lzma_str_list_filters(&str, LZMA_VLI_UNKNOWN,
 			LZMA_STR_NO_VALIDATION , NULL), LZMA_OPTIONS_ERROR);
+	assert_true(str == NULL);
 
 	assert_lzma_ret(lzma_str_list_filters(&str, LZMA_VLI_UNKNOWN,
 			LZMA_STR_NO_SPACES, NULL), LZMA_OPTIONS_ERROR);
+	assert_true(str == NULL);
 
 	// Test with bad Filter ID.
 	assert_lzma_ret(lzma_str_list_filters(&str, LZMA_VLI_UNKNOWN - 1,
 			0, NULL), LZMA_OPTIONS_ERROR);
+	assert_true(str == NULL);
 
 	// Test LZMA_STR_ENCODER flag.
 	assert_lzma_ret(lzma_str_list_filters(&str, LZMA_VLI_UNKNOWN,
 			LZMA_STR_ENCODER, NULL), LZMA_OK);
 
+	// NOTE: Just checking for "contains" is a bit weak check as
+	// "arm" matches "armthumb" and "arm64" too.
 	for (uint32_t i = 0; i < ARRAY_SIZE(supported_encoders); i++)
 		assert_str_contains(str, supported_encoders[i]);
 
@@ -541,6 +624,7 @@ test_lzma_str_list_filters(void)
 	// Test LZMA_STR_GETOPT_LONG flag.
 	assert_lzma_ret(lzma_str_list_filters(&str, LZMA_VLI_UNKNOWN,
 			LZMA_STR_GETOPT_LONG, NULL), LZMA_OK);
+	assert_str_contains(str, "--");
 
 	free(str);
 

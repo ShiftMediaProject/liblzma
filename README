@@ -287,21 +287,23 @@ XZ Utils
     XZ Embedded is a limited implementation written for use in the Linux
     kernel, but it is also suitable for other embedded use.
 
-        https://xz.tukaani.org/xz-embedded/
+        https://tukaani.org/xz/embedded.html
 
     XZ for Java is a complete implementation written in pure Java.
 
-        https://xz.tukaani.org/xz-for-java/
+        https://tukaani.org/xz/java.html
 
 
 6. Contact information
 ----------------------
 
-    If you have questions, bug reports, patches etc. related to XZ Utils,
-    the project maintainers Lasse Collin and Jia Tan can be reached via
-    <xz@tukaani.org>.
+    XZ Utils in general:
+      - Home page: https://tukaani.org/xz/
+      - Email to maintainer(s): xz@tukaani.org
+      - IRC: #tukaani on Libera Chat
+      - GitHub: https://github.com/tukaani-project/xz
 
-    You might find Lasse also from #tukaani on Libera Chat (IRC).
-    The nick is Larhzu. The channel tends to be pretty quiet,
-    so just ask your question and someone might wake up.
+    Lead maintainer:
+      - Email: Lasse Collin <lasse.collin@tukaani.org>
+      - IRC: Larhzu on Libera Chat
 
