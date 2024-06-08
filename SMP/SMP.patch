@@ -1,5 +1,5 @@
 diff --git a/src/common/mythread.h b/src/common/mythread.h
-index 37b5216..0819aae 100644
+index 4495e017..7a499d7c 100644
 --- a/src/common/mythread.h
 +++ b/src/common/mythread.h
 @@ -337,8 +337,10 @@ mythread_condtime_set(mythread_condtime *condtime, const mythread_cond *cond,
@@ -16,7 +16,7 @@ index 37b5216..0819aae 100644
  #include <windows.h>
  #include <process.h>
 diff --git a/src/common/tuklib_cpucores.c b/src/common/tuklib_cpucores.c
-index bb3f2f7..76f30a8 100644
+index bb3f2f75..76f30a8b 100644
 --- a/src/common/tuklib_cpucores.c
 +++ b/src/common/tuklib_cpucores.c
 @@ -14,7 +14,9 @@
@@ -31,7 +31,7 @@ index bb3f2f7..76f30a8 100644
  #	include <windows.h>
  
 diff --git a/src/common/tuklib_physmem.c b/src/common/tuklib_physmem.c
-index a1bccb2..bd99bbe 100644
+index 69f6fd4c..213e68bb 100644
 --- a/src/common/tuklib_physmem.c
 +++ b/src/common/tuklib_physmem.c
 @@ -17,7 +17,9 @@
@@ -45,7 +45,7 @@ index a1bccb2..bd99bbe 100644
  #	endif
  #	include <windows.h>
  
-@@ -79,6 +81,13 @@ tuklib_physmem(void)
+@@ -90,6 +92,13 @@ tuklib_physmem(void)
  	uint64_t ret = 0;
  
  #if defined(_WIN32) || defined(__CYGWIN__)
@@ -59,7 +59,7 @@ index a1bccb2..bd99bbe 100644
  	if ((GetVersion() & 0xFF) >= 5) {
  		// Windows 2000 and later have GlobalMemoryStatusEx() which
  		// supports reporting values greater than 4 GiB. To keep the
-@@ -107,6 +116,7 @@ tuklib_physmem(void)
+@@ -125,6 +134,7 @@ tuklib_physmem(void)
  		GlobalMemoryStatus(&meminfo);
  		ret = meminfo.dwTotalPhys;
  	}
