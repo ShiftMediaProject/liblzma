@@ -99,7 +99,7 @@
 #############################################################################
 
 # NOTE: Translation support is disabled with CMake older than 3.20.
-cmake_minimum_required(VERSION 3.14...3.29 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14...3.30 FATAL_ERROR)
 
 include(CMakePushCheckState)
 include(CheckIncludeFile)
@@ -152,12 +152,17 @@ if(OVERRIDE_O3_IN_C_FLAGS_RELEASE)
 endif()
 
 # We need a compiler that supports enough C99 or newer (variable-length arrays
-# aren't needed, those are optional in C17). Setting CMAKE_C_STANDARD here
-# makes it the default for all targets. It doesn't affect the INTERFACE so
-# liblzma::liblzma won't end up with INTERFACE_COMPILE_FEATURES "c_std_99"
-# (the API headers are C89 and C++ compatible).
-set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_STANDARD_REQUIRED ON)
+# aren't needed, those are optional in C11/C17). C11 is preferred since C11
+# features may be optionally used if they are available.
+#
+# Setting CMAKE_C_STANDARD here makes it the default for all targets.
+# It doesn't affect the INTERFACE so liblzma::liblzma won't end up with
+# INTERFACE_COMPILE_FEATURES "c_std_99" or such (the API headers are C89
+# and C++ compatible).
+#
+# Avoid set(CMAKE_C_STANDARD_REQUIRED ON) because it's fine to decay
+# to C99 if C11 isn't supported.
+set(CMAKE_C_STANDARD 11)
 
 # Support 32-bit x86 assembly files.
 if(NOT MSVC)
@@ -192,7 +197,7 @@ include(GNUInstallDirs)
 #
 # CMake 3.27 doesn't have CMAKE_RC_COMPILER_ID so we rely on
 # CMAKE_C_COMPILER_ID.
-if((MINGW OR CYGWIN OR MSYS) AND (
+if((MINGW OR CYGWIN) AND (
         NOT CMAKE_C_COMPILER_ID STREQUAL "Clang" OR
         CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL "17"))
     # Use workarounds with GNU windres and llvm-windres >= 17.0.0. The \x20
@@ -211,6 +216,30 @@ else()
     set(PACKAGE_NAME_DEFINITION "${PACKAGE_NAME}")
     set(LOCALEDIR_DEFINITION "${CMAKE_INSTALL_FULL_LOCALEDIR}")
 endif()
+
+# When used with MSVC, CMake can merge .manifest files with
+# linker-generated manifests and embed the result in an executable.
+# However, when paired with MinGW-w64, CMake (3.30) ignores .manifest
+# files. Embedding a manifest with a resource file works with both
+# toochains. It's also the way to do it with Autotools.
+#
+# With MSVC, we need to disable the default manifest; attempting to add
+# two manifest entries would break the build. The flag /MANIFEST:NO
+# goes to the linker and it also affects behavior of CMake itself: it
+# looks what flags are being passed to the linker and when CMake sees
+# the /MANIFEST:NO option, other manifest-related linker flags are
+# no longer added (see the file Source/cmcmd.cxx in CMake).
+#
+# See: https://gitlab.kitware.com/cmake/cmake/-/issues/23066
+if(MSVC)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MANIFEST:NO")
+endif()
+
+# Dependencies for all Windows resource files:
+set(W32RES_DEPENDENCIES
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/common/common_w32res.rc"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/common/w32_application.manifest"
+)
 
 # Definitions common to all targets:
 add_compile_definitions(
@@ -251,6 +280,12 @@ tuklib_large_file_support(ALL)
 tuklib_integer(ALL)
 
 # This is used for liblzma.pc generation to add -lrt if needed.
+#
+# The variable name LIBS comes from Autoconf where AC_SEARCH_LIBS adds the
+# libraries it finds into the shell variable LIBS. These libraries need to
+# be put into liblzma.pc too, thus liblzma.pc.in has @LIBS@ because that
+# matches the Autoconf's variable. When CMake support was added, using
+# the same variable with configure_file() was the simplest method.
 set(LIBS)
 
 # Check for clock_gettime(). Do this before checking for threading so
@@ -268,7 +303,7 @@ if(NOT HAVE_CLOCK_GETTIME)
     # CMAKE_REQUIRED_LIBRARIES for further tests too.
     if(HAVE_CLOCK_GETTIME_LIBRT)
         link_libraries(rt)
-        set(LIBS "-lrt") # For liblzma.pc
+        set(LIBS "-lrt ${LIBS}") # For liblzma.pc
     else()
         list(REMOVE_AT CMAKE_REQUIRED_LIBRARIES 0)
     endif()
@@ -624,14 +659,16 @@ if(ENABLE_THREADS)
             # liblzma-config.cmake later.
             set(USE_POSIX_THREADS ON)
 
-            target_link_libraries(liblzma Threads::Threads)
+            target_link_libraries(liblzma PRIVATE Threads::Threads)
             add_compile_definitions(MYTHREAD_POSIX)
+
+            # Make the thread libs available in later checks. In practice
+            # only pthread_condattr_setclock check should need this.
+            list(INSERT CMAKE_REQUIRED_LIBRARIES 0 "${CMAKE_THREAD_LIBS_INIT}")
 
             # Check if pthread_condattr_setclock() exists to
             # use CLOCK_MONOTONIC.
             if(HAVE_CLOCK_MONOTONIC)
-                list(INSERT CMAKE_REQUIRED_LIBRARIES 0
-                     "${CMAKE_THREAD_LIBS_INIT}")
                 check_symbol_exists(pthread_condattr_setclock pthread.h
                                     HAVE_PTHREAD_CONDATTR_SETCLOCK)
                 tuklib_add_definition_if(ALL HAVE_PTHREAD_CONDATTR_SETCLOCK)
@@ -1027,16 +1064,14 @@ if(NOT SANDBOX_FOUND AND ENABLE_SANDBOX MATCHES "^ON$|^landlock$")
         #include <sys/syscall.h>
         #include <sys/prctl.h>
 
-        void my_sandbox(void)
+        int main(void)
         {
             (void)prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
             (void)SYS_landlock_create_ruleset;
             (void)SYS_landlock_restrict_self;
             (void)LANDLOCK_CREATE_RULESET_VERSION;
-            return;
+            return 0;
         }
-
-        int main(void) { return 0; }
         "
     HAVE_LINUX_LANDLOCK)
 
@@ -1160,12 +1195,12 @@ calculation if supported by the system" ON)
                         && !defined(__EDG__)
                 __attribute__((__target__(\"ssse3,sse4.1,pclmul\")))
                 #endif
-                __m128i my_clmul(__m128i a)
+                int main(void)
                 {
-                    const __m128i b = _mm_set_epi64x(1, 2);
-                    return _mm_clmulepi64_si128(a, b, 0);
+                    __m128i a = _mm_set_epi64x(1, 2);
+                    a = _mm_clmulepi64_si128(a, a, 0);
+                    return 0;
                 }
-                int main(void) { return 0; }
             "
             HAVE_USABLE_CLMUL)
         tuklib_add_definition_if(liblzma HAVE_USABLE_CLMUL)
@@ -1190,11 +1225,10 @@ if(ALLOW_ARM64_CRC32)
             #if (defined(__GNUC__) || defined(__clang__)) && !defined(__EDG__)
             __attribute__((__target__(\"+crc\")))
             #endif
-            uint32_t my_crc(uint32_t a, uint64_t b)
+            int main(void)
             {
-                return __crc32d(a, b);
+                return __crc32d(1, 2) != 0;
             }
-            int main(void) { return 0; }
         "
         HAVE_ARM64_CRC32)
 
@@ -1206,7 +1240,7 @@ if(ALLOW_ARM64_CRC32)
         check_symbol_exists(getauxval sys/auxv.h HAVE_GETAUXVAL)
         tuklib_add_definition_if(liblzma HAVE_GETAUXVAL)
 
-        # elf_aux_info() is supported on FreeBSD.
+        # elf_aux_info() is supported on FreeBSD and OpenBSD >= 7.6.
         check_symbol_exists(elf_aux_info sys/auxv.h HAVE_ELF_AUX_INFO)
         tuklib_add_definition_if(liblzma HAVE_ELF_AUX_INFO)
 
@@ -1250,20 +1284,24 @@ else()
     target_compile_definitions(liblzma PRIVATE HAVE_VISIBILITY=0)
 endif()
 
-if(WIN32)
+if(WIN32 OR CYGWIN)
     if(BUILD_SHARED_LIBS)
         # Add the Windows resource file for liblzma.dll.
         target_sources(liblzma PRIVATE src/liblzma/liblzma_w32res.rc)
 
-        set_target_properties(liblzma PROPERTIES
-            LINK_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/common/common_w32res.rc"
+        set_source_files_properties(src/liblzma/liblzma_w32res.rc PROPERTIES
+            OBJECT_DEPENDS "${W32RES_DEPENDENCIES}"
         )
 
         # Export the public API symbols with __declspec(dllexport).
         target_compile_definitions(liblzma PRIVATE DLL_EXPORT)
 
-        if(NOT MSVC)
-            # Create a DEF file. The linker puts the ordinal numbers there
+        if(NOT MSVC AND NOT CYGWIN)
+            # Create a DEF file. The Autotools-based build creates a DEF file
+            # under Cygwin & MSYS2 too but it almost certainly is a useless
+            # file in that context, so the CMake build omits it.
+            #
+            # The linker puts the ordinal numbers in the DEF file
             # too so the output from the linker isn't our final file.
             target_link_options(liblzma PRIVATE
                                 "-Wl,--output-def,liblzma.def.in")
@@ -1317,11 +1355,37 @@ set_target_properties(liblzma PROPERTIES
     SOVERSION "${xz_VERSION_MAJOR}"
     VERSION "${xz_VERSION}"
 
-    # It's liblzma.so or liblzma.dll, not libliblzma.so or lzma.dll.
-    # Avoid the name lzma.dll because it would conflict with LZMA SDK.
-    PREFIX ""
-    IMPORT_PREFIX ""
+    # The name liblzma a mess because in many places "lib" is just a prefix
+    # and not part of the actual name. (Don't name a new library this way!)
+    # Cygwin uses "cyg", MSYS2 uses "msys-", and some platforms use no prefix.
+    # However, we want to avoid lzma.dll on Windows as that would conflict
+    # with LZMA SDK. liblzma has been liblzma.dll on Windows since the
+    # beginning so try to stick with it.
+    #
+    # Up to XZ Utils 5.6.2 we set PREFIX and IMPORT_PREFIX properties to ""
+    # while keeping the default "liblzma" OUTPUT_NAME that was derived from
+    # the target name. But this broke naming on Cygwin and MSYS2.
+    #
+    # Setting OUTPUT_NAME without the "lib" prefix means that CMake will add
+    # the platform-specific prefix as needed. So on most systems CMake will
+    # add "lib" but on Cygwin and MSYS2 the naming will be correct too.
+    #
+    # On Windows, CMake uses the "lib" prefix with MinGW-w64 but not with
+    # other toolchains. Those those need to be handled specially to get
+    # the DLL file named liblzma.dll instead of lzma.dll.
+    OUTPUT_NAME "lzma"
 )
+
+if(WIN32 AND NOT MINGW)
+    # Up to XZ Utils 5.6.2 and building with MSVC, we produced liblzma.dll
+    # and liblzma.lib. The downside of liblzma.lib is that it's not
+    # compatible with pkgconf usage. liblzma.pc contains "-llzma" which
+    # "pkgconf --msvc-syntax --libs liblzma" converts to "lzma.lib".
+    # So as a compromise, we can keep the liblzma.dll name but the import
+    # library and static liblzma need to be named lzma.lib so that pkgconf
+    # can be used with MSVC. (MinGW-w64 finds both names with "-llzma".)
+    set_target_properties(liblzma PROPERTIES RUNTIME_OUTPUT_NAME "liblzma")
+endif()
 
 # Create liblzma-config-version.cmake.
 #
@@ -1330,7 +1394,7 @@ set_target_properties(liblzma PROPERTIES
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
     "${CMAKE_CURRENT_BINARY_DIR}/liblzma-config-version.cmake"
-    VERSION "${liblzma_VERSION}"
+    VERSION "${xz_VERSION}"
     COMPATIBILITY SameMajorVersion)
 
 # Create liblzma-config.cmake. We use this spelling instead of
@@ -1366,15 +1430,31 @@ endif()
 file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/liblzma-config.cmake"
         "${LZMA_CONFIG_CONTENTS}")
 
-# Create liblzma.pc.
+
+# Create liblzma.pc. If using CMake >= 3.20 and CMAKE_INSTALL_<dir> paths
+# are relative to CMAKE_INSTALL_PREFIX, the .pc file will be relocatable
+# (that is, all paths will be relative to ${prefix}). Otherwise absolute
+# paths will be used.
 set(prefix "${CMAKE_INSTALL_PREFIX}")
-set(exec_prefix "${CMAKE_INSTALL_PREFIX}")
-set(libdir "${CMAKE_INSTALL_FULL_LIBDIR}")
-set(includedir "${CMAKE_INSTALL_FULL_INCLUDEDIR}")
-set(PTHREAD_CFLAGS "${CMAKE_THREAD_LIBS_INIT}")
-configure_file(src/liblzma/liblzma.pc.in liblzma.pc
-               @ONLY
-               NEWLINE_STYLE LF)
+set(exec_prefix "\${prefix}")
+
+if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.20")
+    cmake_path(APPEND libdir "\${exec_prefix}" "${CMAKE_INSTALL_LIBDIR}")
+    cmake_path(APPEND includedir "\${prefix}" "${CMAKE_INSTALL_INCLUDEDIR}")
+else()
+    set(libdir "${CMAKE_INSTALL_FULL_LIBDIR}")
+    set(includedir "${CMAKE_INSTALL_FULL_INCLUDEDIR}")
+endif()
+
+# Threads::Threads is linked in only when using POSIX threads.
+# Use an empty value if using Windows threads or if threading is disabled.
+set(PTHREAD_CFLAGS)
+if(USE_POSIX_THREADS)
+    set(PTHREAD_CFLAGS "${CMAKE_THREAD_LIBS_INIT}")
+endif()
+
+configure_file(src/liblzma/liblzma.pc.in liblzma.pc @ONLY)
+
 
 # Install the library binary. The INCLUDES specifies the include path that
 # is exported for other projects to use but it doesn't install any files.
@@ -1411,11 +1491,9 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/liblzma-config.cmake"
         DESTINATION "${liblzma_INSTALL_CMAKEDIR}"
         COMPONENT liblzma_Development)
 
-if(NOT MSVC)
-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/liblzma.pc"
-            DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
-            COMPONENT liblzma_Development)
-endif()
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/liblzma.pc"
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
+        COMPONENT liblzma_Development)
 
 
 #############################################################################
@@ -1528,17 +1606,14 @@ if(NOT HAVE_GETOPT_LONG)
     # the Autotools build (m4/getopt.m4).
     target_compile_definitions(libgnu PUBLIC "__GETOPT_PREFIX=rpl_")
 
-    # Create a custom copy command to copy the getopt header to the build
-    # directory and re-copy it if it is updated. (Gnulib does it this way
-    # because it allows choosing which .in.h files to actually use in the
-    # build. We need just getopt.h so this is a bit overcomplicated for
+    # Copy the getopt header to the build directory and re-copy it
+    # if it is updated. (Gnulib does it this way because it allows
+    # choosing which .in.h files to actually use in the build. We
+    # need just getopt.h so this is a bit overcomplicated for
     # a single header file only.)
-    add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/lib/getopt.h"
-        COMMAND "${CMAKE_COMMAND}" -E copy
-            "${CMAKE_CURRENT_SOURCE_DIR}/lib/getopt.in.h"
-            "${CMAKE_CURRENT_BINARY_DIR}/lib/getopt.h"
-        MAIN_DEPENDENCY "${CMAKE_CURRENT_SOURCE_DIR}/lib/getopt.in.h"
-        VERBATIM)
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/lib/getopt.in.h"
+                   "${CMAKE_CURRENT_BINARY_DIR}/lib/getopt.h"
+                   COPYONLY)
 
     target_sources(libgnu PRIVATE
         lib/getopt1.c
@@ -1579,17 +1654,18 @@ if(HAVE_DECODERS AND (NOT MSVC OR MSVC_VERSION GREATER_EQUAL 1900))
 
         target_link_libraries("${XZDEC}" PRIVATE liblzma libgnu)
 
-        if(WIN32)
+        if(WIN32 OR CYGWIN)
             # Add the Windows resource file for xzdec.exe or lzmadec.exe.
-            target_sources("${XZDEC}" PRIVATE src/xzdec/xzdec_w32res.rc)
-            set_target_properties("${XZDEC}" PROPERTIES
-                LINK_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/common/common_w32res.rc"
+            target_sources("${XZDEC}" PRIVATE "src/xzdec/${XZDEC}_w32res.rc")
+            set_source_files_properties(
+                "src/xzdec/${XZDEC}_w32res.rc" PROPERTIES
+                OBJECT_DEPENDS "${W32RES_DEPENDENCIES}"
             )
         endif()
 
         if(SANDBOX_COMPILE_DEFINITION)
             target_compile_definitions("${XZDEC}" PRIVATE
-                                    "${SANDBOX_COMPILE_DEFINITION}")
+                                       "${SANDBOX_COMPILE_DEFINITION}")
         endif()
 
         tuklib_progname("${XZDEC}")
@@ -1635,11 +1711,11 @@ if(HAVE_DECODERS AND (NOT MSVC OR MSVC_VERSION GREATER_EQUAL 1900))
 
     target_link_libraries(lzmainfo PRIVATE liblzma libgnu)
 
-    if(WIN32)
+    if(WIN32 OR CYGWIN)
         # Add the Windows resource file for lzmainfo.exe.
         target_sources(lzmainfo PRIVATE src/lzmainfo/lzmainfo_w32res.rc)
-        set_target_properties(lzmainfo PROPERTIES
-            LINK_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/common/common_w32res.rc"
+        set_source_files_properties(src/lzmainfo/lzmainfo_w32res.rc PROPERTIES
+            OBJECT_DEPENDS "${W32RES_DEPENDENCIES}"
         )
     endif()
 
@@ -1729,13 +1805,26 @@ if(NOT MSVC OR MSVC_VERSION GREATER_EQUAL 1900)
 
     target_link_libraries(xz PRIVATE liblzma libgnu)
 
+    if(USE_POSIX_THREADS)
+        # src/xz/signals.c uses mythread_sigmask() which with POSIX
+        # threads calls pthread_sigmask(). Thus, we need the threading
+        # library as a dependency for xz. The liblzma target links against
+        # Threads::Threads PRIVATEly, thus that won't provide the pthreads
+        # symbols for xz.
+        #
+        # NOTE: The build may work without this if the symbol is in libc
+        # but it is mandatory to have this here to keep it working with
+        # all pthread implementations.
+        target_link_libraries(xz PRIVATE Threads::Threads)
+    endif()
+
     target_compile_definitions(xz PRIVATE ASSUME_RAM=128)
 
-    if(WIN32)
+    if(WIN32 OR CYGWIN)
         # Add the Windows resource file for xz.exe.
         target_sources(xz PRIVATE src/xz/xz_w32res.rc)
-        set_target_properties(xz PROPERTIES
-            LINK_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/common/common_w32res.rc"
+        set_source_files_properties(src/xz/xz_w32res.rc PROPERTIES
+            OBJECT_DEPENDS "${W32RES_DEPENDENCIES}"
         )
     endif()
 

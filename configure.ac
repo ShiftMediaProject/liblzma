@@ -632,7 +632,7 @@ AS_CASE([$enable_threads],
 		echo
 		echo "POSIX threading support:"
 		AX_PTHREAD([:]) dnl We don't need the HAVE_PTHREAD macro.
-		LIBS="$LIBS $PTHREAD_LIBS"
+		LIBS="$PTHREAD_LIBS $LIBS"
 		AM_CFLAGS="$AM_CFLAGS $PTHREAD_CFLAGS"
 
 		dnl NOTE: PTHREAD_CC is ignored. It would be useful on AIX,
@@ -1010,11 +1010,15 @@ AC_CHECK_DECL([_mm_movemask_epi8],
 #
 # If everything above is supported, runtime detection will be used to keep the
 # binaries working on systems that don't support the required extensions.
+#
+# NOTE: Use a check that links and not merely compiles to ensure that
+# missing intrinsics don't get accepted with compilers that allow
+# implicit function declarations.
 AC_MSG_CHECKING([if _mm_clmulepi64_si128 is usable])
 AS_IF([test "x$enable_clmul_crc" = xno], [
 	AC_MSG_RESULT([no, --disable-clmul-crc was used])
 ], [
-	AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
+	AC_LINK_IFELSE([AC_LANG_SOURCE([[
 #include <immintrin.h>
 
 // CLMUL works on older E2K instruction set but it is slow due to emulation.
@@ -1028,10 +1032,11 @@ AS_IF([test "x$enable_clmul_crc" = xno], [
 #if (defined(__GNUC__) || defined(__clang__)) && !defined(__EDG__)
 __attribute__((__target__("ssse3,sse4.1,pclmul")))
 #endif
-__m128i my_clmul(__m128i a)
+int main(void)
 {
-	const __m128i b = _mm_set_epi64x(1, 2);
-	return _mm_clmulepi64_si128(a, b, 0);
+	__m128i a = _mm_set_epi64x(1, 2);
+	a = _mm_clmulepi64_si128(a, a, 0);
+	return 0;
 }
 	]])], [
 		AC_DEFINE([HAVE_USABLE_CLMUL], [1],
@@ -1053,24 +1058,16 @@ AC_MSG_CHECKING([if ARM64 CRC32 instruction is usable])
 AS_IF([test "x$enable_arm64_crc32" = xno], [
 	AC_MSG_RESULT([no, --disable-arm64-crc32 was used])
 ], [
-	# Set -Werror here because some versions of Clang (14 and older)
-	# do not report the unsupported __attribute__((__target__("+crc")))
-	# or __crc32d() as an error, only as a warning. This does not need
-	# to be done with CMake because tests will attempt to link and the
-	# error will be reported then.
-	OLD_CFLAGS="$CFLAGS"
-	CFLAGS="$CFLAGS -Werror"
-
-	AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
+	AC_LINK_IFELSE([AC_LANG_SOURCE([[
 #include <arm_acle.h>
 #include <stdint.h>
 
 #if (defined(__GNUC__) || defined(__clang__)) && !defined(__EDG__)
 __attribute__((__target__("+crc")))
 #endif
-uint32_t my_crc(uint32_t a, uint64_t b)
+int main(void)
 {
-	return __crc32d(a, b);
+	return __crc32d(1, 2) != 0;
 }
 	]])], [
 		AC_DEFINE([HAVE_ARM64_CRC32], [1],
@@ -1081,17 +1078,20 @@ uint32_t my_crc(uint32_t a, uint64_t b)
 		enable_arm64_crc32=no
 	])
 	AC_MSG_RESULT([$enable_arm64_crc32])
-
-	CFLAGS="$OLD_CFLAGS"
 ])
 
 # Check for ARM64 CRC32 instruction runtime detection.
-# getauxval() is supported on Linux, elf_aux_info() on FreeBSD, and
-# sysctlbyname("hw.optional.armv8_crc32", ...) is supported on Darwin
-# (macOS, iOS, etc.). Note that sysctlbyname() is supported on FreeBSD,
-# NetBSD, and possibly others too but the string is specific to Apple OSes.
-# The C code is responsible for checking defined(__APPLE__) before using
-# sysctlbyname("hw.optional.armv8_crc32", ...).
+#
+#   - getauxval() is supported on Linux.
+#
+#   - elf_aux_info() is supported on FreeBSD and OpenBSD >= 7.6.
+#
+#   - sysctlbyname("hw.optional.armv8_crc32", ...) is supported on Darwin
+#     (macOS, iOS, etc.). Note that sysctlbyname() is supported on FreeBSD,
+#     NetBSD, and possibly others too but the string is specific to Apple
+#     OSes. The C code is responsible for checking defined(__APPLE__)
+#     before using sysctlbyname("hw.optional.armv8_crc32", ...).
+#
 AS_IF([test "x$enable_arm64_crc32" = xyes], [
 	AC_CHECK_FUNCS([getauxval elf_aux_info sysctlbyname], [break])
 ])
@@ -1126,18 +1126,18 @@ AS_CASE([$enable_sandbox],
 		# A compile check is done here because some systems have
 		# linux/landlock.h, but do not have the syscalls defined
 		# in order to actually use Linux Landlock.
-		AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
+		AC_LINK_IFELSE([AC_LANG_SOURCE([[
 			#include <linux/landlock.h>
 			#include <sys/syscall.h>
 			#include <sys/prctl.h>
 
-			void my_sandbox(void)
+			int main(void)
 			{
 				(void)prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
 				(void)SYS_landlock_create_ruleset;
 				(void)SYS_landlock_restrict_self;
 				(void)LANDLOCK_CREATE_RULESET_VERSION;
-				return;
+				return 0;
 			}
 		]])], [
 			enable_sandbox=found
