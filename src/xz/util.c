@@ -10,9 +10,16 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "private.h"
-#include <io.h>
 #include <stdarg.h>
 
+#if defined(_WIN32) || defined(_WIN64)
+    #include <windows.h>
+    #include <io.h>
+#else
+    #include <unistd.h>
+    #include <fcntl.h>
+    #include <sys/types.h>
+#endif
 
 /// Buffers for uint64_to_str() and uint64_to_nicestr()
 static char bufs[4][128];
