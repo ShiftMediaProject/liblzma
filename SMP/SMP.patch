@@ -1,3 +1,509 @@
+diff --git a/THANKS b/THANKS
+index e31f401c..1d44b948 100644
+--- a/THANKS
++++ b/THANKS
+@@ -231,6 +231,10 @@ Other credits:
+   - cleemy desu wayo working with Trend Micro Zero Day Initiative
+   - Orange Tsai and splitline from DEVCORE Research Team
+ 
++Companies:
++  - Google
++  - Sandfly Security
++
+ Also thanks to all the people who have participated in the Tukaani project.
+ 
+ I have probably forgot to add some names to the above list. Sorry about
+diff --git a/po/it.po b/po/it.po
+index 1a14c7a3..dcf732d6 100644
+--- a/po/it.po
++++ b/po/it.po
+@@ -472,6 +472,138 @@ msgstr ""
+ msgid "Filters"
+ msgstr "Filtri"
+ 
++#: src/xz/hardware.c
++msgid "Default for -T0:"
++msgstr ""
++
++#: src/xz/hardware.c
++msgid "Hardware information:"
++msgstr ""
++
++#: src/xz/hardware.c
++#, fuzzy
++#| msgid "Memory usage limit reached"
++msgid "Memory usage limits:"
++msgstr "Limite di utilizzo della memoria raggiunto"
++
++#: src/xz/list.c
++msgid "Streams:"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Blocks:"
++msgstr ""
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Compressed size:    %s\n"
++msgid "Compressed size:"
++msgstr "  Dim. compresso:       %s\n"
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Uncompressed size:  %s\n"
++msgid "Uncompressed size:"
++msgstr "  Dim. estratto:        %s\n"
++
++#: src/xz/list.c
++msgid "Ratio:"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Check:"
++msgstr ""
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Stream padding:     %s\n"
++msgid "Stream Padding:"
++msgstr "  Padding dello stream: %s\n"
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Memory needed:      %s MiB\n"
++msgid "Memory needed:"
++msgstr "  Memoria necessaria:   %s MiB\n"
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Sizes in headers:   %s\n"
++msgid "Sizes in headers:"
++msgstr "  Dim. negli header:    %s\n"
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Number of files:    %s\n"
++msgid "Number of files:"
++msgstr "  Numero di file:       %s\n"
++
++#: src/xz/list.c
++msgid "Stream"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Block"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Blocks"
++msgstr ""
++
++#: src/xz/list.c
++msgid "CompOffset"
++msgstr ""
++
++#: src/xz/list.c
++msgid "UncompOffset"
++msgstr ""
++
++#: src/xz/list.c
++msgid "CompSize"
++msgstr ""
++
++#: src/xz/list.c
++msgid "UncompSize"
++msgstr ""
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "Totals:"
++msgid "TotalSize"
++msgstr "Totali:"
++
++#: src/xz/list.c
++msgid "Ratio"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Check"
++msgstr ""
++
++#: src/xz/list.c
++msgid "CheckVal"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Padding"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Header"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Flags"
++msgstr ""
++
++#: src/xz/list.c
++msgid "MemUsage"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Filters"
++msgstr ""
++
+ #. TRANSLATORS: Indicates that there is no integrity check.
+ #. This string is used in tables. In older xz version this
+ #. string was limited to ten columns in a fixed-width font, but
+diff --git a/po/pt.po b/po/pt.po
+index af3ffecb..72d06134 100644
+--- a/po/pt.po
++++ b/po/pt.po
+@@ -471,6 +471,139 @@ msgstr "UsoMem"
+ msgid "Filters"
+ msgstr "Filtros"
+ 
++#: src/xz/hardware.c
++msgid "Default for -T0:"
++msgstr ""
++
++#: src/xz/hardware.c
++msgid "Hardware information:"
++msgstr ""
++
++#: src/xz/hardware.c
++#, fuzzy
++#| msgid "Memory usage limit reached"
++msgid "Memory usage limits:"
++msgstr "Limite de uso de memória alcançado"
++
++#: src/xz/list.c
++msgid "Streams:"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Blocks:"
++msgstr ""
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Compressed size:    %s\n"
++msgid "Compressed size:"
++msgstr "  Tam. comprimido:    %s\n"
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Uncompressed size:  %s\n"
++msgid "Uncompressed size:"
++msgstr "  Tam. descomprimido: %s\n"
++
++#: src/xz/list.c
++msgid "Ratio:"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Check:"
++msgstr ""
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Stream padding:     %s\n"
++msgid "Stream Padding:"
++msgstr "  Espaço do fluxo:    %s\n"
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Memory needed:      %s MiB\n"
++msgid "Memory needed:"
++msgstr "  Memória requerida:  %s MiB\n"
++
++# Espaço adicionado para promover alinhamento, vide "xz -lvv foo.xz"
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Sizes in headers:   %s\n"
++msgid "Sizes in headers:"
++msgstr "  Tam. em cabeçalhos: %s\n"
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Number of files:    %s\n"
++msgid "Number of files:"
++msgstr "  Nº. de ficheiros:   %s\n"
++
++#: src/xz/list.c
++msgid "Stream"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Block"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Blocks"
++msgstr ""
++
++#: src/xz/list.c
++msgid "CompOffset"
++msgstr ""
++
++#: src/xz/list.c
++msgid "UncompOffset"
++msgstr ""
++
++#: src/xz/list.c
++msgid "CompSize"
++msgstr ""
++
++#: src/xz/list.c
++msgid "UncompSize"
++msgstr ""
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "Totals:"
++msgid "TotalSize"
++msgstr "Totais:"
++
++#: src/xz/list.c
++msgid "Ratio"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Check"
++msgstr ""
++
++#: src/xz/list.c
++msgid "CheckVal"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Padding"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Header"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Flags"
++msgstr ""
++
++#: src/xz/list.c
++msgid "MemUsage"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Filters"
++msgstr ""
++
+ #. TRANSLATORS: Indicates that there is no integrity check.
+ #. This string is used in tables. In older xz version this
+ #. string was limited to ten columns in a fixed-width font, but
+diff --git a/po/sr.po b/po/sr.po
+index 65ad7e97..6124bf24 100644
+--- a/po/sr.po
++++ b/po/sr.po
+@@ -467,6 +467,138 @@ msgstr "КоришћМемор"
+ msgid "Filters"
+ msgstr "Филтери"
+ 
++#: src/xz/hardware.c
++msgid "Default for -T0:"
++msgstr ""
++
++#: src/xz/hardware.c
++msgid "Hardware information:"
++msgstr ""
++
++#: src/xz/hardware.c
++#, fuzzy
++#| msgid "Memory usage limit reached"
++msgid "Memory usage limits:"
++msgstr "Ограничење коришћења меморије је достигнуто"
++
++#: src/xz/list.c
++msgid "Streams:"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Blocks:"
++msgstr ""
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Compressed size:    %s\n"
++msgid "Compressed size:"
++msgstr "  Величина сажетог:           %s\n"
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Uncompressed size:  %s\n"
++msgid "Uncompressed size:"
++msgstr "  Величина несажетог:         %s\n"
++
++#: src/xz/list.c
++msgid "Ratio:"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Check:"
++msgstr ""
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Stream padding:     %s\n"
++msgid "Stream Padding:"
++msgstr "  Попуна тока:                %s\n"
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Memory needed:      %s MiB\n"
++msgid "Memory needed:"
++msgstr "  Потребна меморија:          %s MiB\n"
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Sizes in headers:   %s\n"
++msgid "Sizes in headers:"
++msgstr "  Величине у заглављима:      %s\n"
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "  Number of files:    %s\n"
++msgid "Number of files:"
++msgstr "  Број датотека:              %s\n"
++
++#: src/xz/list.c
++msgid "Stream"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Block"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Blocks"
++msgstr ""
++
++#: src/xz/list.c
++msgid "CompOffset"
++msgstr ""
++
++#: src/xz/list.c
++msgid "UncompOffset"
++msgstr ""
++
++#: src/xz/list.c
++msgid "CompSize"
++msgstr ""
++
++#: src/xz/list.c
++msgid "UncompSize"
++msgstr ""
++
++#: src/xz/list.c
++#, fuzzy
++#| msgid "Totals:"
++msgid "TotalSize"
++msgstr "Укупно:"
++
++#: src/xz/list.c
++msgid "Ratio"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Check"
++msgstr ""
++
++#: src/xz/list.c
++msgid "CheckVal"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Padding"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Header"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Flags"
++msgstr ""
++
++#: src/xz/list.c
++msgid "MemUsage"
++msgstr ""
++
++#: src/xz/list.c
++msgid "Filters"
++msgstr ""
++
+ #. TRANSLATORS: Indicates that there is no integrity check.
+ #. This string is used in tables. In older xz version this
+ #. string was limited to ten columns in a fixed-width font, but
+diff --git a/po/zh_CN.po b/po/zh_CN.po
+index f6f45719..796d70dd 100644
+--- a/po/zh_CN.po
++++ b/po/zh_CN.po
+@@ -1011,6 +1011,8 @@ msgstr ""
+ #: src/xz/message.c
+ msgid "OPTS"
+ msgstr ""
++"--filters-help        显示有关 liblzma 过滤器字符串语法的更多信息\n"
++"                      然后退出。"
+ 
+ #. TRANSLATORS: Use semicolon (or its fullwidth form)
+ #. in "(valid values; default)" even if it is weird in
+diff --git a/po4a/de.po b/po4a/de.po
+index 850feb63..e069fef7 100644
+--- a/po4a/de.po
++++ b/po4a/de.po
+@@ -3917,3 +3917,7 @@ msgstr "Falls die Umgebungsvariable B<PAGER> gesetzt ist, wird deren Wert als Pa
+ #: ../src/scripts/xzmore.1
+ msgid "B<more>(1), B<xz>(1), B<xzless>(1), B<zmore>(1)"
+ msgstr "B<more>(1), B<xz>(1), B<xzless>(1), B<zmore>(1)"
++
++#, no-wrap
++#~ msgid "2024-01-19"
++#~ msgstr "19. Januar 2024"
+diff --git a/po4a/ko.po b/po4a/ko.po
+index f147f2c9..98fc58bd 100644
+--- a/po4a/ko.po
++++ b/po4a/ko.po
+@@ -3907,3 +3907,7 @@ msgstr "B<PAGER> 환경변수 값을 설정했다면, B<more>(1) 대신 해당 
+ #: ../src/scripts/xzmore.1
+ msgid "B<more>(1), B<xz>(1), B<xzless>(1), B<zmore>(1)"
+ msgstr "B<more>(1), B<xz>(1), B<xzless>(1), B<zmore>(1)"
++
++#, no-wrap
++#~ msgid "2024-01-19"
++#~ msgstr "2024-01-19"
+diff --git a/po4a/ro.po b/po4a/ro.po
+index dc4ebfd7..827e513d 100644
+--- a/po4a/ro.po
++++ b/po4a/ro.po
+@@ -3938,3 +3938,7 @@ msgstr "Dacă variabila de mediu B<PAGER>, este definită, valoarea sa este util
+ #: ../src/scripts/xzmore.1
+ msgid "B<more>(1), B<xz>(1), B<xzless>(1), B<zmore>(1)"
+ msgstr "B<more>(1), B<xz>(1), B<xzless>(1), B<zmore>(1)"
++
++#, no-wrap
++#~ msgid "2024-01-19"
++#~ msgstr "19 ianuarie 2024"
+diff --git a/po4a/uk.po b/po4a/uk.po
+index 7a1f8d73..32e1001a 100644
+--- a/po4a/uk.po
++++ b/po4a/uk.po
+@@ -3911,3 +3911,7 @@ msgstr "Якщо встановлено значення B<PAGER>, значен
+ #: ../src/scripts/xzmore.1
+ msgid "B<more>(1), B<xz>(1), B<xzless>(1), B<zmore>(1)"
+ msgstr "B<more>(1), B<xz>(1), B<xzless>(1), B<zmore>(1)"
++
++#, no-wrap
++#~ msgid "2024-01-19"
++#~ msgstr "19 січня 2024 року"
 diff --git a/src/common/mythread.h b/src/common/mythread.h
 index 10ea2d42..d544a7ec 100644
 --- a/src/common/mythread.h
@@ -31,7 +537,7 @@ index c4a781ac..25d3fa6b 100644
  #	include <windows.h>
  
 diff --git a/src/common/tuklib_physmem.c b/src/common/tuklib_physmem.c
-index 1009df14..77ef362a 100644
+index 5988ba77..9a684386 100644
 --- a/src/common/tuklib_physmem.c
 +++ b/src/common/tuklib_physmem.c
 @@ -16,7 +16,9 @@
@@ -45,3 +551,22 @@ index 1009df14..77ef362a 100644
  #	endif
  #	include <windows.h>
  
+diff --git a/src/xz/util.c b/src/xz/util.c
+index e5485bee..3366ea38 100644
+--- a/src/xz/util.c
++++ b/src/xz/util.c
+@@ -12,6 +12,14 @@
+ #include "private.h"
+ #include <stdarg.h>
+ 
++#if defined(_WIN32) || defined(_WIN64)
++    #include <windows.h>
++    #include <io.h>
++#else
++    #include <unistd.h>
++    #include <fcntl.h>
++    #include <sys/types.h>
++#endif
+ 
+ /// Buffers for uint64_to_str() and uint64_to_nicestr()
+ static char bufs[4][128];

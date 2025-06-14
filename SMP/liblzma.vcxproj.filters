@@ -71,9 +71,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\common\tuklib_physmem.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
@@ -223,6 +220,10 @@
     </ClInclude>
     <ClInclude Include="..\src\liblzma\check\crc_x86_clmul.h">
       <Filter>Header Files\liblzma\check</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\liblzma\common\my_landlock.h" />
+    <ClInclude Include="config.h">
+      <Filter>Header Files\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

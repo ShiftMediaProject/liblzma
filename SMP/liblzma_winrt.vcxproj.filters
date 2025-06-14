@@ -224,6 +224,9 @@
     <ClInclude Include="..\src\liblzma\check\crc32_arm64.h">
       <Filter>Header Files\liblzma\check</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\liblzma\common\my_landlock.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\common\tuklib_physmem.c">
